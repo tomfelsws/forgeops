@@ -31,31 +31,21 @@ ask
 #source "$(dirname $0)/../etc/oc-env.cfg"
 source "${BASH_SOURCE%/*}/../etc/oc-env.cfg"
 
-# Set the GKE Project ID to the one parsed from the cfg file
-#gcloud config set project ${GKE_PROJECT_ID} 
-
-# Now create the cluster
-#./oc-create-cluster.sh
-
-if [ $? -ne 0 ]; then
-    exit 1
-fi
-
-# Add a nodepool for nfs server
-#./oc-create-nodepool.sh
+# Create helm tiller namespace
+#oc create project ${OC_TILLER_PROJECT}
 
 # Create monitoring namespace
-oc create namespace ${OC_MONITORING_PROJECT}
+#oc create project ${OC_MONITORING_PROJECT}
 
 # Create the namespace parsed from cfg file and set the context
-oc create namespace ${OC_PROJECT}
-oc config set-context $(kubectl config current-context) --namespace=${OC_MONITORING_PROJECT}
+#oc create project ${OC_PROJECT}
+oc project ${OC_PROJECT}
 
 # Create storage class
 #./oc-create-sc.sh
 
 # Inatilize helm by creating a rbac role first
-./helm-rbac-init.sh -n ${OC_PROJECT}
+./oc-helm-rbac-init.sh
 
 # Need as sometimes tiller is not ready immediately
 while :
@@ -66,16 +56,11 @@ do
     sleep 5s
 done
 
-
-# Create the ingress controller
-./oc-create-route.sh ${OC_ROUTE_IP}
-
 # Deploy cert-manager
-./deploy-cert-manager.sh -n ${OC_PROJECT}
+#./deploy-cert-manager.sh -n ${OC_PROJECT}
 
 # Add Prometheus
-./helm-rbac-init.sh ${OC_MONITORING_PROJECT}
-./deploy-prometheus.sh -n ${OC_MONITORING_PROJECT}
+#./deploy-prometheus.sh -n ${OC_MONITORING_PROJECT}
 
 # Filestore is needed if you enable backups.  Uncomment the next line to create one.
-./oc-create-filestore.sh
+#./oc-create-filestore.sh
