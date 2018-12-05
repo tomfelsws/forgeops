@@ -9,6 +9,7 @@ SHARED=$PWD/shared
 # CA_CERT=$SHARED/ca-cert.p12
 # KEYSTORE_PIN=$SHARED/keystore.pin
 
+SSL_CERT_ALIAS=server-cert
 SSL_CERT_ALIAS=opendj-ssl
 SSL_CERT_CN="CN=*.example.com,O=OpenDJ SSL"
 CA_CERT_ALIAS=opendj-ca
