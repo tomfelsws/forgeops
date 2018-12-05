@@ -202,7 +202,7 @@ isalive_check()
     until [ "${STATUS_CODE}" = "200" ]; do
         echo "   ${ALIVE_JSP} is not alive, waiting 10 seconds before retry..."
         sleep 10
-        STATUS_CODE=$(curl --connect-timeout 5 -k -LI  ${ALIVE_JSP} -o /dev/null -w '%{http_code}\n' -sS || true)
+        STATUS_CODE=$(curl --connect-timeout 5 -k -LI  ${ALIVE_JSP} -o /dev/null -w '%{http_code}\n' -sS | grep -v libCVP11LCB || true)
     done
     echo "=> AM is alive"
 }
@@ -218,7 +218,7 @@ isalive_check_idm()
         sleep 10
 
         STATUS_CODE=$(curl --header "X-OpenIDM-Username: openidm-admin" --header "X-OpenIDM-Password: openidm-admin" \
-          --connect-timeout 5 -k ${IDM_PING_ENDPOINT} -o /dev/null -w '%{http_code}\n' -sS || true)
+          --connect-timeout 5 -k ${IDM_PING_ENDPOINT} -o /dev/null -w '%{http_code}\n' -sS | grep -v libCVP11LCB || true)
         #echo "IDM Status code: $STATUS_CODE"
     done
     echo "=> IDM is alive"
