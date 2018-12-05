@@ -9,7 +9,7 @@ ARG VERSION="6.5.0"
 RUN download -v $VERSION amster
 RUN mkdir -p /var/tmp/amster && unzip -q /amster.zip -d /var/tmp/amster
 
-FROM forgerock/java:6.0.0
+FROM registry.appuio.ch/sws-tom1/java:6.5.0
 
 COPY --from=0 /var/tmp/amster /opt/amster
 
