@@ -8,10 +8,14 @@ RUN download -v $VERSION opendj
 #FROM openjdk:11-jdk 
 FROM openjdk:8-jdk 
 COPY --from=0 /opendj.zip /var/tmp/opendj.zip
+COPY opendj-support-extract-tool.zip /var/tmp/opendj-support-extract-tool.zip
 
 WORKDIR /var/tmp/bootstrap
 
 COPY bootstrap/ /var/tmp/bootstrap/
+
+# The default BASE_DN of the directory tree.
+ENV BASE_DN dc=swisssign,dc=com
 
 # This speeds up docker cloudbuild considerably
 ENV OPENDJ_JAVA_ARGS "-Djava.security.egd=file:/dev/./urandom"
