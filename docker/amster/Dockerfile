@@ -21,6 +21,7 @@ COPY *.sh /usr/local/bin/
 
 # git is added to the container so we can optionally execute git commit, git push, etc.
 RUN chmod 775 /opt/amster/amster \
+    && chmod -R g=u /opt/amster \
     && chown -R forgerock /opt
 
 WORKDIR /opt/amster
