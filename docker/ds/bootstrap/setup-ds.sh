@@ -89,8 +89,12 @@ echo "Installing rest2ldap endpoint map"
 cp ../../example-v1.json ./config/rest2ldap/endpoints/api
 
 # From util.sh. Consider moving the logic here...
+#create_backend swissIDusers
 configure
 
 ./bin/start-ds
+
+# From util.sh. Consider moving the logic here...
+post_start
 
 cd ..
