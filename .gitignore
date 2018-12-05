@@ -13,7 +13,6 @@ target/
 bazel-*
 brigade.yaml
 settings.xml
-*.cfg
 etc/cert-manager.json
 *.pyc
 .vscode/
