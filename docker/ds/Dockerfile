@@ -56,7 +56,7 @@ COPY *.sh /opt/opendj/
 COPY bootstrap/secrets/* /var/run/secrets/opendj/
 COPY scripts/ /opt/opendj/scripts/ 
 
-RUN chown -R forgerock:root /opt/opendj
+RUN chown -R forgerock:root /opt/opendj && chmod -R g=u /opt/opendj
 
 USER 11111
 
