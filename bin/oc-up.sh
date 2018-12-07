@@ -28,18 +28,16 @@ echo ""
 echo "You are authenticated and logged into Openshift as \"${ocuser}\". If this is not correct then exit this script and run \"oc login\" to login into the correct account first."
 ask
 
-#source "$(dirname $0)/../etc/oc-env.cfg"
 source "${BASH_SOURCE%/*}/../etc/oc-env.cfg"
 
 # Create helm tiller namespace
-#oc create project ${OC_TILLER_PROJECT}
+#oc create project ${TILLER_NAMESPACE}
 
 # Create monitoring namespace
 #oc create project ${OC_MONITORING_PROJECT}
 
 # Create the namespace parsed from cfg file and set the context
-#oc create project ${OC_PROJECT}
-oc project ${OC_PROJECT}
+#oc create project ${OC_NAMESPACE}
 
 # Create storage class
 #./oc-create-sc.sh
@@ -57,7 +55,7 @@ do
 done
 
 # Deploy cert-manager
-#./deploy-cert-manager.sh -n ${OC_PROJECT}
+#./deploy-cert-manager.sh -n ${OC_NAMESPACE}
 
 # Add Prometheus
 #./deploy-prometheus.sh -n ${OC_MONITORING_PROJECT}
