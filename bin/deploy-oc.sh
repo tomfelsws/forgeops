@@ -59,19 +59,7 @@ parse_args()
 
 chk_config()
 {
-    CONTEXT=$(kubectl config current-context)
-    if [ $? != 0 ]; then
-        echo "ERROR: Your k8s Context is not set.  Please set it before running this script. Exiting!"
-        exit 1
-    fi
-    echo "=> k8s Context is: \"${CONTEXT}\""
-
-    #if [ "${CONTEXT}" = "minikube" ]; then
-    #    echo "=> Minikube deployment detected.  Installing tiller..."
-    #    helm init --service-account default --upgrade
-    #    echo "=> Giving tiller few seconds to get ready..."
-    #    sleep 30s
-    #fi
+    source "${BASH_SOURCE%/*}/../etc/oc-env.cfg"
 
     if [ -z "${CFGDIR}" ] || [ ! -d "${CFGDIR}" ]; then
         echo "ERROR: Configuration directory path not given or inaccessable.  Exiting!"
@@ -100,6 +88,21 @@ chk_config()
         exit 1
     fi
     echo -e "=>\tNamespace: \"${NAMESPACE}\""
+
+    oc project ${NAMESPACE}
+    CONTEXT=$(kubectl config current-context)
+    if [ $? != 0 ]; then
+        echo "ERROR: Your k8s Context is not set.  Please set it before running this script. Exiting!"
+        exit 1
+    fi
+    echo "=> k8s Context is: \"${CONTEXT}\""
+
+    #if [ "${CONTEXT}" = "minikube" ]; then
+    #    echo "=> Minikube deployment detected.  Installing tiller..."
+    #    helm init --service-account default --upgrade
+    #    echo "=> Giving tiller few seconds to get ready..."
+    #    sleep 30s
+    #fi
 
     if [ -z "${DOMAIN}" ]; then
         echo "ERROR: Your Domain is not set for the deployment. Exiting!"
@@ -290,9 +293,6 @@ if [ ! -z "$DRYRUN" ]; then
     deploy_charts
     exit 0
 fi
-
-#source "$(dirname $0)/../etc/oc-env.cfg"
-source "${BASH_SOURCE%/*}/../etc/oc-env.cfg"
 
 create_namespace
 deploy_charts
