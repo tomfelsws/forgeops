@@ -6,7 +6,16 @@ image:
   
 instance: userstore
 
+configstore:
+  enabled: false
+
 cts:
+  enabled: false
+
+userstore:
+  enabled: true
+
+idmRepo:
   enabled: false
 
 resources:
