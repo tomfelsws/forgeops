@@ -1,0 +1,6 @@
+agent:
+  user: apache
+  amServer: http://login.sws-tom2.example.com
+  realm: "/"
+
+securityContext:
