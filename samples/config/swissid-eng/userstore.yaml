@@ -27,10 +27,10 @@ resources:
     cpu: 1500m
     memory: 3Gi
 
-# Uncomment the next 3 line if you don't want to use cgroups which is the default JVM setting
-#opendjJavaArgs: >
-#  -server -Xms4g -Xmx4g -XX:+UseCompressedOops -XX:+UseG1GC -XX:+UseNUMA
-#  -XX:MaxGCPauseMillis=100 -verbose:gc -Xlog:gc:/tmp/gc.log
+storageSize: 20Gi
+storageClass: fast
+
+persistence: false
 
 # For JDK 8
 opendjJavaArgs: >
@@ -38,21 +38,15 @@ opendjJavaArgs: >
   -XX:MaxGCPauseMillis=100 -verbose:gc -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps
   -XX:+PrintGCDetails -XX:+PrintPromotionFailure -XX:+PrintAdaptiveSizePolicy -Xloggc:/tmp/gc.log
 
-# JDK 8 additianl settings from Post SwissID
-#  -d64 -XX:NewSize=512M -XX:MaxNewSize=512M -XX:+UseCompressedOops -XX:MaxTenuringThreshold=1 -XX:+UseConcMarkSweepGC -XX:+UseStringDeduplication -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=20 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heap_dump.hprof"
-
 # For JDK 11
 #opendjJavaArgs: >
 #  -server -Xms3g -Xmx3g -XX:+UseCompressedOops -XX:+UseG1GC -XX:+UseNUMA
 #  -XX:MaxGCPauseMillis=100 -verbose:gc -Xlog:gc:/tmp/gc.log
 
 
-storageSize: 20Gi
-storageClass: fast
-
 replicas: 2
 
-topologyKey: "failure-domain.beta.kubernetes.io/zone"
+topologyKey: "kubernetes.io/hostname"
 
 podAntiAffinity: hard
 
