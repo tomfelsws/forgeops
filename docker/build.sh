@@ -133,7 +133,7 @@ function buildDocker {
     CF="--cache-from $CACHE_FROM/$1:${TAG}"
    fi
 
-   eval ${DRYRUN}  docker build $NETWORK --no-cache $DOCKER_PROXY "$CF" -t ${REGISTRY}/${REPO}/$1:${TAG} $1
+   eval ${DRYRUN}  docker build $NETWORK --no-cache $DOCKER_PROXY "$CF" -t ${REGISTRY}/${REPO}/$1:${TAG} -t "eu.gcr.io/swissid-cloud/$1:${TAG}" $1
    if [ -n "$PUSH" ]; then
       ${DRYRUN} docker push ${REGISTRY}/${REPO}/$1:${TAG}
       ${DRYRUN} docker push "eu.gcr.io/swissid-cloud/$1:${TAG}"
