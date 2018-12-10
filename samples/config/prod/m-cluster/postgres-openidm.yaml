@@ -1,8 +1,8 @@
 postgresUser: openidm
 postgresPassword: openidm
 
-storageClassName: fast
-storageSize: 100Gi
+#storageClassName: fast
+storageSize: 10Gi
 
 resources:
   requests:
