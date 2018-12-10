@@ -38,8 +38,8 @@ opendjJavaArgs: >
 # -XX:MaxGCPauseMillis=100 -verbose:gc -Xlog:gc:/tmp/gc.log
 
 
-storageSize: 512Gi
-storageClass: fast
+storageSize: 10Gi
+#storageClass: fast
 
 replicas: 2
 
@@ -48,11 +48,11 @@ topologyKey: "failure-domain.beta.kubernetes.io/zone"
 podAntiAffinity: hard
 
 backup:
-  enabled: true
+  enabled: false
   storageClass: nfs
   storageSize: 100Gi
   pvcClaimName: ds-backup
 
 # If existing database is found then restore is always skipped
 restore:
-  enabled: true
+  enabled: false
