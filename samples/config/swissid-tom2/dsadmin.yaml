@@ -7,11 +7,11 @@ image:
 
 gcs:
   enabled: false
-  bucket: gs://swissid-backup-archive/dj-backup/dev
+  bucket: gs://swissid-backup-archive/dj-backup/tom2
 
 s3:
   enabled: false
-  bucket: s3://forgeops/dj-backup/dev
+  bucket: s3://forgeops/dj-backup/tom2
 
 nfs:
   server: 10.92.22.138
