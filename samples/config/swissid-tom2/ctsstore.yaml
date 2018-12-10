@@ -42,11 +42,11 @@ opendjJavaArgs: >
 #  -XX:MaxGCPauseMillis=100 -verbose:gc -Xlog:gc:/tmp/gc.log
 
 
-replicas: 1
+replicas: 2
 
 topologyKey: "kubernetes.io/hostname"
 
-podAntiAffinity: soft
+podAntiAffinity: hard
 
 backup:
 #  pvcClaimName: ds-backup
