@@ -26,8 +26,8 @@ resources:
     memory: 11Gi
     cpu: 8000m
 
-storageSize: 850Gi
-storageClass: fast
+storageSize: 10Gi
+#storageClass: fast
 
 # For JDK 8
 opendjJavaArgs: >  
