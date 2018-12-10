@@ -17,9 +17,10 @@ nfs:
   path: /export
 
 backup:
+  enabled: false
   pvcName: ds-backup
   storageSize: 100Gi
 
-createPVC: true
+createPVC: false
 
 slackUrl: undefined
