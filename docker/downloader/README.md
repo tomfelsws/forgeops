@@ -24,5 +24,3 @@ RUN download -v $VERSION opendj
 Will download RC4 of the directory server, and leave it in the root folder named opendj.zip. Subsequent stages in the docker build will copy this file from the root directory for installation in the final docker image.
 
 See ../downloader-sample for an alternate approach.
-
-TEST
