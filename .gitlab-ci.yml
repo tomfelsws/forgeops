@@ -207,7 +207,7 @@ push-helm-charts:
 #  image: dtzar/helm-kubectl:$HELM_VERSION
   image: appuio/oc:v$OPENSHIFT_VERSION
   before_script:
-#     - oc adm policy add-role-to-user edit system:serviceaccount:$NAMESPACE:gitlab
+#    - oc adm policy add-role-to-user edit system:serviceaccount:$NAMESPACE:gitlab
     - echo "Login to $KUBERNETES_SERVER"
     - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
     - oc project "$KUBERNETES_NAMESPACE"
