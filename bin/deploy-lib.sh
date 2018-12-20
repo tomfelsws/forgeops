@@ -131,7 +131,12 @@ create_image_pull_secret()
       -o yaml --dry-run | kubectl replace -n "${NAMESPACE}" --force -f -
 
     echo "=> Configuring service account with image pull secret..."
-    kubectl -n "${NAMESPACE}" patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gitlab-registry"}]}'
+    result=$(kubectl -n "${NAMESPACE}" patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gitlab-registry"}]}')
+    code="$?"
+    if [[ "$code" != "0" && "$result" == *" not patched" ]]; then
+        echo "$result" 1>&2
+        exit "$code"
+    fi
 }
 
 deploy_charts()
