@@ -1,0 +1,16 @@
+image:
+  repository: registry.gitlab.com/swissid/forgeops/amster
+
+config:
+  exportPath: /tmp/amster
+
+ctsStores: ctsstore-0.ctsstore:1389,ctsstore-1.ctsstore:1389
+ctsPassword: password
+
+
+# For production set CPU limits to help Kube Schedule the pods.
+resources:
+ limits:
+   memory: 756Mi
+ requests:
+   memory: 756Mi

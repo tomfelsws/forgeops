@@ -1,0 +1,26 @@
+image:
+  repository: registry.gitlab.com/swissid/forgeops/ds
+
+instance: ctsstore
+
+cts:
+  enabled: true
+
+storageSize: 1Gi
+
+persistence: false
+
+# For JDK 8
+opendjJavaArgs: >
+  -server -Xms1g -Xmx1g -XX:+UseCompressedOops -XX:+UseG1GC -XX:+UseNUMA
+  -XX:MaxGCPauseMillis=100 -verbose:gc -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps
+  -XX:+PrintGCDetails -XX:+PrintPromotionFailure -XX:+PrintAdaptiveSizePolicy -Xloggc:/tmp/gc.log
+
+replicas: 1
+
+backup:
+#  pvcClaimName: ds-backup
+  clusterName: dev
+  verify: false
+
+securityContext:

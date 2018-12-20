@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2016-2018 ForgeRock AS.
 #
-FROM forgerock/downloader 
+FROM registry.gitlab.com/swissid/forgeops/downloader:latest
 
 ARG VERSION="6.5.0"
 RUN download -v $VERSION openam 

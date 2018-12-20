@@ -1,0 +1,311 @@
+# Stages represented in Gitlab
+stages:
+  - build-base-images
+  - build-forgeops-images
+  - test
+  - review
+  - cleanup-review
+  - deploy-test
+  - deploy-staging
+  - deploy-production
+
+# Some defined variables
+variables:
+  # Forgerock Platform version
+  VERSION: 6.5.0
+
+  # OpenShift/Kubernetes URL
+  KUBERNETES_SERVER: console.appuio.ch
+
+  # Domain of OpenShift/Kubernetes apps
+  KUBERNETES_DOMAIN: appuioapp.ch
+
+  # OpenShift project (aka Kubernetes namespace) to deploy in
+  KUBERNETES_NAMESPACE: sws-tom1
+
+  # Configure this variable in Secure Variables:
+  KUBERNETES_TOKEN: _N2AOeiRbtgDD0agoVOjutILl3RrKEgkk5N_zhg0uoI
+
+  # OpenShift client (oc) version
+  OPENSHIFT_VERSION: "3.9"
+
+  # Kubernetes client (kubectl) version to install
+  KUBERNETES_VERSION: "1.10.9"
+
+  # Helm client version to install
+  HELM_VERSION: "2.12.0"
+
+  # Helm repo with Forgerock helm charts
+  HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.$KUBERNETES_DOMAIN
+  HELM_REPO_USERNAME: appuio
+
+  # Where is tiller running?
+  TILLER_NAMESPACE: sws-tiller
+
+  # ForgeOps config folder with helm yaml files (under ./config/$FORGEOPS_CONFIG)
+  FORGEOPS_CONFIG: swissid-oc
+
+  # The Forgerock components to deploy
+  # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
+  COMPONENTS: "frconfig configstore userstore ctsstore openam amster"
+
+  # Remove all deployments/configmaps/secrets/pvcs from namespace before every deployment?
+  RMALL: "yes"
+
+  # NAMESPACE variable used in deploy-lib.sh
+  NAMESPACE: $KUBERNETES_NAMESPACE
+
+
+.build-docker-image: &build-docker-image
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg API_KEY=$API_KEY --pull -t "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" docker/$IMAGE
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:$VERSION"
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE/$IMAGE"
+  except:
+    - master
+#  does not work, as $IMAGE does not get expanded ... :-(
+#  only:
+#    changes:
+#      - docker/$IMAGE/**/*
+
+build-downloader-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: downloader
+  only:
+    changes:
+      - docker/downloader/**/*
+
+build-git-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: git
+  only:
+    changes:
+      - docker/git/**/*
+
+build-java-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: java
+  only:
+    changes:
+      - docker/java/**/*
+
+build-util-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: util
+  only:
+    changes:
+      - docker/util/**/*
+
+build-amster-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: amster
+  only:
+    changes:
+      - docker/downloader/**/*
+      - docker/java/**/*
+      - docker/amster/**/*
+
+build-openam-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: openam
+  only:
+    changes:
+      - docker/downloader/**/*
+      - docker/openam/**/*
+
+build-ds-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: ds
+  only:
+    changes:
+      - docker/downloader/**/*
+      - docker/ds/**/*
+
+#build-apache-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/apache-agent/**/*
+
+#build-nginx-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/nginx-agent/**/*
+
+push-helm-charts:
+  image: docker.io/appuio/helm:v2.12.0
+  stage: build-base-images
+  script:
+    - for CHART in $(find helm/ -maxdepth 1 -mindepth 1 -type d); do
+        helm push $CHART $HELM_REPO_URL ;
+      done
+  only:
+    changes:
+      - helm/**/*
+  except:
+    - master
+
+# Trigger deploy-config project
+.trigger-deploy:
+  image: $CI_REGISTRY_IMAGE/util:$VERSION
+  stage: trigger-deploy
+  script:
+    - curl -X POST -F token=$3e8b6155b64da122a1c458ce02d6e2 -F ref=test-ci https://gitlab.com/api/v4/projects/9979791/trigger/pipeline
+  only:
+    changes:
+      - docker/**/*
+      - helm/**/*
+      - .gitlab-ci.yml
+  except:
+    - master
+
+# Test 1
+.test1:
+  stage: test
+  before_script: []
+  script:
+    - echo run tests
+
+# Test 2
+.test2:
+  stage: test
+  before_script: []
+  script:
+    - echo run tests
+
+# Stub to connect to Kubernetes cluster
+.openshift_login: &openshift_login
+#  image: ayufan/openshift-cli
+#  image: dtzar/helm-kubectl:$HELM_VERSION
+  image: appuio/oc:v$OPENSHIFT_VERSION
+  before_script:
+    - echo "Login to $KUBERNETES_SERVER"
+    - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
+    - oc project "$KUBERNETES_NAMESPACE"
+
+# Stub to deploy to Kubernetes cluster
+.deploy: &deploy
+  script:
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+    - create_namespace
+    - create_image_pull_secret
+    - deploy_charts
+    - import_check
+    - restart_am
+    - scale_am
+
+# Deploy to review environment
+review:
+  <<: *openshift_login
+  stage: review
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$KUBERNETES_DOMAIN
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$KUBERNETES_DOMAIN
+    on_stop: cleanup-review
+  <<: *deploy
+  only:
+    - branches
+  except:
+    - master
+
+# Delete from review environment
+cleanup-review:
+  <<: *openshift_login
+  stage: cleanup-review
+  script:
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+  when: manual
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    GIT_STRATEGY: none
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  only:
+    - branches
+  except:
+    - master
+
+# Deploy to test environment
+deploy-test:
+  <<: *openshift_login
+  stage: deploy-test
+  variables:
+    APP: test
+    APP_HOST: $CI_PROJECT_NAME-test.$KUBERNETES_DOMAIN
+  when: manual
+  environment:
+    name: test
+    url: http://$CI_PROJECT_NAME-test.$KUBERNETES_DOMAIN
+  <<: *deploy
+  only:
+    - master
+
+# Deploy to staging environment
+deploy-staging:
+  <<: *openshift_login
+  stage: deploy-staging
+  variables:
+    APP: staging
+    APP_HOST: $CI_PROJECT_NAME-staging.$KUBERNETES_DOMAIN
+  when: manual
+  environment:
+    name: staging
+    url: http://$CI_PROJECT_NAME-staging.$KUBERNETES_DOMAIN
+  <<: *deploy
+  only:
+    - master
+
+# Deploy to production environment
+deploy-production:
+  <<: *openshift_login
+  stage: deploy-production
+  variables:
+    APP: production
+    APP_HOST: $CI_PROJECT_NAME.$KUBERNETES_DOMAIN
+  when: manual
+  environment:
+    name: production
+    url: http://$CI_PROJECT_NAME.$KUBERNETES_DOMAIN
+  <<: *deploy
+  only:
+    - master

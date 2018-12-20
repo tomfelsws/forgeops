@@ -1,0 +1,18 @@
+domain: .appuioapp.ch
+
+fqdn: login.sws-tom1.appuioapp.ch
+
+gitImage:
+  repository: registry.gitlab.com/swissid/forgeops/git
+  tag: 6.5.0
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/forgeops/util
+  tag: 6.5.0
+  pullPolicy: Always
+
+# Install passwords.
+amadminPassword: password
+encryptionKey: "123456789012"
+policyAgentPassword: Passw0rd
