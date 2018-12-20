@@ -24,7 +24,7 @@ variables:
   KUBERNETES_NAMESPACE: sws-tom1
 
   # Configure this variable in Secure Variables:
-  KUBERNETES_TOKEN: _N2AOeiRbtgDD0agoVOjutILl3RrKEgkk5N_zhg0uoI
+  #KUBERNETES_TOKEN: xxx
 
   # OpenShift client (oc) version
   OPENSHIFT_VERSION: "3.9"
@@ -207,6 +207,7 @@ push-helm-charts:
 #  image: dtzar/helm-kubectl:$HELM_VERSION
   image: appuio/oc:v$OPENSHIFT_VERSION
   before_script:
+    - oc adm policy add-role-to-user edit system:serviceaccount:$NAMESPACE:gitlab
     - echo "Login to $KUBERNETES_SERVER"
     - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
     - oc project "$KUBERNETES_NAMESPACE"
