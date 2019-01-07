@@ -34,7 +34,7 @@ setup_helm()
 #    mv linux-amd64/tiller /usr/bin/
 #    rm -rf linux-amd64
     helm version --client
-    tiller -version
+#    tiller -version
     helm init --client-only
     helm repo add sws-chartmuseum $HELM_REPO_URL --username $HELM_REPO_USERNAME --password $HELM_REPO_PASSWORD
     helm repo update
