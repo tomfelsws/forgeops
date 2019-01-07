@@ -20,9 +20,9 @@
 
 setup_kubectl()
 {
-    curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
-    chmod +x /usr/bin/kubectl
-#    kubectl version --client
+#    curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
+#    chmod +x /usr/bin/kubectl
+    kubectl version --client
 }
 
 setup_helm()
