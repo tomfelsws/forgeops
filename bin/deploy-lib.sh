@@ -20,8 +20,8 @@
 
 setup_kubectl()
 {
-    curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
-    chmod +x /usr/bin/kubectl
+#    curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
+#    chmod +x /usr/bin/kubectl
     kubectl version --client
 }
 
@@ -29,12 +29,12 @@ setup_helm()
 {
     echo "=> Installing and configuring helm, tiller & a helm repo..."
 
-    curl "https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz" | tar zx
-    mv linux-amd64/helm /usr/bin/
-    mv linux-amd64/tiller /usr/bin/
-    rm -rf linux-amd64
+#    curl "https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz" | tar zx
+#    mv linux-amd64/helm /usr/bin/
+#    mv linux-amd64/tiller /usr/bin/
+#    rm -rf linux-amd64
     helm version --client
-    tiller -version
+#    tiller -version
     helm init --client-only
     helm repo add sws-chartmuseum $HELM_REPO_URL --username $HELM_REPO_USERNAME --password $HELM_REPO_PASSWORD
     helm repo update
