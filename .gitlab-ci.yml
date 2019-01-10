@@ -23,10 +23,8 @@ variables:
   # Use name of branch - assumes namespace exists or can be created
   # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
   # Define value in deploy jobs below
-  # NAMESPACE variable used in deploy-lib.sh
-  # define/override in the various deploy-xxx jobs below
-  #NAMESPACE: $CI_COMMIT_REF_SLUG
-  #NAMESPACE: sws-branch1
+  #KUBERNETES_NAMESPACE: $CI_COMMIT_REF_SLUG
+  KUBERNETES_NAMESPACE: sws-mau1
 
   # Configure this variable in Secure Variables:
   #KUBERNETES_TOKEN: xxx
@@ -75,8 +73,8 @@ variables:
   script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker build --build-arg API_KEY=$API_KEY --pull -t "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" docker/$IMAGE
-    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:$VERSION"
-    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:latest"
+    #- docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:$VERSION"
+    #- docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:latest"
     - docker push "$CI_REGISTRY_IMAGE/$IMAGE"
 #  does not work, as $IMAGE does not get expanded ... :-(
 #  only:
@@ -90,7 +88,7 @@ build-downloader-docker-image:
     IMAGE: downloader
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/downloader/**/*
 
@@ -101,7 +99,7 @@ build-git-docker-image:
     IMAGE: git
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/git/**/*
 
@@ -112,7 +110,7 @@ build-java-docker-image:
     IMAGE: java
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/java/**/*
 
@@ -123,7 +121,7 @@ build-util-docker-image:
     IMAGE: util
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/util/**/*
 
@@ -134,7 +132,7 @@ build-amster-docker-image:
     IMAGE: amster
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/downloader/**/*
       - docker/java/**/*
@@ -147,7 +145,7 @@ build-openam-docker-image:
     IMAGE: openam
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/downloader/**/*
       - docker/openam/**/*
@@ -159,7 +157,7 @@ build-ds-docker-image:
     IMAGE: ds
   only:
     refs:
-      - swissid
+      - sws-mau1
     changes:
       - docker/downloader/**/*
       - docker/ds/**/*
@@ -171,7 +169,7 @@ build-ds-docker-image:
 #    IMAGE: apache-agent
 #  only:
 #    refs:
-#      - swissid
+#      - sws-mau1
 #    changes:
 #      - docker/downloader/**/*
 #      - docker/apache-agent/**/*
@@ -183,7 +181,7 @@ build-ds-docker-image:
 #    IMAGE: apache-agent
 #  only:
 #    resf:
-#      - swissid
+#      - sws-mau1
 #    changes:
 #      - docker/downloader/**/*
 #      - docker/nginx-agent/**/*
