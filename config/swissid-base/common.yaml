@@ -1,0 +1,40 @@
+domain: .appuioapp.ch
+
+image:
+  tag: 6.5.0
+  pullPolicy: Always
+
+gitImage:
+  repository: registry.gitlab.com/swissid/forgeops/git
+  tag: 6.5.0
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/forgeops/util
+  tag: 6.5.0
+  pullPolicy: Always
+
+configstore:
+  enabled: false
+
+cts:
+  enabled: false
+
+userstore:
+  enabled: false
+
+idmRepo:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 1000m
+    memory: 1Gi
+
+# Install passwords.
+amadminPassword: password
+encryptionKey: "123456789012"
+policyAgentPassword: Passw0rd

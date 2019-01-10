@@ -1,0 +1,18 @@
+domain: .$KUBERNETES_DOMAIN
+
+fqdn: login.$NAMESPACE.$KUBERNETES_DOMAIN
+
+gitImage:
+  repository: registry.gitlab.com/swissid/forgeops/git
+  tag: $VERSION
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/forgeops/util
+  tag: $VERSION
+  pullPolicy: Always
+
+# Install passwords.
+amadminPassword: password
+encryptionKey: "123456789012"
+policyAgentPassword: Passw0rd

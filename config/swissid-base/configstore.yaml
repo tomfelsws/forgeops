@@ -1,0 +1,20 @@
+image:
+  repository: registry.gitlab.com/swissid/forgeops/ds
+
+instance: configstore
+
+configstore:
+  enabled: true
+
+persistence: false
+
+replicas: 1
+
+storageSize: 1Gi
+
+backup:
+#  pvcClaimName: ds-backup
+  clusterName: dev
+  verify: false
+
+securityContext:

@@ -1,0 +1,351 @@
+# Stages represented in Gitlab
+stages:
+  - build-base-images
+  - build-forgeops-images
+  - test
+  - deploy-review
+  - cleanup-review
+  - deploy-test
+  - deploy-staging
+  - deploy-production
+
+# Some defined variables
+variables:
+  # OpenShift/Kubernetes cluster URL
+  # define/override in the various deploy-xxx jobs below for different clusters
+  KUBERNETES_SERVER: console.appuio.ch
+
+  # Domain of OpenShift/Kubernetes apps
+  # define/override in the various deploy-xxx jobs below for different DNS domains per cluster
+  KUBERNETES_DOMAIN: appuioapp.ch
+
+  # OpenShift project (aka Kubernetes namespace) to deploy in
+  # Use name of branch - assumes namespace exists or can be created
+  # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
+  # Define value in deploy jobs below
+  # NAMESPACE variable used in deploy-lib.sh
+  # define/override in the various deploy-xxx jobs below
+  #NAMESPACE: $CI_COMMIT_REF_SLUG
+  #NAMESPACE: sws-branch1
+
+  # Configure this variable in Secure Variables:
+  #KUBERNETES_TOKEN: xxx
+
+  # OpenShift client (oc) version of appui/oc docker image used in openshift_login stub below
+  # For different clusters with different versions this variable must be separated (e.g. OPENSHIFT_VERSION_TEST: 3.11)
+  OPENSHIFT_VERSION: "3.9"
+
+  # Kubernetes client (kubectl) version to install in deploy-lib.sh/setup_kubectl()
+  KUBERNETES_VERSION: "1.10.9"
+
+  # Helm client version to install in deploy-lib.sh/setup_helm()
+  HELM_VERSION: "2.12.1"
+
+  # Helm tiller namespace used in deploy-lib.sh/setup_helm()
+  TILLER_NAMESPACE: sws-tiller
+
+  # Helm repo with Forgerock helm charts
+  # Will be iuploaded there by push-helm-charts job below
+  HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.$KUBERNETES_DOMAIN
+  HELM_REPO_USERNAME: appuio
+
+  # Forgerock Platform version
+  VERSION: 6.5.0
+
+  # Where is GitLab stuff (e.g. serviceaccount 'gitlab')?
+  GITLAB_NAMESPACE: sws-gitlab
+
+  # ForgeOps config folder with helm yaml files (under ./config/$FORGEOPS_CONFIG)
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  FORGEOPS_CONFIG: swissid-oc
+
+  # The Forgerock components to deploy
+  # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
+  COMPONENTS: "frconfig configstore userstore ctsstore openam amster"
+
+  # Remove all deployments/configmaps/secrets/pvcs from namespace before every deployment?
+  # define/override to "no" in staging & production deployment jobs, as we must upgrade there
+  RMALL: "yes"
+
+
+.build-docker-image: &build-docker-image
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg API_KEY=$API_KEY --pull -t "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" docker/$IMAGE
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:$VERSION"
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE/$IMAGE"
+#  does not work, as $IMAGE does not get expanded ... :-(
+#  only:
+#    changes:
+#      - docker/$IMAGE/**/*
+
+build-downloader-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: downloader
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+
+build-git-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: git
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/git/**/*
+
+build-java-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: java
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/java/**/*
+
+build-util-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: util
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/util/**/*
+
+build-amster-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: amster
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/java/**/*
+      - docker/amster/**/*
+
+build-openam-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: openam
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/openam/**/*
+
+build-ds-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: ds
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/ds/**/*
+
+#build-apache-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    refs:
+#      - swissid
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/apache-agent/**/*
+
+#build-nginx-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    resf:
+#      - swissid
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/nginx-agent/**/*
+
+push-helm-charts:
+  image: docker.io/appuio/helm:v2.12.0
+  stage: build-base-images
+  script:
+    - for CHART in $(find helm/ -maxdepth 1 -mindepth 1 -type d); do
+        helm push $CHART $HELM_REPO_URL ;
+      done
+  only:
+    refs:
+      - swissid
+    changes:
+      - helm/**/*
+
+# Trigger deploy-config project
+.trigger-deploy:
+  image: $CI_REGISTRY_IMAGE/util:$VERSION
+  stage: trigger-deploy
+  script:
+    - curl -X POST -F token=$3e8b6155b64da122a1c458ce02d6e2 -F ref=test-ci https://gitlab.com/api/v4/projects/9979791/trigger/pipeline
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/**/*
+      - helm/**/*
+      - .gitlab-ci.yml
+
+# Test 1
+.test1:
+  stage: test
+  before_script: []
+  script:
+    - echo run tests
+
+# Test 2
+.test2:
+  stage: test
+  before_script: []
+  script:
+    - echo run tests
+
+# Stub to connect to Kubernetes cluster
+.openshift_login: &openshift_login
+  # image: ayufan/openshift-cli
+  # image: dtzar/helm-kubectl:$HELM_VERSION
+  image: appuio/oc:v$OPENSHIFT_VERSION
+  before_script:
+    - echo "Login to $KUBERNETES_SERVER"
+    ### Obtain service account token as follows, then add it to the GitLab CI/CD variables
+    # oc project $GITLAB_NAMESPACE
+    # KUBERNETES_TOKEN=$( oc serviceaccounts get-token gitlab )
+    ### Add gitlab service account edit rights to $NAMESPACE.
+    ### This must be done manually, after $NAMESPACE is created.
+    ### Otherwise the "oc project" below will not work (as the gitlab service account has no rights in that namespace)
+    # oc -n $NAMESPACE policy add-role-to-user admin system:serviceaccount:$GITLAB_NAMESPACE:gitlab
+    - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
+    - oc project "$NAMESPACE"
+ 
+# Stub to deploy to Kubernetes cluster
+.deploy: &deploy
+  script:
+    # next line should be included in the docker image we use (currently appuio/oc)
+    - yum install -y gettext
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+    - create_namespace
+    - create_image_pull_secret
+    - deploy_charts
+    - import_check
+    - restart_am
+    # - scale_am
+
+# Deploy to review environment
+deploy-review:
+  <<: *openshift_login
+  stage: deploy-review
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://login.$NAMESPACE.$KUBERNETES_DOMAIN
+    on_stop: cleanup-review
+  variables:
+    #NAMESPACE: $CI_COMMIT_REF_SLUG
+    NAMESPACE: sws-branch1
+  <<: *deploy
+  only:
+    - branches
+  except:
+    - master
+    - swissid
+
+# Delete from review environment
+cleanup-review:
+  <<: *openshift_login
+  stage: cleanup-review
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    #NAMESPACE: $CI_COMMIT_REF_SLUG
+    NAMESPACE: sws-branch1
+  script:
+    # next line should be included in the docker image we use (currently appuio/oc)
+    - yum install -y gettext
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+  only:
+    - branches
+  except:
+    - master
+    - swissid
+
+# Deploy to test environment
+deploy-test:
+  <<: *openshift_login
+  stage: deploy-test
+  environment:
+    name: test
+    url: http://login.sws-test.$KUBERNETES_DOMAIN
+  variables:
+    NAMESPACE: sws-test
+  <<: *deploy
+  only:
+    - swissid
+
+# Deploy to staging environment
+deploy-staging:
+  <<: *openshift_login
+  stage: deploy-staging
+  when: manual
+  environment:
+    name: staging
+    url: http://login.sws-staging.$KUBERNETES_DOMAIN
+  variables:
+    NAMESPACE: sws-staging
+  <<: *deploy
+  only:
+    - swissid
+
+# Deploy to production environment
+deploy-production:
+  <<: *openshift_login
+  stage: deploy-production
+  when: manual
+  environment:
+    name: production
+    url: http://login.sws-production.$KUBERNETES_DOMAIN
+  variables:
+    NAMESPACE: sws-production
+  <<: *deploy
+  only:
+    - swissid
