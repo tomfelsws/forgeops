@@ -1,7 +1,7 @@
 # Copyright (c) 2016-2018 ForgeRock AS. Use of this source code is subject to the
 # Common Development and Distribution License (CDDL) that can be found in the LICENSE file
 # Nginx agent base image
-FROM forgerock/downloader 
+FROM registry.gitlab.com/swissid/forgeops/downloader:latest
 
 RUN download nginx-agent
 RUN unzip nginx-agent.zip -d /var/tmp 
