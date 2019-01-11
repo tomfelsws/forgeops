@@ -6,13 +6,13 @@ image:
 resources:
   limits:
 #    cpu: 3000m
-    memory: 1Gi
+    memory: 2Gi
   requests:
 #    cpu: 2000m
-    memory: 1Gi
+    memory: 2Gi
 
 catalinaOpts: >
-  -server -Xms1g -Xmx1g -XX:+UseG1GC -XX:+UseNUMA -XX:+UseCompressedOops
+  -server -Xms2g -Xmx2g -XX:+UseG1GC -XX:+UseNUMA -XX:+UseCompressedOops
   -XX:MaxGCPauseMillis=200 -XX:G1MixedGCCountTarget=6 -XX:MetaspaceSize=128m
   -XX:+PrintGCApplicationStoppedTime -XX:+PrintFlagsFinal
   -XX:+ParallelRefProcEnabled -XX:InitiatingHeapOccupancyPercent=70
