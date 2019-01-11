@@ -1,0 +1,42 @@
+domain: .$KUBERNETES_DOMAIN
+
+fqdn: login.$NAMESPACE.$KUBERNETES_DOMAIN
+
+image:
+  tag: $VERSION
+  pullPolicy: Always
+
+gitImage:
+  repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/git
+  tag: $VERSION
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/util
+  tag: $VERSION
+  pullPolicy: Always
+
+configstore:
+  enabled: false
+
+cts:
+  enabled: false
+
+userstore:
+  enabled: false
+
+idmRepo:
+  enabled: false
+
+resources:
+  limits:
+#    cpu: 1000m
+    memory: 1Gi
+  requests:
+#    cpu: 1000m
+    memory: 1Gi
+
+# Install passwords.
+amadminPassword: password
+encryptionKey: "123456789012"
+policyAgentPassword: Passw0rd
