@@ -27,9 +27,8 @@ variables:
   # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
   # Define value in deploy jobs below
   # NAMESPACE variable used in deploy-lib.sh
-  # define/override in the various deploy-xxx jobs below
-  #NAMESPACE: $CI_COMMIT_REF_SLUG
-  #NAMESPACE: sws-branch1
+  # define/override in the various deploy-xxx jobs below where necessary
+  NAMESPACE: $CI_COMMIT_REF_SLUG
 
   # Configure this variable in Secure Variables:
   #KUBERNETES_TOKEN: xxx
@@ -304,11 +303,8 @@ deploy-review:
   stage: deploy-review
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: http://login.$NAMESPACE.$KUBERNETES_DOMAIN
+    url: http://login.$CI_COMMIT_REF_SLUG.$KUBERNETES_DOMAIN
     on_stop: cleanup-review
-  variables:
-    #NAMESPACE: $CI_COMMIT_REF_SLUG
-    NAMESPACE: sws-branch1
   <<: *deploy
   only:
     - branches
@@ -328,8 +324,6 @@ cleanup-review:
     # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
     # we need the git repo for the script above
     # GIT_STRATEGY: none
-    #NAMESPACE: $CI_COMMIT_REF_SLUG
-    NAMESPACE: sws-branch1
   <<: *cleanup
   only:
     - branches
@@ -370,7 +364,6 @@ cleanup-test:
     # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
     # we need the git repo for the script above
     # GIT_STRATEGY: none
-    #NAMESPACE: $CI_COMMIT_REF_SLUG
     NAMESPACE: sws-test
   <<: *cleanup
   only:
@@ -410,7 +403,6 @@ cleanup-staging:
     # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
     # we need the git repo for the script above
     # GIT_STRATEGY: none
-    #NAMESPACE: $CI_COMMIT_REF_SLUG
     NAMESPACE: sws-staging
   <<: *cleanup
   only:
@@ -450,7 +442,6 @@ cleanup-production:
     # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
     # we need the git repo for the script above
     # GIT_STRATEGY: none
-    #NAMESPACE: $CI_COMMIT_REF_SLUG
     NAMESPACE: sws-production
   <<: *cleanup
   only:
