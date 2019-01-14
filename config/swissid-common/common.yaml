@@ -40,10 +40,10 @@ idmRepo:
 resources:
   limits:
 #    cpu: 1000m
-    memory: 1Gi
+#    memory: 1Gi
   requests:
 #    cpu: 1000m
-    memory: 1Gi
+#    memory: 1Gi
 
 # Install passwords.
 amadminPassword: password
