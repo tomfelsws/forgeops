@@ -5,11 +5,6 @@
 # remove any leading spaces
 while read line
 do
-    if [[ "$line" =~ ^fqdn:.*$ ]]; then
-    	FQDN=${line#fqdn:}
-    	FQDN=${FQDN// /}
-    fi
-
     if [[ "$line" =~ ^domain:.*$ ]]; then
     	DOMAIN=${line#domain:}
     	DOMAIN=${DOMAIN// /}
