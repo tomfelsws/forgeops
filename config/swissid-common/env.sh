@@ -13,7 +13,7 @@ done < $CFGDIR/common.yaml
 
 # The URL prefix for openam service
 # You can override by just providing a string here
-URL_PREFIX="${FQDN%%.*}"
+#URL_PREFIX="${FQDN%%.*}"
 
 # k8s namespace to deploy in
 #NAMESPACE="foobar"
