@@ -305,6 +305,8 @@ deploy-review:
     name: review/$CI_COMMIT_REF_NAME
     url: http://login.$CI_COMMIT_REF_SLUG.$KUBERNETES_DOMAIN
     on_stop: cleanup-review
+  variables:
+    EXTERNAL_FQDN: login.$CI_COMMIT_REF_SLUG.$KUBERNETES_DOMAIN
   <<: *deploy
   only:
     - branches
@@ -340,6 +342,7 @@ deploy-test:
     url: http://login.sws-test.$KUBERNETES_DOMAIN
     on_stop: cleanup-test
   variables:
+    EXTERNAL_FQDN: login.sws-test.$KUBERNETES_DOMAIN
     NAMESPACE: sws-test
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: soft
@@ -379,6 +382,7 @@ deploy-staging:
     url: http://login.sws-staging.$KUBERNETES_DOMAIN
     on_stop: cleanup-staging
   variables:
+    EXTERNAL_FQDN: login.sws-staging.$KUBERNETES_DOMAIN
     NAMESPACE: sws-staging
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: hard
@@ -418,6 +422,7 @@ deploy-production:
     url: http://login.sws-production.$KUBERNETES_DOMAIN
     on_stop: cleanup-production
   variables:
+    EXTERNAL_FQDN: login.sws-production.$KUBERNETES_DOMAIN
     NAMESPACE: sws-production
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: hard
