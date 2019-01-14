@@ -117,9 +117,6 @@ create_namespace()
         echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
     else
         echo "=> Creating namespace \"${NAMESPACE}\""
-
-        $ create_namespace
-        => Creating namespace "sws-foobar"
         echo curl -X POST https://control.vshn.net/api/openshift/1/appuio%20lab/projects/?accessToken=["GPtGl6f4Tnhx2U9RdP8gzbd9FM7cxzDY"] \
           -d '{"name":"sws-foobar", \
           "adminUids":["system:serviceaccount:sws-gitlab:gitlab"], \
