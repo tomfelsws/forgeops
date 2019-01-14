@@ -26,7 +26,7 @@ data:
     --pwdEncKey {{ .Values.encryptionKey }} \
     --acceptLicense \
     --lbSiteName site1 \
-    --lbPrimaryUrl https://{{ template "fqdn" . }}/ \
+    --lbPrimaryUrl https://{{ template "externalFQDN" . }}/ \
     --cfgDir /home/forgerock/openam
     :exit
   01_import.amster: |
@@ -43,7 +43,7 @@ data:
   CONFIG_PATH: "{{ .Values.config.importPath }}"
   CTS_STORES: {{ default "ctsstore-0.ctsstore:1389" .Values.ctsStores }}
   CTS_PASSWORD: {{ default "password" .Values.ctsPassword }}
-  FQDN: {{ template "fqdn" . }}
+  FQDN: {{ template "externalFQDN" . }}
   PROMETHEUS_PASSWORD: "{{ .Values.prometheusPassword }}"
   AMADMIN_PASSWORD_HASHED: "{{ .Values.amadminPasswordHashed }}"
   DOMAIN: {{ .Values.domain }}

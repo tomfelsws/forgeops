@@ -33,11 +33,7 @@ spec:
           - name: CLUSTER_NAME
             value: {{ .Values.cluster }}
           - name: TEST_REPORT_LINK
-            value: {{ .Values.fqdn }}
-          - name: TESTS_NAMESPACE
-            value: {{ .Release.Namespace }}
-          - name: TESTS_DOMAIN
-            value: {{ .Values.domain }}
+            value: {{ .Values.ingress.hostname }}
           - name: SLACK_SERVICE
             value: {{ .Values.slackService }}
           - name: GIT_REPO
