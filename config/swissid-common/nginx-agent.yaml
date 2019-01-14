@@ -1,6 +1,6 @@
 agent:
   user: nginx
-  amServer: http://login.$NAMESPACE.$KUBERNETES_DOMAIN
+  amServer: http://$EXTERNAL_FQDN
   realm: "/"
 
 securityContext:
