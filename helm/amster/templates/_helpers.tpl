@@ -16,8 +16,8 @@ We truncate at 24 characters because some Kubernetes name fields are limited to 
 {{- end -}}
 
 {{/* OpenAM FQDN  - if it is not explicity set, generate it */}}
-{{- define "fqdn" -}}
-{{- if .Values.fqdn }}{{- printf "%s" .Values.fqdn -}}
+{{- define "externalFQDN" -}}
+{{- if .Values.ingress.hostname }}{{- printf "%s" .Values.ingress.hostname -}}
 {{- else -}}
 {{- printf "login.%s%s" .Release.Namespace .Values.domain -}}
 {{- end -}}
