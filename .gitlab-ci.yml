@@ -6,8 +6,11 @@ stages:
   - cleanup-review
   - deploy-test
   - run-test
+  - cleanup-test
   - deploy-staging
+  - cleanup-staging
   - deploy-production
+  - cleanup-production
 
 # Some defined variables
 variables:
@@ -284,6 +287,17 @@ test2:
     - restart_am
     - scale_am
 
+# Stub to cleanup from Kubernetes cluster
+.cleanup: &cleanup
+  script:
+    # next line should be included in the docker image we use (currently appuio/oc)
+    - yum install -y gettext
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+
 # Deploy to review environment
 deploy-review:
   <<: *openshift_login
@@ -316,14 +330,7 @@ cleanup-review:
     # GIT_STRATEGY: none
     #NAMESPACE: $CI_COMMIT_REF_SLUG
     NAMESPACE: sws-branch1
-  script:
-    # next line should be included in the docker image we use (currently appuio/oc)
-    - yum install -y gettext
-    - source bin/deploy-lib.sh
-    - setup_kubectl
-    - setup_helm
-    - chk_config
-    - remove_all
+  <<: *cleanup
   only:
     - branches
   except:
@@ -337,6 +344,7 @@ deploy-test:
   environment:
     name: test
     url: http://login.sws-test.$KUBERNETES_DOMAIN
+    on_stop: cleanup-test
   variables:
     NAMESPACE: sws-test
     CONFIGSTORE_REPLICAS: 2
@@ -350,6 +358,24 @@ deploy-test:
   only:
     - swissid
 
+# Delete from test environment
+cleanup-test:
+  <<: *openshift_login
+  stage: cleanup-test
+  when: manual
+  environment:
+    name: test
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    #NAMESPACE: $CI_COMMIT_REF_SLUG
+    NAMESPACE: sws-test
+  <<: *cleanup
+  only:
+    - swissid
+
 # Deploy to staging environment
 deploy-staging:
   <<: *openshift_login
@@ -358,6 +384,7 @@ deploy-staging:
   environment:
     name: staging
     url: http://login.sws-staging.$KUBERNETES_DOMAIN
+    on_stop: cleanup-staging
   variables:
     NAMESPACE: sws-staging
     CONFIGSTORE_REPLICAS: 2
@@ -371,6 +398,24 @@ deploy-staging:
   only:
     - swissid
 
+# Delete from staging environment
+cleanup-staging:
+  <<: *openshift_login
+  stage: cleanup-staging
+  when: manual
+  environment:
+    name: staging
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    #NAMESPACE: $CI_COMMIT_REF_SLUG
+    NAMESPACE: sws-staging
+  <<: *cleanup
+  only:
+    - swissid
+
 # Deploy to production environment
 deploy-production:
   <<: *openshift_login
@@ -379,6 +424,7 @@ deploy-production:
   environment:
     name: production
     url: http://login.sws-production.$KUBERNETES_DOMAIN
+    on_stop: cleanup-production
   variables:
     NAMESPACE: sws-production
     CONFIGSTORE_REPLICAS: 2
@@ -391,3 +437,22 @@ deploy-production:
   <<: *deploy
   only:
     - swissid
+
+# Delete from production environment
+cleanup-production:
+  <<: *openshift_login
+  stage: cleanup-production
+  when: manual
+  environment:
+    name: production
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    #NAMESPACE: $CI_COMMIT_REF_SLUG
+    NAMESPACE: sws-production
+  <<: *cleanup
+  only:
+    - swissid
+
