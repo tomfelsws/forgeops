@@ -28,7 +28,7 @@ variables:
   # Define value in deploy jobs below
   # NAMESPACE variable used in deploy-lib.sh
   # define/override in the various deploy-xxx jobs below where necessary
-  NAMESPACE: $CI_COMMIT_REF_SLUG
+  NAMESPACE: sws-$CI_COMMIT_REF_SLUG
 
   # Configure this variable in Secure Variables:
   #KUBERNETES_TOKEN: xxx
