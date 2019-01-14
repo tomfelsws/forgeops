@@ -32,7 +32,11 @@ RUN chmod +x /usr/bin/tini
 COPY --from=1 /var/tmp/bootstrap/run/dsrs1 /opt/opendj/
 
 RUN useradd -d /opt/opendj -G root -u 11111 forgerock \
-    && apt-get update && apt-get install -y --no-install-recommends dumb-init vim fio
+    && apt-get update \
+    && apt-get -y upgrade \
+    && apt-get install -y --no-install-recommends dumb-init vim fio \
+    && apt-get -y autoremove \
+    && apt-get -y clean autoclean
    
 WORKDIR /opt/opendj 
 

@@ -42,16 +42,20 @@ ENV OPENAM_HOME /home/forgerock/openam
 
 # Note that we are adding the forgerock user to the root group - which is consistent with OpenShift.
 # This is a work around for: https://github.com/docker-library/tomcat/issues/35
-RUN apk add --no-cache su-exec unzip curl bash tini \
-  && addgroup -g 11111 forgerock \
-  && adduser -s /bin/bash -h "$FORGEROCK_HOME" -u 11111 -D forgerock -G root \
-  && mkdir -p "$OPENAM_HOME" \
-  && mkdir -p "$FORGEROCK_HOME"/.openamcfg \
-  && echo "$OPENAM_HOME" >  "$FORGEROCK_HOME"/.openamcfg/AMConfig_usr_local_tomcat_webapps_ROOT_  \
-  && chown -R forgerock:root "$CATALINA_HOME" \
-  && chown -R forgerock:root  "$FORGEROCK_HOME" \
-  && chmod -R g+rwx "$CATALINA_HOME" \
-  && chmod -R g=u "$FORGEROCK_HOME"
+RUN apk update \
+    && apk upgrade \
+    && apk add --no-cache su-exec unzip curl bash tini \
+    && addgroup -g 11111 forgerock \
+    && adduser -s /bin/bash -h "$FORGEROCK_HOME" -u 11111 -D forgerock -G root \
+    && mkdir -p "$OPENAM_HOME" \
+    && mkdir -p "$FORGEROCK_HOME"/.openamcfg \
+    && echo "$OPENAM_HOME" >  "$FORGEROCK_HOME"/.openamcfg/AMConfig_usr_local_tomcat_webapps_ROOT_  \
+    && chown -R forgerock:root "$CATALINA_HOME" \
+    && chown -R forgerock:root  "$FORGEROCK_HOME" \
+    && chmod -R g+rwx "$CATALINA_HOME" \
+    && chmod -R g=u "$FORGEROCK_HOME" \
+    # Delete apk cache
+    && rm -rf /var/cache/apk/*
 
 
 # The userid must be numeric.
