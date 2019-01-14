@@ -118,7 +118,7 @@ create_namespace()
     else
         echo "=> Creating namespace \"${NAMESPACE}\""
         curl -g -X POST https://control.vshn.net/api/openshift/1/appuio%20lab/projects/?accessToken=[BigVKLOyIhxnbYuYY9zWMKR7ofatuG1G] \
-          -d '{"name":"sws-foobar", \
+          -d '{"name":"sws-foobar1", \
           "adminUids":["system:serviceaccount:sws-gitlab:gitlab","sws-tfelner1"], \
           "editorUids":["system:serviceaccount:sws-tiller:tiller"], \
           "productId":"dedicated:v1", \
