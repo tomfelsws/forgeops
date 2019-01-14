@@ -20,7 +20,7 @@ variables:
 
   # Domain of OpenShift/Kubernetes apps
   # define/override in the various deploy-xxx jobs below for different DNS domains per cluster
-  KUBERNETES_DOMAIN: appuioapp.ch
+  DOMAIN: appuioapp.ch
 
   # OpenShift project (aka Kubernetes namespace) to deploy in
   # Use name of branch - assumes namespace exists or can be created
@@ -48,7 +48,7 @@ variables:
 
   # Helm repo with Forgerock helm charts
   # Will be iuploaded there by push-helm-charts job below
-  HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.$KUBERNETES_DOMAIN
+  HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.$DOMAIN
   HELM_REPO_USERNAME: appuio
 
   # Forgerock Platform version
@@ -303,10 +303,10 @@ deploy-review:
   stage: deploy-review
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: http://login.$CI_COMMIT_REF_SLUG.$KUBERNETES_DOMAIN
+    url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
     on_stop: cleanup-review
   variables:
-    EXTERNAL_FQDN: login.$CI_COMMIT_REF_SLUG.$KUBERNETES_DOMAIN
+    EXTERNAL_FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
   <<: *deploy
   only:
     - branches
@@ -339,10 +339,10 @@ deploy-test:
   stage: deploy-test
   environment:
     name: test
-    url: http://login.test.$KUBERNETES_DOMAIN
+    url: http://login.test.$DOMAIN
     on_stop: cleanup-test
   variables:
-    EXTERNAL_FQDN: login.test.$KUBERNETES_DOMAIN
+    EXTERNAL_FQDN: login.test.$DOMAIN
     NAMESPACE: sws-test
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: soft
@@ -379,10 +379,10 @@ deploy-staging:
   when: manual
   environment:
     name: staging
-    url: http://login.stag.$KUBERNETES_DOMAIN
+    url: http://login.stag.$DOMAIN
     on_stop: cleanup-staging
   variables:
-    EXTERNAL_FQDN: login.stag.$KUBERNETES_DOMAIN
+    EXTERNAL_FQDN: login.stag.$DOMAIN
     NAMESPACE: sws-staging
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: hard
@@ -419,10 +419,10 @@ deploy-production:
   when: manual
   environment:
     name: production
-    url: http://login.$KUBERNETES_DOMAIN
+    url: http://login.$DOMAIN
     on_stop: cleanup-production
   variables:
-    EXTERNAL_FQDN: login.$KUBERNETES_DOMAIN
+    EXTERNAL_FQDN: login.$DOMAIN
     NAMESPACE: sws-production
     CONFIGSTORE_REPLICAS: 2
     CONFIGSTORE_AFFINITY: hard
