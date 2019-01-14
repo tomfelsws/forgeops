@@ -10,7 +10,7 @@
 #
 # Usage:
 #   - You must provide folder that contains env.sh script that contains:
-#       - DOMAIN, NAMESPACE, COMPONENTS vars
+#       - NAMESPACE, COMPONENTS vars
 #   - You may provide yaml files for each component. Values in these files will
 #     override default values for helm charts
 #   - For examples look into: forgeops/samples/config/
@@ -94,12 +94,6 @@ chk_config()
     #    echo "=> Giving tiller few seconds to get ready..."
     #    sleep 30s
     #fi
-
-    if [ -z "${DOMAIN}" ]; then
-        echo "ERROR: Your Domain is not set for the deployment. Exiting!"
-        exit 1
-    fi
-    echo -e "=>\tDomain: \"${DOMAIN}\""
 
     if [ -z "${COMPONENTS}" ]; then
         COMPONENTS=(frconfig configstore userstore ctsstore openam amster)

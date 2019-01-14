@@ -1,4 +1,5 @@
-domain: .$KUBERNETES_DOMAIN
+# add dot at beginning, as many forgeops scripts rely on that
+domain: .$DOMAIN
 
 # Openshift does not know about Ingress
 ingress:
