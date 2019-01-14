@@ -6,10 +6,10 @@ image:
 resources:
   limits:
 #    cpu: 3000m
-    memory: 2Gi
+    memory:
   requests:
 #    cpu: 2000m
-    memory: 2Gi
+    memory: 
 
 catalinaOpts: >
   -server -Xms2g -Xmx2g -XX:+UseG1GC -XX:+UseNUMA -XX:+UseCompressedOops
