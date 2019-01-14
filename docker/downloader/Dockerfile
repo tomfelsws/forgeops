@@ -5,12 +5,15 @@
 #FROM alpine:latest
 
 # Inherit from the gcloud container so we can use gcs as a cache.
-FROM gcr.io/cloud-builders/gcloud:latest
+FROM gcr.io/cloud-builders/gcloud-slim:latest
 
 ARG API_KEY
 
-RUN echo $API_KEY >/api_key && \
-    apt-get -q update && apt-get -q install unzip 
+RUN echo $API_KEY >/api_key \
+    && apt-get -q update \
+    && apt-get -q install unzip \
+    && apt-get -q -y autoremove \
+    && apt-get -q -y clean autoclean
 
 # RUN apk add --update \
 #         wget \
