@@ -1,6 +1,14 @@
 domain: .$KUBERNETES_DOMAIN
 
-fqdn: login.$NAMESPACE.$KUBERNETES_DOMAIN
+# Openshift does not know about Ingress
+ingress:
+  enabled: false
+  hostname: $EXTERNAL_FQDN
+
+# Openshift uses Routes instead
+route:
+  enabled: true
+  hostname: $EXTERNAL_FQDN
 
 image:
   tag: $VERSION
