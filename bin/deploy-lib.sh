@@ -117,12 +117,7 @@ create_namespace()
         echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
     else
         echo "=> Creating namespace \"${NAMESPACE}\""
-        curl -g -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=BigVKLOyIhxnbYuYY9zWMKR7ofatuG1G \
-          -d '{"name":"sws-foobar1", \
-          "adminUids":["system:serviceaccount:sws-gitlab:gitlab","sws-tfelner1"], \
-          "editorUids":["system:serviceaccount:sws-tiller:tiller"], \
-          "productId":"dedicated:v1", \
-          "customerId":"swisssign"}'
+        curl -g -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=BigVKLOyIhxnbYuYY9zWMKR7ofatuG1G -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\"], \"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
         if [ $? -ne 0 ]; then
             echo "Non-zero return by curl. Is your context correct? Exiting!"
             exit 1
