@@ -111,18 +111,45 @@ remove_all()
     fi
 }
 
-create_namespace()
+project_exists()
+{
+    echo "=> Checking project \"${NAMESPACE}\""
+    RESULT=$( curl https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN} )
+    echo "RESULT = $RESULT"
+    if [ "$RESULT" == "OpenShift project not found" ]; then
+      return 1
+    else
+      return 0
+    fi
+
+}
+
+create_project()
 {
     if $(kubectl get namespace ${NAMESPACE} > /dev/null 2>&1); then
         echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
     else
         echo "=> Creating namespace \"${NAMESPACE}\""
-        curl -g -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=${APPUIO_API_TOKEN} -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\",\"sws-tfelner1\"], \"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
+        curl -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=${APPUIO_API_TOKEN} -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\",\"sws-tfelner1\"], \"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
         if [ $? -ne 0 ]; then
             echo "Non-zero return by curl. Is your context correct? Exiting!"
             exit 1
         fi
+        while ! project_exists; do
+          echo "Waiting for project ${NAMESPACE} to be created"
+          sleep 1
+        done
     fi
+}
+
+delete_project()
+{
+    echo "=> Deleting project ${NAMESPACE}"
+    while project_exists; do
+      curl -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
+      echo "Waiting for project ${NAMESPACE} to be deleted"
+      sleep 1
+    done
 }
 
 create_image_pull_secret()
