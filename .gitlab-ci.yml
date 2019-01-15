@@ -90,6 +90,10 @@ variables:
   RMALL: "yes"
 
 
+#############################################################################
+##  Build docker images
+#############################################################################
+
 # Stub to build docker images
 .build-docker-image: &build-docker-image
   image: docker:stable
@@ -207,6 +211,11 @@ build-ds-docker-image:
 #      - docker/downloader/**/*
 #      - docker/nginx-agent/**/*
 
+
+#############################################################################
+##  Push updated helm charts to helm repository
+#############################################################################
+
 push-helm-charts:
   image: docker.io/appuio/helm:v2.12.0
   stage: build-base-images
@@ -219,6 +228,11 @@ push-helm-charts:
       - swissid
     changes:
       - helm/**/*
+
+
+#############################################################################
+##  Trigger another project
+#############################################################################
 
 # Trigger deploy-config project
 .trigger-deploy:
@@ -233,6 +247,11 @@ push-helm-charts:
       - docker/**/*
       - helm/**/*
       - .gitlab-ci.yml
+
+
+#############################################################################
+##  Test Jobs
+#############################################################################
 
 # Test 1
 test1:
@@ -252,7 +271,12 @@ test2:
     refs:
       - swissid
 
-# Stub to connect to Kubernetes cluster
+
+#############################################################################
+##  Login to Openshift
+#############################################################################
+
+# Stub to connect to Openshift cluster
 .openshift_login: &openshift_login
   # image: ayufan/openshift-cli
   # image: dtzar/helm-kubectl:$HELM_VERSION
@@ -267,6 +291,11 @@ test2:
     ### Otherwise the "oc project" below will not work (as the gitlab service account has no rights in that namespace)
     # oc -n $NAMESPACE policy add-role-to-user admin system:serviceaccount:$GITLAB_NAMESPACE:gitlab
     - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
+
+
+#############################################################################
+##  Deployments of review apps
+#############################################################################
 
 # Stub to deploy to APPUiO OpenShift cluster, removing and adding namespace/project
 .deploy-appuio: &deploy-appuio
