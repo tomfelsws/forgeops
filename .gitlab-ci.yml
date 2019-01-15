@@ -326,6 +326,40 @@ cleanup-review:
     - master
     - swissid
 
+
+#############################################################################
+##  Deployments to TEST, STAG & PROD
+#############################################################################
+
+# Stub to deploy to an existing namespace in a Kubernetes cluster
+.deploy-to-namespace: &deploy-to-namespace
+  script:
+    # next line should be included in the docker image we use (currently appuio/oc)
+    - yum install -y gettext
+    - source bin/deploy-lib.sh
+    #- create_namespace
+    - oc project "$NAMESPACE"
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+    - create_image_pull_secret
+    - deploy_charts
+    - import_check
+    - restart_am
+    - scale_am
+
+# Stub to cleanup a namespace (but leave it there) in a Kubernetes cluster
+.cleanup-namespace: &cleanup-namespace
+  script:
+    # next line should be included in the docker image we use (currently appuio/oc)
+    - yum install -y gettext
+    - source bin/deploy-lib.sh
+    - setup_kubectl
+    - setup_helm
+    - chk_config
+    - remove_all
+
 # Deploy to test environment
 deploy-test:
   <<: *openshift_login
@@ -344,7 +378,7 @@ deploy-test:
     USERSTORE_REPLICAS: 2
     USERSTORE_AFFINITY: soft
     OPENAM_REPLICAS: 2
-  <<: *deploy
+  <<: *deploy-to-namespace
   only:
     - swissid
 
@@ -361,7 +395,7 @@ cleanup-test:
     # we need the git repo for the script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-test
-  <<: *cleanup
+  <<: *cleanup-namespace
   only:
     - swissid
 
@@ -384,7 +418,7 @@ deploy-staging:
     USERSTORE_REPLICAS: 2
     USERSTORE_AFFINITY: hard
     OPENAM_REPLICAS: 2
-  <<: *deploy
+  <<: *deploy-to-namespace
   only:
     - swissid
 
@@ -401,7 +435,7 @@ cleanup-staging:
     # we need the git repo for the script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-staging
-  <<: *cleanup
+  <<: *cleanup-namespace
   only:
     - swissid
 
@@ -424,7 +458,7 @@ deploy-production:
     USERSTORE_REPLICAS: 2
     USERSTORE_AFFINITY: hard
     OPENAM_REPLICAS: 2
-  <<: *deploy
+  <<: *deploy-to-namespace
   only:
     - swissid
 
@@ -441,6 +475,6 @@ cleanup-production:
     # we need the git repo for the script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-production
-  <<: *cleanup
+  <<: *cleanup-namespace
   only:
     - swissid
