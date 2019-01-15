@@ -111,7 +111,20 @@ remove_all()
     fi
 }
 
+create_namespace()
 {
+    if $(kubectl get namespace ${NAMESPACE} > /dev/null 2>&1); then
+        echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
+    else
+        echo "=> Creating namespace \"${NAMESPACE}\""
+        kubectl create namespace ${NAMESPACE}
+        if [ $? -ne 0 ]; then
+            echo "Non-zero return by kubectl.  Is your context correct? Exiting!"
+            exit 1
+        fi
+    fi
+}
+
 appuio_project_exists()
 {
     echo "=> Checking APPUiO project \"${NAMESPACE}\""
