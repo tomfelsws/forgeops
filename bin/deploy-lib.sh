@@ -159,8 +159,8 @@ create_appuio_project()
 delete_appuio_project()
 {
     echo "=> Deleting APPUiO project ${NAMESPACE}"
-    while appuio_project_exists; do
-      curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
+    curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
+      while appuio_project_exists; do
       echo "Waiting for APPUiO project ${NAMESPACE} to be deleted"
       sleep 5
     done
