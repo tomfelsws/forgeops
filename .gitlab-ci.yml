@@ -268,36 +268,28 @@ test2:
     # oc -n $NAMESPACE policy add-role-to-user admin system:serviceaccount:$GITLAB_NAMESPACE:gitlab
     - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
 
-# Stub to deploy to Kubernetes cluster
-.deploy: &deploy
+# Stub to deploy to APPUiO OpenShift cluster, removing and adding namespace/project
+.deploy-appuio: &deploy-appuio
   script:
     # next line should be included in the docker image we use (currently appuio/oc)
     - yum install -y gettext
     - source bin/deploy-lib.sh
-    - delete_project
-    - create_project
+    - delete_appuio_project
+    - create_appuio_project
     - oc project "$NAMESPACE"
     - setup_kubectl
     - setup_helm
     - chk_config
-    #- remove_all
     - create_image_pull_secret
     - deploy_charts
     - import_check
     - restart_am
     - scale_am
 
-# Stub to cleanup from Kubernetes cluster
-.cleanup: &cleanup
+# Stub to remove namespace/project from APPUiO Openshift cluster
+.cleanup-appuio: &cleanup-appuio
   script:
     - curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
-    # next line should be included in the docker image we use (currently appuio/oc)
-    #- yum install -y gettext
-    #- source bin/deploy-lib.sh
-    #- setup_kubectl
-    #- setup_helm
-    #- chk_config
-    #- remove_all
 
 # Deploy to review environment
 deploy-review:
@@ -309,7 +301,7 @@ deploy-review:
     on_stop: cleanup-review
   variables:
     EXTERNAL_FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
-  <<: *deploy
+  <<: *deploy-appuio
   only:
     - branches
   except:
@@ -326,9 +318,8 @@ cleanup-review:
     action: stop
   variables:
     # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
-    # we need the git repo for the script above
-    # GIT_STRATEGY: none
-  <<: *cleanup
+    GIT_STRATEGY: none
+  <<: *cleanup-appuio
   only:
     - branches
   except:

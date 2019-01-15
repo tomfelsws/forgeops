@@ -111,9 +111,10 @@ remove_all()
     fi
 }
 
-project_exists()
 {
-    echo "=> Checking project \"${NAMESPACE}\""
+appuio_project_exists()
+{
+    echo "=> Checking APPUiO project \"${NAMESPACE}\""
     RESULT=$( curl -s https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN} )
     #echo "RESULT = $RESULT"
     if [ "$RESULT" == "OpenShift project not found" ]; then
@@ -124,30 +125,30 @@ project_exists()
 
 }
 
-create_project()
+create_appuio_project()
 {
     if $(kubectl get namespace ${NAMESPACE} > /dev/null 2>&1); then
-        echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
+        echo "=> APPUiO project \"${NAMESPACE}\" already exists. Skipping creation..."
     else
-        echo "=> Creating project \"${NAMESPACE}\""
+        echo "=> Creating APPUiO project \"${NAMESPACE}\""
         curl -s -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=${APPUIO_API_TOKEN} -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\"], \"adminGids\":[\"Cust SwissSign\"],\"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
         if [ $? -ne 0 ]; then
             echo "Non-zero return by curl. Is your context correct? Exiting!"
             exit 1
         fi
-        while ! project_exists; do
-          echo "Waiting for project ${NAMESPACE} to be created"
+        while ! appuio_project_exists; do
+          echo "Waiting for APPUiO project ${NAMESPACE} to be created"
           sleep 1
         done
     fi
 }
 
-delete_project()
+delete_appuio_project()
 {
-    echo "=> Deleting project ${NAMESPACE}"
-    while project_exists; do
+    echo "=> Deleting APPUiO project ${NAMESPACE}"
+    while appuio_project_exists; do
       curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
-      echo "Waiting for project ${NAMESPACE} to be deleted"
+      echo "Waiting for APPUiO project ${NAMESPACE} to be deleted"
       sleep 5
     done
 }
