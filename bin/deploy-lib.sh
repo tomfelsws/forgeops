@@ -130,7 +130,7 @@ create_project()
         echo "=> Namespace ${NAMESPACE} already exists.  Skipping creation..."
     else
         echo "=> Creating project \"${NAMESPACE}\""
-        curl -s -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=${APPUIO_API_TOKEN} -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\",\"sws-tfelner1\"], \"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
+        curl -s -X POST https://control.vshn.net/api/openshift/1/appuio%20public/projects/?accessToken=${APPUIO_API_TOKEN} -d "{\"name\":\"${NAMESPACE}\", \"adminUids\":[\"system:serviceaccount:${GITLAB_NAMESPACE}:gitlab\"], \"adminGids\":[\"Cust SwissSign\"],\"editorUids\":[\"system:serviceaccount:${TILLER_NAMESPACE}:tiller\"], \"productId\":\"dedicated:v1\", \"customerId\":\"swisssign\"}"
         if [ $? -ne 0 ]; then
             echo "Non-zero return by curl. Is your context correct? Exiting!"
             exit 1
