@@ -274,12 +274,13 @@ test2:
     # next line should be included in the docker image we use (currently appuio/oc)
     - yum install -y gettext
     - source bin/deploy-lib.sh
-    - create_namespace
+    - delete_project
+    - create_project
     - oc project "$NAMESPACE"
     - setup_kubectl
     - setup_helm
     - chk_config
-    - remove_all
+    #- remove_all
     - create_image_pull_secret
     - deploy_charts
     - import_check
@@ -289,13 +290,14 @@ test2:
 # Stub to cleanup from Kubernetes cluster
 .cleanup: &cleanup
   script:
+    - curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
     # next line should be included in the docker image we use (currently appuio/oc)
-    - yum install -y gettext
-    - source bin/deploy-lib.sh
-    - setup_kubectl
-    - setup_helm
-    - chk_config
-    - remove_all
+    #- yum install -y gettext
+    #- source bin/deploy-lib.sh
+    #- setup_kubectl
+    #- setup_helm
+    #- chk_config
+    #- remove_all
 
 # Deploy to review environment
 deploy-review:
