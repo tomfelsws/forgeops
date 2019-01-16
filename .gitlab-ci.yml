@@ -41,7 +41,7 @@ variables:
   KUBERNETES_VERSION: "1.10.9"
 
   # Helm client version to install in deploy-lib.sh/setup_helm()
-  HELM_VERSION: "2.12.1"
+  HELM_VERSION: "2.12.0"
 
   # Helm tiller namespace used in deploy-lib.sh/setup_helm()
   TILLER_NAMESPACE: sws-tiller
