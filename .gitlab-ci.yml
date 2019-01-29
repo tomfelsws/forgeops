@@ -1,0 +1,668 @@
+# Stages represented in Gitlab
+stages:
+  - build-base-images
+  - build-forgeops-images
+  - deploy-review
+  - cleanup-review
+  - deploy-test
+  - run-test
+  - cleanup-test
+  - deploy-staging
+  - cleanup-staging
+  - deploy-production
+  - cleanup-production
+
+# Some defined variables
+variables:
+  # Deploy review apps to APPUiO?
+  DEPLOY_APPUIO: "true"
+  # Deploy review apps to Google Kubernetes Engine (GKE)?
+  DEPLOY_GKE: "true"
+
+  # Docker registry to use
+  DOCKER_SERVER: $CI_REGISTRY
+  # Docker user name (${CI_DEPLOY_USER:-$CI_REGISTRY_USER})
+  DOCKER_USERNAME: $CI_DEPLOY_USER
+  # Docker password (${CI_DEPLOY_PASSWORD:-$CI_REGISTRY_PASSWORD})
+  DOCKER_PASSWORD: $CI_DEPLOY_PASSWORD
+  DOCKER_EMAIL: "operations.swissid@swisssign.com"
+
+  # Google Kubernetes Engine (GKE) Integraation
+  # Based on a cluster already set up by forgeops/bin/gke-up.sh
+  GKE_CLUSTER_NAME: toms-cluster
+  GKE_CLUSTER_IP: 35.204.13.236
+  GKE_CLUSTER_URL: https://$GKE_CLUSTER_IP
+  # Configure these variable in Secure Variables:
+  GKE_TOKEN: xxx
+
+  # Gitlab Kubernetes Integration
+  KUBE_CLUSTER_NAME: gitlab-cluster
+  KUBE_CLUSTER_URL: $KUBE_URL
+  # KUBE_TOKEN set by Gitlab for environment in scope
+  #KUBE_TOKEN: xxx
+
+  # OpenShift/Kubernetes cluster URL
+  # define/override in the various deploy-xxx jobs below for different clusters
+  KUBERNETES_SERVER: console.appuio.ch
+
+  # Domain of OpenShift/Kubernetes apps
+  # define/override in the various deploy-xxx jobs below for different DNS domains per cluster
+  DOMAIN: appuioapp.ch
+
+  # OpenShift project (aka Kubernetes namespace) to deploy in
+  # Use name of branch - assumes namespace exists or can be created
+  # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
+  # Define value in deploy jobs below
+  # NAMESPACE variable used in deploy.sh
+  # define/override in the various deploy-xxx jobs below where necessary
+  NAMESPACE: sws-$CI_COMMIT_REF_SLUG
+
+  # Configure this variable in Secure Variables:
+  KUBERNETES_TOKEN: xxx
+
+  # OpenShift client (oc) version of appui/oc docker image used in openshift_login stub below
+  # For different clusters with different versions this variable must be separated (e.g. OPENSHIFT_VERSION_TEST: 3.11)
+  OPENSHIFT_VERSION: "3.9"
+
+  # Helm tiller namespace used in various deploy scripts/libs
+  TILLER_NAMESPACE: sws-tiller
+
+  # Helm repo with Forgerock helm charts
+  # Will be iuploaded there by push-helm-charts job below
+  HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.appuioapp.ch
+  HELM_REPO_USERNAME: appuio
+
+  # Forgerock Platform version
+  VERSION: 6.5.0
+
+  # Where is GitLab stuff (e.g. serviceaccount 'gitlab')?
+  GITLAB_NAMESPACE: sws-gitlab
+
+  # ForgeOps config folder with helm yaml files (under ./config/$FORGEOPS_CONFIG)
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  FORGEOPS_CONFIG: swissid-gitlab
+
+  # The Forgerock components to deploy
+  # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
+  COMPONENTS: "frconfig configstore userstore ctsstore openam amster"
+
+  # Configstore settings
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  CONFIGSTORE_REPLICAS: 1
+  CONFIGSTORE_AFFINITY: soft
+  CONFIGSTORE_TOPOLOGY: kubernetes.io/hostname
+
+  # Tokenstore settings
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  CTS_REPLICAS: 1
+  CTS_AFFINITY: soft
+  CTS_TOPOLOGY: kubernetes.io/hostname
+
+  # Configstore settings
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  USERSTORE_REPLICAS: 1
+  USERSTORE_AFFINITY: soft
+  USERSTORE_TOPOLOGY: kubernetes.io/hostname
+
+  # OpenAM settings
+  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  OPENAM_REPLICAS: 1
+
+  # Remove all deployments/configmaps/secrets/pvcs from namespace before every deployment?
+  # define/override to "no" in staging & production deployment jobs, as we must upgrade there
+  #RMALL: "yes"
+
+  # For Openshift cluster we use Routes, for native Kubernetes (e.g. GKE), we use Ingress
+  # Default to Openshift, override below in GKE deployment jobs
+  ROUTE_ENABLED: "true"
+  INGRESS_ENABLED: "false"
+
+
+#############################################################################
+##  Build docker images
+#############################################################################
+
+# Stub to build docker images
+.build-docker-image: &build-docker-image
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg API_KEY=$API_KEY --pull -t "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" docker/$IMAGE
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:$VERSION"
+    - docker tag  "$CI_REGISTRY_IMAGE/$IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY_IMAGE/$IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE/$IMAGE"
+
+build-downloader-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: downloader
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+
+build-git-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: git
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/git/**/*
+
+build-java-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: java
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/java/**/*
+
+build-util-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: util
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/util/**/*
+
+build-amster-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: amster
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/java/**/*
+      - docker/amster/**/*
+
+build-openam-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: openam
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/openam/**/*
+
+build-ds-docker-image:
+  <<: *build-docker-image
+  stage: build-forgeops-images
+  variables:
+    IMAGE: ds
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/downloader/**/*
+      - docker/ds/**/*
+
+#build-apache-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    refs:
+#      - swissid
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/apache-agent/**/*
+
+#build-nginx-agent-docker-image:
+#  <<: *build-docker-image
+#  stage: build-forgeops-images
+#  variables:
+#    IMAGE: apache-agent
+#  only:
+#    resf:
+#      - swissid
+#    changes:
+#      - docker/downloader/**/*
+#      - docker/nginx-agent/**/*
+
+
+#############################################################################
+##  Push updated helm charts to helm repository
+#############################################################################
+
+push-helm-charts:
+  image: docker.io/appuio/helm:v2.12.0
+  stage: build-base-images
+  script:
+    - for CHART in $(find helm/ -maxdepth 1 -mindepth 1 -type d); do
+        helm push $CHART $HELM_REPO_URL ;
+      done
+  only:
+    refs:
+      - swissid
+    changes:
+      - helm/**/*
+
+
+#############################################################################
+##  Trigger another project
+#############################################################################
+
+# Trigger deploy-config project
+.trigger-deploy:
+  image: $CI_REGISTRY_IMAGE/util:$VERSION
+  stage: trigger-deploy
+  script:
+    - curl -X POST -F token=$3e8b6155b64da122a1c458ce02d6e2 -F ref=test-ci https://gitlab.com/api/v4/projects/9979791/trigger/pipeline
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/**/*
+      - helm/**/*
+      - .gitlab-ci.yml
+
+
+#############################################################################
+##  Test Jobs
+#############################################################################
+
+# Test 1
+test1:
+  stage: run-test
+  script:
+    - echo "Run Test Suite 1"
+  only:
+    refs:
+      - swissid
+
+# Test 2
+test2:
+  stage: run-test
+  script:
+    - echo "Run Test Suite 2"
+  only:
+    refs:
+      - swissid
+
+
+#############################################################################
+##  Deployments to APPUiO OpenShift Cluster
+#############################################################################
+
+# Stub to connect to Openshift cluster
+.openshift_login: &openshift_login
+  # image: ayufan/openshift-cli
+  # image: dtzar/helm-kubectl:$HELM_VERSION
+  image: appuio/oc:v$OPENSHIFT_VERSION
+  before_script:
+    - echo "Login to $KUBERNETES_SERVER"
+    ### Obtain service account token as follows, then add it to the GitLab CI/CD variables
+    # oc project $GITLAB_NAMESPACE
+    # KUBERNETES_TOKEN=$( oc serviceaccounts get-token gitlab )
+    ### Add gitlab service account edit rights to $NAMESPACE.
+    ### This must be done manually, after $NAMESPACE is created.
+    ### Otherwise the "oc project" below will not work (as the gitlab service account has no rights in that namespace)
+    # oc -n $NAMESPACE policy add-role-to-user admin system:serviceaccount:$GITLAB_NAMESPACE:gitlab
+    - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
+
+# Stub to deploy to APPUiO OpenShift cluster, removing and adding namespace/project
+.deploy-appuio: &deploy-appuio
+  script:
+    - source bin/deploy-appuio-lib.sh
+    - delete_appuio_project
+    - create_appuio_project
+    - oc project "$NAMESPACE"
+    - source bin/deploy-helm-lib.sh
+    - setup_helm
+    - add_helm_repo
+    - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
+
+# Stub to remove namespace/project from APPUiO Openshift cluster
+# Not using function from deploy-appuio-lib.sh as this would require a more expensive git checkout (plus implies dependecy on a git commit)
+.cleanup-appuio: &cleanup-appuio
+  script:
+    - curl -s -X DELETE https://control.vshn.net/api/openshift/1/appuio%20public/projects/${NAMESPACE}?accessToken=${APPUIO_API_TOKEN}
+
+# Deploy to review environment in APPUiO
+deploy-review-appuio:
+  <<: *openshift_login
+  stage: deploy-review
+  environment:
+    name: appuio/$CI_COMMIT_REF_NAME
+    url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
+    on_stop: cleanup-review-appuio
+  variables:
+    FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
+  <<: *deploy-appuio
+  only:
+    refs:
+      - branches
+    variables:
+      - $DEPLOY_APPUIO == "true"
+  except:
+    - master
+    - swissid
+
+# Delete from review environment in APPUiO
+cleanup-review-appuio:
+  <<: *openshift_login
+  stage: cleanup-review
+  when: manual
+  environment:
+    name: appuio/$CI_COMMIT_REF_NAME
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    GIT_STRATEGY: none
+  <<: *cleanup-appuio
+  only:
+    refs:
+      - branches
+    variables:
+      - $DEPLOY_APPUIO == "true"
+  except:
+    - master
+    - swissid
+
+
+#############################################################################
+##  Deployments to Google Kubernetes Engine (GKE)
+#############################################################################
+
+# Stub to connect to GKE
+# Also see
+#   https://medium.com/@davivc/how-to-set-up-gitlab-ci-cd-with-google-cloud-container-registry-and-kubernetes-fa88ab7b1295
+#   https://stackoverflow.com/questions/48531688/login-to-gke-via-service-account-with-token
+.gke_login: &gke_login
+  image: google/cloud-sdk:latest
+  before_script:
+    - echo "Login to $GKE_CLUSTER_URL"
+    - kubectl config set-cluster $GKE_CLUSTER_NAME --server="$GKE_CLUSTER_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials gitlab --token="$GKE_TOKEN"
+    - kubectl config set-context gke-context --cluster=$GKE_CLUSTER_NAME --user=gitlab --namespace=$GITLAB_NAMESPACE
+    - kubectl config use-context gke-context
+
+.kube_login: &kube_login
+  image: google/cloud-sdk:latest
+  before_script:
+    - echo "Login to $KUBE_CLUSTER_URL"
+    - kubectl config set-cluster $KUBE_CLUSTER_NAME --server="$KUBE_CLUSTER_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context gke-context --cluster=$KUBE_CLUSTER_NAME --user=gitlab --namespace=$GITLAB_NAMESPACE
+    - kubectl config use-context gke-context
+
+# Stub to deploy to GKE, removing and adding namespace/project
+.deploy-gke: &deploy-gke
+  script:
+    # next line should be included in the docker image we use (currently google/cloud-sdk:latest)
+    - apt-get install -y gettext
+    - source ./bin/deploy-helm-lib.sh
+    - install_helm
+    - setup_helm
+    - add_helm_repo
+    - ./bin/remove-all.sh -N "$NAMESPACE"
+    - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
+
+# Stub to remove namespace/project from GKE
+.cleanup-gke: &cleanup-gke
+  script:
+    - source ./bin/deploy-helm-lib.sh
+    - install_helm
+    - setup_helm
+    - ./bin/remove-all.sh -N "$NAMESPACE"
+
+# Deploy to review environment in GKE
+deploy-review-gke:
+  <<: *gke_login
+  stage: deploy-review
+  environment:
+    name: gke/$CI_COMMIT_REF_NAME
+    url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
+    on_stop: cleanup-review-gke
+  variables:
+    TILLER_NAMESPACE: kube-system
+    GITLAB_NAMESPACE: kube-system
+    DOMAIN: gke.example.com
+    FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
+    FORGEOPS_CONFIG: swissid-gitlab
+    ROUTE_ENABLED: "false"
+    INGRESS_ENABLED: "true"
+  <<: *deploy-gke
+  only:
+    refs:
+      - branches
+    variables:
+      - $DEPLOY_GKE == "true"
+  except:
+    - master
+    - swissid
+
+# Deploy to review environment in Gitlab Kubernetes cluster
+deploy-review-kube:
+  <<: *kube_login
+  stage: deploy-review
+  environment:
+    name: kube/$CI_COMMIT_REF_NAME
+    url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
+    on_stop: cleanup-review-kube
+  variables:
+    TILLER_NAMESPACE: $KUBE_NAMESPACE
+    GITLAB_NAMESPACE: $KUBE_NAMESPACE
+    DOMAIN: kube.example.com
+    FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
+    FORGEOPS_CONFIG: swissid-gitlab
+    ROUTE_ENABLED: "false"
+    INGRESS_ENABLED: "true"
+  <<: *deploy-gke
+  only:
+    #kubernetes: active
+      # Deploy review apps to Gitlab Kubernetes cluster?
+      # This does not work yet, as the project service account created by Gitlab cannot create namespaces
+      # "only:kubernetes:active" does not seem to work, job will not run, even if active ... ???
+      # https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/22929
+      # https://gitlab.com/gitlab-org/gitlab-ce/issues/52148
+      # https://gitlab.com/gitlab-org/gitlab-ce/issues/40877
+      # Deactivate Kubernetes integration at the top of the Kubernetes screen at https://gitlab.com/swissid/forgeops/clusters/36946
+    refs:
+      - branches
+    variables:
+      - $KUBECONFIG
+  except:
+    - master
+    - swissid
+
+# Delete from review environment in GKE
+cleanup-review-gke:
+  <<: *gke_login
+  stage: cleanup-review
+  when: manual
+  environment:
+    name: gke/$CI_COMMIT_REF_NAME
+    action: stop
+  variables:
+    TILLER_NAMESPACE: kube-system
+    GITLAB_NAMESPACE: kube-system
+  <<: *cleanup-gke
+  only:
+    refs:
+      - branches
+    variables:
+      - $DEPLOY_GKE == "true"
+  except:
+    - master
+    - swissid
+
+# Delete from review environment in Gitlab Kubernetes cluster
+cleanup-review-kube:
+  <<: *gke_login
+  stage: cleanup-review
+  when: manual
+  environment:
+    name: kube/$CI_COMMIT_REF_NAME
+    action: stop
+  variables:
+    TILLER_NAMESPACE: $KUBE_NAMESPACE
+    GITLAB_NAMESPACE: $KUBE_NAMESPACE
+  <<: *cleanup-gke
+  only:
+    refs:
+      - branches
+    variables:
+      - $KUBECONFIG
+  except:
+    - master
+    - swissid
+
+
+#############################################################################
+##  Deployments to existing namespaces/projects
+#############################################################################
+
+# Stub to deploy to an existing namespace in a Kubernetes cluster
+.deploy-to-namespace: &deploy-to-namespace
+  script:
+    - oc project "$NAMESPACE"
+    - source bin/deploy-helm-lib.sh
+    - setup_helm
+    - add_helm_repo
+    - ./bin/remove-all.sh "$NAMESPACE"
+    - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
+
+# Stub to cleanup a namespace (but leave it there) in a Kubernetes cluster
+.cleanup-namespace: &cleanup-namespace
+  script:
+    - ./bin/remove-all.sh "$NAMESPACE"
+
+# Deploy to test environment
+deploy-test:
+  <<: *openshift_login
+  stage: deploy-test
+  environment:
+    name: test
+    url: http://login.test.$DOMAIN
+    on_stop: cleanup-test
+  variables:
+    FQDN: login.test.$DOMAIN
+    NAMESPACE: sws-test
+    CONFIGSTORE_REPLICAS: 2
+    CONFIGSTORE_AFFINITY: soft
+    CTS_REPLICAS: 2
+    CTS_AFFINITY: soft
+    USERSTORE_REPLICAS: 2
+    USERSTORE_AFFINITY: soft
+    OPENAM_REPLICAS: 2
+  <<: *deploy-to-namespace
+  only:
+    - swissid
+
+# Delete from test environment
+cleanup-test:
+  <<: *openshift_login
+  stage: cleanup-test
+  when: manual
+  environment:
+    name: test
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    NAMESPACE: sws-test
+  <<: *cleanup-namespace
+  only:
+    - swissid
+
+# Deploy to staging environment
+deploy-staging:
+  <<: *openshift_login
+  stage: deploy-staging
+  when: manual
+  environment:
+    name: staging
+    url: http://login.stag.$DOMAIN
+    on_stop: cleanup-staging
+  variables:
+    FQDN: login.stag.$DOMAIN
+    NAMESPACE: sws-staging
+    CONFIGSTORE_REPLICAS: 2
+    CONFIGSTORE_AFFINITY: hard
+    CTS_REPLICAS: 2
+    CTS_AFFINITY: hard
+    USERSTORE_REPLICAS: 2
+    USERSTORE_AFFINITY: hard
+    OPENAM_REPLICAS: 2
+  <<: *deploy-to-namespace
+  only:
+    - swissid
+
+# Delete from staging environment
+cleanup-staging:
+  <<: *openshift_login
+  stage: cleanup-staging
+  when: manual
+  environment:
+    name: staging
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    NAMESPACE: sws-staging
+  <<: *cleanup-namespace
+  only:
+    - swissid
+
+# Deploy to production environment
+deploy-production:
+  <<: *openshift_login
+  stage: deploy-production
+  when: manual
+  environment:
+    name: production
+    url: http://login.$DOMAIN
+    on_stop: cleanup-production
+  variables:
+    FQDN: login.$DOMAIN
+    NAMESPACE: sws-production
+    CONFIGSTORE_REPLICAS: 2
+    CONFIGSTORE_AFFINITY: hard
+    CTS_REPLICAS: 2
+    CTS_AFFINITY: hard
+    USERSTORE_REPLICAS: 2
+    USERSTORE_AFFINITY: hard
+    OPENAM_REPLICAS: 2
+  <<: *deploy-to-namespace
+  only:
+    - swissid
+
+# Delete from production environment
+cleanup-production:
+  <<: *openshift_login
+  stage: cleanup-production
+  when: manual
+  environment:
+    name: production
+    action: stop
+  variables:
+    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
+    # we need the git repo for the script above
+    # GIT_STRATEGY: none
+    NAMESPACE: sws-production
+  <<: *cleanup-namespace
+  only:
+    - swissid
