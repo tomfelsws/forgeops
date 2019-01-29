@@ -14,6 +14,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
 {{- define "externalFQDN" -}}
+{{- if .Values.fqdn }}{{- printf "%s" .Values.fqdn -}}
+{{- else -}}
 {{- printf "%s.%s%s" .Values.component .Release.Namespace .Values.domain -}}
+{{- end -}}
 {{- end -}}
