@@ -1,4 +1,0 @@
-git:
-#  repo: git@github.com:tofele/forgeops-init.git
-  repo: https://github.com/tofele/forgeops-init.git
-  branch: master

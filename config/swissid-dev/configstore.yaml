@@ -1,0 +1,35 @@
+image:
+  #repository: forgerock-docker-public.bintray.io/forgerock/ds
+  #repository: gcr.io/engineering-devops/ds
+  repository: registry.gitlab.com/swissid/forgeops/ds
+
+instance: configstore
+
+configstore:
+  enabled: true
+
+replicas: 1
+
+#resources:
+#  limits:
+#    cpu: 1000m
+#    memory: 1Gi
+#  requests:
+#    cpu: 1000m
+#    memory: 1Gi
+
+storageSize: 1Gi
+#storageClass: fast
+persistence: false
+
+topologyKey: "kubernetes.io/hostname"
+podAntiAffinity: soft
+
+backup:
+#  pvcClaimName: ds-backup
+  clusterName: dev
+  verify: false
+
+# If existing database is found then restore is always skipped
+restore:
+  enabled: false
