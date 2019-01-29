@@ -153,7 +153,22 @@ create_namespace()
 # todo: this should decode and install any secrets we need. The git-ssh-key, for example
 create_secrets()
 {
-    echo "to do"
+    echo "=> Creating image pull secret..."
+    kubectl create secret -n "${NAMESPACE}" \
+      docker-registry gitlab-registry \
+      --docker-server="${DOCKER_SERVER}" \
+      --docker-username="${DOCKER_USERNAME}" \
+      --docker-password="${DOCKER_PASSWORD}" \
+      --docker-email="${DOCKER_EMAIL}" \
+      -o yaml --dry-run | kubectl apply -n "${NAMESPACE}" --force -f -
+
+    echo "=> Configuring service account with image pull secret..."
+    result=$(kubectl -n "${NAMESPACE}" patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gitlab-registry"}]}')
+    code="$?"
+    if [[ "$code" != "0" && "$result" == *" not patched" ]]; then
+        echo "$result" 1>&2
+        exit "$code"
+    fi
 }
 
 #### Deploy methods
@@ -330,6 +345,7 @@ if [ ! -z "$DRYRUN" ]; then
 fi
 
 create_namespace
+create_secrets
 deploy_charts
 
 if [[ " ${COMPONENTS[@]} " =~ " openam " ]]; then
