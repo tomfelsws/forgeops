@@ -1,13 +1,13 @@
 #
 # Copyright (c) 2016-2017 ForgeRock AS.
-FROM forgerock/downloader
+FROM registry.gitlab.com/swissid/forgeops/downloader:latest
 
 ARG VERSION="6.5.0"
 RUN download -v $VERSION openidm 
 
 RUN mkdir -p /var/tmp/openidm && unzip -q /openidm.zip -d /var/tmp && rm -fr /var/tmp/openidm/samples
 
-FROM registry.appuio.ch/sws-registry/java:6.5.0
+FROM registry.gitlab.com/swissid/forgeops/java:6.5.0
 
 COPY --from=0 /var/tmp/openidm /opt/openidm
 
