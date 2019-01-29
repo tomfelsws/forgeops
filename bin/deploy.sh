@@ -294,7 +294,7 @@ scale_am()
 {
     echo "=> Scaling AM deployment..."
     DEPNAME=$(kubectl get deployment -l app=openam -o name)
-    kubectl scale --replicas=2 ${DEPNAME} || true
+    kubectl scale --replicas=${OPENAM_REPLICAS} ${DEPNAME} || true
     if [ $? -ne 0 ]; then
         echo "Could not scale AM deployment.  Please check error and fix."
     fi
