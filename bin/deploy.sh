@@ -78,6 +78,21 @@ chk_config()
         exit 1
     else
         echo "=> Using \"${CFGDIR}\" as the root of your configuration"
+
+        echo "=> Substituting environment variables in $CFGDIR files"
+        # we need an empty tmp directory with the substituted files
+        DEPLOYDIR=/tmp/deploy
+        rm -rf $DEPLOYDIR
+        mkdir -p $DEPLOYDIR
+        # substitute vars in yaml files
+        for FILE in $CFGDIR/*.yaml; do
+            envsubst < $FILE > $DEPLOYDIR/$(basename $FILE)
+        done
+        # copy substituted yaml files back to CFGDIR, replacing the original yaml files
+        cp -rp $DEPLOYDIR/* $CFGDIR
+        # remove tmp folder
+        rm -rf $DEPLOYDIR
+
         echo "=> Reading env.sh"
         if [ -r  ${CFGDIR}/env.sh ]; then
             echo "=> Reading ${CFGDIR}/env.sh"
