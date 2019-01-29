@@ -1,0 +1,48 @@
+# add dot at beginning, as many forgeops scripts rely on that
+domain: .$DOMAIN
+
+fqdn: $FQDN
+
+# Openshift does not know about Ingress
+ingress:
+  enabled: $INGRESS_ENABLED
+  hostname: $FQDN
+
+# Openshift uses Routes instead
+route:
+  enabled: $ROUTE_ENABLED
+  hostname: $FQDN
+
+image:
+  tag: $VERSION
+  pullPolicy: Always
+
+gitImage:
+  repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/git
+  tag: $VERSION
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/util
+  tag: $VERSION
+  pullPolicy: Always
+
+configstore:
+  enabled: false
+
+cts:
+  enabled: false
+
+userstore:
+  enabled: false
+
+idmRepo:
+  enabled: false
+
+resources:
+  limits:
+#    cpu: 1000m
+#    memory: 1Gi
+  requests:
+#    cpu: 1000m
+#    memory: 1Gi
