@@ -12,6 +12,8 @@ stages:
   - deploy-production
   - cleanup-production
 
+image: $CI_REGISTRY_IMAGE/ci:$VERSION
+
 # Some defined variables
 variables:
   # Deploy review apps to APPUiO?
@@ -145,6 +147,17 @@ build-downloader-docker-image:
     changes:
       - docker/downloader/**/*
 
+build-ci-docker-image:
+  <<: *build-docker-image
+  stage: build-base-images
+  variables:
+    IMAGE: ci
+  only:
+    refs:
+      - swissid
+    changes:
+      - docker/ci/**/*
+
 build-git-docker-image:
   <<: *build-docker-image
   stage: build-base-images
@@ -245,7 +258,6 @@ build-ds-docker-image:
 #############################################################################
 
 push-helm-charts:
-  image: docker.io/appuio/helm:v2.12.0
   stage: build-base-images
   script:
     - for CHART in $(find helm/ -maxdepth 1 -mindepth 1 -type d); do
@@ -306,9 +318,6 @@ test2:
 
 # Stub to connect to Openshift cluster
 .openshift_login: &openshift_login
-  # image: ayufan/openshift-cli
-  # image: dtzar/helm-kubectl:$HELM_VERSION
-  image: appuio/oc:v$OPENSHIFT_VERSION
   before_script:
     - echo "Login to $KUBERNETES_SERVER"
     ### Obtain service account token as follows, then add it to the GitLab CI/CD variables
@@ -389,7 +398,6 @@ cleanup-review-appuio:
 #   https://medium.com/@davivc/how-to-set-up-gitlab-ci-cd-with-google-cloud-container-registry-and-kubernetes-fa88ab7b1295
 #   https://stackoverflow.com/questions/48531688/login-to-gke-via-service-account-with-token
 .gke_login: &gke_login
-  image: google/cloud-sdk:latest
   before_script:
     - echo "Login to $GKE_CLUSTER_URL"
     - kubectl config set-cluster $GKE_CLUSTER_NAME --server="$GKE_CLUSTER_URL" --insecure-skip-tls-verify=true
@@ -409,8 +417,6 @@ cleanup-review-appuio:
 # Stub to deploy to GKE, removing and adding namespace/project
 .deploy-gke: &deploy-gke
   script:
-    # next line should be included in the docker image we use (currently google/cloud-sdk:latest)
-    - apt-get install -y gettext
     - source ./bin/deploy-helm-lib.sh
     - install_helm
     - setup_helm
