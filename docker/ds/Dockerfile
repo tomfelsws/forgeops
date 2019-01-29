@@ -7,7 +7,7 @@ RUN download -v $VERSION opendj
 #FROM openjdk:11-jdk 
 FROM openjdk:8-jdk 
 COPY --from=0 /opendj.zip /var/tmp/opendj.zip
-COPY opendj-support-extract-tool.zip /var/tmp/opendj-support-extract-tool.zip
+#COPY opendj-support-extract-tool.zip /var/tmp/opendj-support-extract-tool.zip
 
 WORKDIR /var/tmp/bootstrap
 
