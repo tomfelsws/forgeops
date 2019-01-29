@@ -1,4 +1,0 @@
-agent:
-  user: nginx
-  amServer: http://login.test.example.com
-  realm: "/"
