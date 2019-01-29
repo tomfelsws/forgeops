@@ -4,10 +4,10 @@
 # Deployment script that can be used for CI automation, etc.
 # This script assumes that kubectl and helm are available, and have been configured
 # with the correct context for the cluster.
-# Warning: 
+# Warning:
 #   - This script will purge any existig deployments in the target namespace!
 #   - This script is not supported by Forgerock
-#   
+#
 # Usage:
 #   - You must provide folder that contains env.sh script that contains:
 #       - DOMAIN, NAMESPACE, COMPONENTS vars
@@ -286,8 +286,8 @@ restart_am()
     if [ $? -ne 0 ]; then
         echo "Could not delete AM pod.  Please check error and fix."
     fi
-    sleep 10
-    isalive_check
+    sleep 20
+    #isalive_check
 }
 
 scale_am()
