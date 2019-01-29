@@ -1,0 +1,6 @@
+agent:
+  user: nginx
+  amServer: http://$FQDN
+  realm: "/"
+
+securityContext:

@@ -1,0 +1,6 @@
+agent:
+  user: apache
+  amServer: http://$FQDN
+  realm: "/"
+
+securityContext:
