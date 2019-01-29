@@ -16,5 +16,8 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{- define "externalFQDN" -}}
+{{- if .Values.fqdn }}{{- printf "%s" .Values.fqdn -}}
+{{- else -}}
 {{- printf "%s.%s%s" .Values.component .Release.Namespace .Values.domain -}}
+{{- end -}}
 {{- end -}}
