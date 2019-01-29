@@ -262,10 +262,10 @@ import_check()
     sleep 10
     FINISHED_STRING="Configuration script finished"
 
-    AMSTER_POD_NAME=$(kubectl -n=${NAMESPACE} get pods --selector=component=amster \
-        -o jsonpath='{.items[*].metadata.name}')
-
     while true; do
+        # move inside loop as it sometimes returns two pods (an old pod still shutting down or so)
+        AMSTER_POD_NAME=$(kubectl -n=${NAMESPACE} get pods --selector=component=amster \
+            -o jsonpath='{.items[*].metadata.name}')
         echo "Inspecting amster pod: ${AMSTER_POD_NAME}"
         OUTPUT=$(kubectl -n=${NAMESPACE} logs ${AMSTER_POD_NAME} amster || true)
         if [[ "$OUTPUT" = *$FINISHED_STRING* ]]; then
