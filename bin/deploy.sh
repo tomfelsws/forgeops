@@ -157,10 +157,10 @@ create_secrets()
     echo "=> Creating image pull secret..."
     kubectl create secret -n "${NAMESPACE}" \
       docker-registry gitlab-registry \
-      --docker-server="${DOCKER_SERVER}" \
-      --docker-username="${DOCKER_USERNAME}" \
-      --docker-password="${DOCKER_PASSWORD}" \
-      --docker-email="${DOCKER_EMAIL}" \
+      --docker-server="${DOCKER_REGISTRY_SERVER}" \
+      --docker-username="${DOCKER_REGISTRY_USERNAME}" \
+      --docker-password="${DOCKER_REGISTRY_PASSWORD}" \
+      --docker-email="${DOCKER_REGISTRY_EMAIL}" \
       -o yaml --dry-run | kubectl apply -n "${NAMESPACE}" --force -f -
 
     echo "=> Configuring service account with image pull secret..."

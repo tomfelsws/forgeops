@@ -21,13 +21,13 @@ variables:
   # Deploy review apps to Google Kubernetes Engine (GKE)?
   DEPLOY_GKE: "true"
 
-  # Docker registry to use
-  DOCKER_SERVER: $CI_REGISTRY
-  # Docker user name (${CI_DEPLOY_USER:-$CI_REGISTRY_USER})
-  DOCKER_USERNAME: $CI_DEPLOY_USER
-  # Docker password (${CI_DEPLOY_PASSWORD:-$CI_REGISTRY_PASSWORD})
-  DOCKER_PASSWORD: $CI_DEPLOY_PASSWORD
-  DOCKER_EMAIL: "operations.swissid@swisssign.com"
+  # Docker registry to use (deploy.sh)
+  DOCKER_REGISTRY_SERVER: $CI_REGISTRY
+  # Docker registry user name (${CI_DEPLOY_USER:-$CI_REGISTRY_USER})
+  DOCKER_REGISTRY_USERNAME: $CI_DEPLOY_USER
+  # Docker registry password (${CI_DEPLOY_PASSWORD:-$CI_REGISTRY_PASSWORD})
+  DOCKER_REGISTRY_PASSWORD: $CI_DEPLOY_PASSWORD
+  DOCKER_REGISTRY_EMAIL: "operations.swissid@swisssign.com"
 
   # Google Kubernetes Engine (GKE) Integration
   # Based on a cluster already set up by forgeops/bin/gke-up.sh
