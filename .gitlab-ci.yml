@@ -434,8 +434,7 @@ cleanup-review-appuio:
 .deploy-gke: &deploy-gke
   script:
     - source ./bin/deploy-helm-lib.sh
-    - install_helm
-    - setup_helm
+    - init_helm_client
     - add_helm_repo
     - ./bin/remove-all.sh -N "$NAMESPACE"
     - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
@@ -443,9 +442,6 @@ cleanup-review-appuio:
 # Stub to remove namespace/project from GKE
 .cleanup-gke: &cleanup-gke
   script:
-    - source ./bin/deploy-helm-lib.sh
-    - install_helm
-    - setup_helm
     - ./bin/remove-all.sh -N "$NAMESPACE"
 
 # Deploy to review environment in GKE
@@ -567,8 +563,8 @@ cleanup-review-kube:
 .deploy-to-namespace: &deploy-to-namespace
   script:
     - oc project "$NAMESPACE"
-    - source bin/deploy-helm-lib.sh
-    - setup_helm
+    - source ./bin/deploy-helm-lib.sh
+    - init_helm_client
     - add_helm_repo
     - ./bin/remove-all.sh "$NAMESPACE"
     - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"

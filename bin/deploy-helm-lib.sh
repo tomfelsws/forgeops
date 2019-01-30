@@ -14,7 +14,7 @@ install_helm()
     tiller -version
 }
 
-setup_helm()
+init_helm_client()
 {
     echo "=> Configuring helm ..."
     helm init --client-only
