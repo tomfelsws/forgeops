@@ -32,6 +32,8 @@ backup:
 restore:
   enabled: false
 
+securityContext:
+
 # For JDK 8
 opendjJavaArgs: >
   -server -Xms1g -Xmx1g -XX:+UseCompressedOops -XX:+UseG1GC -XX:+UseNUMA

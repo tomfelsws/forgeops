@@ -31,3 +31,5 @@ backup:
 # If existing database is found then restore is always skipped
 restore:
   enabled: false
+
+securityContext:
