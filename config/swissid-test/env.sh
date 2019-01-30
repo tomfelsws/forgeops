@@ -1,7 +1,6 @@
 # Environment settings for the deployment
 # Using shell parameter expansion to parse the yaml file
 
-# Set the URL_PREFIX and DOMAIN from common.yaml and
 # remove any leading spaces
 while read line
 do
@@ -15,10 +14,6 @@ do
     	DOMAIN=${DOMAIN// /}
     fi
 done < $CFGDIR/common.yaml
-
-# The URL prefix for openam service
-# You can override by just providing a string here
-URL_PREFIX="${FQDN%%.*}"
 
 # k8s namespace to deploy in
 NAMESPACE="test"
