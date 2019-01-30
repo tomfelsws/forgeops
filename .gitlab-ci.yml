@@ -501,6 +501,8 @@ cleanup-review-gke:
     name: gke/$CI_COMMIT_REF_NAME
     action: stop
   variables:
+    # We need the git repo for the cleanup-gke script above
+    # GIT_STRATEGY: none
     TILLER_NAMESPACE: kube-system
     GITLAB_NAMESPACE: kube-system
   <<: *cleanup-gke
@@ -522,6 +524,8 @@ cleanup-review-kube:
     name: kube/$CI_COMMIT_REF_NAME
     action: stop
   variables:
+    # We need the git repo for the cleanup-gke script above
+    # GIT_STRATEGY: none
     TILLER_NAMESPACE: $KUBE_NAMESPACE
     GITLAB_NAMESPACE: $KUBE_NAMESPACE
   <<: *cleanup-gke
@@ -585,8 +589,7 @@ cleanup-test:
     name: test
     action: stop
   variables:
-    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
-    # we need the git repo for the script above
+    # We need the git repo for the cleanup-namespace script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-test
   <<: *cleanup-namespace
@@ -625,8 +628,7 @@ cleanup-staging:
     name: staging
     action: stop
   variables:
-    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
-    # we need the git repo for the script above
+    # We need the git repo for the cleanup-namespace script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-staging
   <<: *cleanup-namespace
@@ -665,8 +667,7 @@ cleanup-production:
     name: production
     action: stop
   variables:
-    # Setting the GIT_STRATEGY to none is necessary on the stop_review job so that the GitLab Runner won’t try to checkout the code after the branch is deleted.
-    # we need the git repo for the script above
+    # We need the git repo for the cleanup-namespace script above
     # GIT_STRATEGY: none
     NAMESPACE: sws-production
   <<: *cleanup-namespace
