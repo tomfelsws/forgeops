@@ -34,6 +34,8 @@ done
 
 # Deploy Cert Manager Helm chart
 helm upgrade -i cert-manager --namespace kube-system stable/cert-manager --version v0.5.0
+# https://github.com/jetstack/cert-manager/issues/870
+#helm install --namespace kube-system stable/cert-manager --set createCustomResource=false
 
 # Check that cert-manager is up before deploying the cluster-issuer
 while true;
