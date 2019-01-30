@@ -1,6 +1,4 @@
 image:
-  #repository: forgerock-docker-public.bintray.io/forgerock/openam
-  #repository: gcr.io/engineering-devops/openam
   repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/openam
 
 resources:

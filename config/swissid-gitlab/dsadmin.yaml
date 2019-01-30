@@ -1,6 +1,4 @@
 image:
-#  repository: forgerock-docker-public.bintray.io/ds
-#  repository: gcr.io/engineering-devops/ds
   repository: registry.gitlab.com/swissid/$CI_PROJECT_NAME/ds
   tag: $VERSION
   pullPolicy: Always
