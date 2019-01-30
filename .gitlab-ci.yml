@@ -29,10 +29,10 @@ variables:
   DOCKER_PASSWORD: $CI_DEPLOY_PASSWORD
   DOCKER_EMAIL: "operations.swissid@swisssign.com"
 
-  # Google Kubernetes Engine (GKE) Integraation
+  # Google Kubernetes Engine (GKE) Integration
   # Based on a cluster already set up by forgeops/bin/gke-up.sh
-  GKE_CLUSTER_NAME: toms-cluster
-  GKE_CLUSTER_IP: 35.204.13.236
+  GKE_CLUSTER_NAME: forgeops-cluster
+  GKE_CLUSTER_IP: 35.204.19.21
   GKE_CLUSTER_URL: https://$GKE_CLUSTER_IP
   # Configure these variable in Secure Variables:
   GKE_TOKEN: xxx
