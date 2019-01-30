@@ -22,3 +22,5 @@ backup:
 createPVC: true
 
 slackUrl: undefined
+
+securityContext:
