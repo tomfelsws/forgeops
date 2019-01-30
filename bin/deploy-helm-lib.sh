@@ -27,6 +27,8 @@ add_helm_repo()
     helm repo update
 }
 
+# This function is currently not required as the required role is added in create_appuio_project()
+# This may change once we have our own SwissSign Openshift cluster
 add_tiller_role()
 {
     echo "=> Add tiller edit role to OpenShift project $NAMESPACE ..."
