@@ -33,4 +33,6 @@ add_tiller_role()
 {
     echo "=> Add tiller edit role to OpenShift project $NAMESPACE ..."
     oc -n ${NAMESPACE} policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
+    # more generic kubectl command (see VSHN ticket SWS-15)
+    #kubectl -n ${NAMESPACE} create rolebinding tiller --clusterrole edit --serviceaccount ${TILLER_NAMESPACE}:tiller --dry-run -o yaml | oc -n ${NAMESPACE} apply -f -
 }
