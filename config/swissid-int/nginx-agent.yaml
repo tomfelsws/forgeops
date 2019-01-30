@@ -2,3 +2,5 @@ agent:
   user: nginx
   amServer: http://login.int.gke.example.com
   realm: "/"
+
+securityContext:
