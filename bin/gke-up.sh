@@ -54,6 +54,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Create the gitlab service account
+./create-gitlab-sa.sh
+
 # Create monitoring namespace
 kubectl create namespace ${GKE_MONITORING_NS}
 
