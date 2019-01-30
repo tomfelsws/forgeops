@@ -423,7 +423,6 @@ cleanup-review-appuio:
 
 # Separate kube_login stub because $KUBE_TOKEN cannot be assigned to GKE_TOKEN in a variables: section (Gitlab bug)
 .kube_login: &kube_login
-  image: google/cloud-sdk:latest
   before_script:
     - echo "Login to $KUBE_CLUSTER_URL"
     - kubectl config set-cluster $KUBE_CLUSTER_NAME --server="$KUBE_CLUSTER_URL" --insecure-skip-tls-verify=true
