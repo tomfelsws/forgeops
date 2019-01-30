@@ -218,6 +218,7 @@ deploy_charts()
             ${DRYRUN} helm upgrade --install ${NAMESPACE}-${comp} \
             ${YAML} ${CHART_YAML} --set ${VALUE_OVERIDE} \
             --namespace=${NAMESPACE} ${DIR}/helm/${chart}
+#            --namespace=${NAMESPACE} sws-chartmuseum/${chart}
         fi
 
     done
