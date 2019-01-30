@@ -1,6 +1,4 @@
 image:
-  #repository: forgerock-docker-public.bintray.io/forgerock/amster
-  #repository: gcr.io/engineering-devops/amster
   repository: registry.gitlab.com/swissid/forgeops/amster
 
 config:
@@ -18,6 +16,6 @@ policyAgentPassword: Passw0rd
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
  limits:
-   memory: 756Mi
+   memory: 1Gi
  requests:
-   memory: 756Mi
+   memory: 1Gi

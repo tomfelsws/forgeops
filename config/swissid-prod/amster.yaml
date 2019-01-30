@@ -1,23 +1,21 @@
 image:
-  #repository: forgerock-docker-public.bintray.io/forgerock/amster
-  #repository: gcr.io/engineering-devops/amster
-  repository: eu.gcr.io/swissid-cloud/amster
-  tag: 6.5.0
-  pullPolicy: Always
-  
+  repository: registry.gitlab.com/swissid/forgeops/amster
+
 config:
-  #importPath: /git/config/6.5/cdm/m-cluster/am
   importPath: /git/config/6.5/default/am/empty-import
-  #importPath: /git/config/6.5/smoke-tests/am
   exportPath: /tmp/amster
 
 ctsStores: ctsstore-0.ctsstore:1389,ctsstore-1.ctsstore:1389
-ctsPassword: password
 
+# Install passwords
+ctsPassword: password
+amadminPassword: password
+encryptionKey: "123456789012"
+policyAgentPassword: Passw0rd
 
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
  limits:
-   memory: 756Mi
+   memory: 1Gi
  requests:
-   memory: 756Mi
+   memory: 1Gi

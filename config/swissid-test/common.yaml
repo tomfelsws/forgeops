@@ -1,8 +1,48 @@
+# add dot at beginning, as many forgeops scripts rely on that
 domain: .gke.example.com
 
 fqdn: login.test.gke.example.com
 
-# Install passwords.
-amadminPassword: password
-encryptionKey: "123456789012"
-policyAgentPassword: Passw0rd
+# Openshift does not know about Ingress
+ingress:
+  enabled: true
+  hostname: login.test.gke.example.com
+
+# Openshift uses Routes instead
+route:
+  enabled: false
+  hostname: login.test.gke.example.com
+
+image:
+  tag: 6.5.0
+  pullPolicy: Always
+
+gitImage:
+  repository: registry.gitlab.com/swissid/forgeops/git
+  tag: 6.5.0
+  pullPolicy: Always
+
+utilImage:
+  repository: registry.gitlab.com/swissid/forgeops/util
+  tag: 6.5.0
+  pullPolicy: Always
+
+configstore:
+  enabled: false
+
+cts:
+  enabled: false
+
+userstore:
+  enabled: false
+
+idmRepo:
+  enabled: false
+
+resources:
+  limits:
+#    cpu: 1000m
+#    memory: 1Gi
+  requests:
+#    cpu: 1000m
+#    memory: 1Gi
