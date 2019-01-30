@@ -1,6 +1,4 @@
 image:
-  #repository: forgerock-docker-public.bintray.io/forgerock/ds
-  #repository: gcr.io/engineering-devops/ds
   repository: registry.gitlab.com/swissid/forgeops/ds
 
 instance: userstore
@@ -8,7 +6,7 @@ instance: userstore
 userstore:
   enabled: true
 
-replicas: 1
+replicas: 2
 
 #resources:
 #  limits:
