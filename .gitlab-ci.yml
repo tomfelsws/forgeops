@@ -12,18 +12,29 @@ stages:
   - deploy-production
   - cleanup-production
 
+# CI/CD Docker image used in CI/CD jobs
 image: $CI_REGISTRY_IMAGE/ci:$VERSION
 
-# Some defined variables
 variables:
-  # Deploy review apps to APPUiO?
+  # Deploy review apps (aka branches) to APPUiO cluster?
   DEPLOY_APPUIO: "true"
-  # Deploy review apps to Google Kubernetes Engine (GKE)?
+
+  # Deploy review apps (aka branches) to Google Kubernetes Engine (GKE)?
   DEPLOY_GKE: "true"
 
-  # Docker registry to use (deploy.sh)
+  # Deploy review apps (aka branches) to Gitlab integrated Kubernetes cluster?
+  # This does not work yet for us, as the project service account created by Gitlab cannot create namespaces
+  # "only:kubernetes:active" does not seem to work, job will not run, even if active ... ???
+  # Instead, use the variable $KUBECONFIG in deployment jobs below
+  # Deactivate Kubernetes integration at the top of the Kubernetes screen at https://gitlab.com/swissid/forgeops/clusters/36946
+  # https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/22929
+  # https://gitlab.com/gitlab-org/gitlab-ce/issues/52148
+  # https://gitlab.com/gitlab-org/gitlab-ce/issues/40877
+
+  # Docker registry to use
   DOCKER_REGISTRY_SERVER: $CI_REGISTRY
   # Docker registry user name (${CI_DEPLOY_USER:-$CI_REGISTRY_USER})
+  # Using deploy token "gitlab-deploy-token" defined at https://gitlab.com/swissid/forgeops/settings/repository
   DOCKER_REGISTRY_USERNAME: $CI_DEPLOY_USER
   # Docker registry password (${CI_DEPLOY_PASSWORD:-$CI_REGISTRY_PASSWORD})
   DOCKER_REGISTRY_PASSWORD: $CI_DEPLOY_PASSWORD
@@ -31,24 +42,46 @@ variables:
 
   # Google Kubernetes Engine (GKE) Integration
   # Based on a cluster already set up by forgeops/bin/gke-up.sh
+  # Cluster name from forgeops/etc/gke-env.cfg
   GKE_CLUSTER_NAME: forgeops-cluster
+  # Cluster IP (Endpoint) from https://console.cloud.google.com/kubernetes/clusters/details/europe-west4-a/forgeops-cluster
   GKE_CLUSTER_IP: 35.204.239.152
   GKE_CLUSTER_URL: https://$GKE_CLUSTER_IP
-  # Configure these variable in Secure Variables:
-  GKE_TOKEN: xxx
+  # Configure GKE_TOKEN in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  # Get the correct token as follows:
+  #   GKE_TOKEN=$( kubectl get secret gitlab-token-xxxxx -o jsonpath="{['data']['token']}" | base64 --decode )
+  #GKE_TOKEN: xxxxx
 
   # Gitlab Kubernetes Integration
+  # Cluster name from https://gitlab.com/swissid/forgeops/clusters
   KUBE_CLUSTER_NAME: gitlab-cluster
+  # Kubernetes URL is set by Gitlab Kubernetes integration
   KUBE_CLUSTER_URL: $KUBE_URL
   # KUBE_TOKEN set by Gitlab for environment in scope
-  #KUBE_TOKEN: xxx
+  #KUBE_TOKEN: xxxxx
 
-  # OpenShift/Kubernetes cluster URL
-  # define/override in the various deploy-xxx jobs below for different clusters
-  KUBERNETES_SERVER: console.appuio.ch
+  # OpenShift cluster URL for test, staging and production environments
+  OPENSHIFT_CLUSTER_URL: https://console.appuio.ch
+  # Configure OPENSHIFT_CLUSTER_TOKEN in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  # Get service account token as follows:
+  #   oc project $GITLAB_NAMESPACE
+  #   OPENSHIFT_CLUSTER_TOKEN=$( oc serviceaccounts get-token gitlab )
+  #OPENSHIFT_CLUSTER_TOKEN: xxxxx
+
+  # OpenShift client (oc) version of appui/oc docker image used in openshift_login stub below
+  # For different clusters with different versions this variable must be separated (e.g. OPENSHIFT_VERSION_TEST: 3.11)
+  OPENSHIFT_VERSION: "3.9"
+
+  # Configure APPUIO_API_TOKEN in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #APPUIO_API_TOKEN: xxxxx
+
+  # For Openshift cluster we use Routes, for native Kubernetes (e.g. GKE), we use Ingress
+  # Default to Openshift, override below in GKE deployment jobs
+  ROUTE_ENABLED: "true"
+  INGRESS_ENABLED: "false"
 
   # Domain of OpenShift/Kubernetes apps
-  # define/override in the various deploy-xxx jobs below for different DNS domains per cluster
+  # Define/override in the various deploy-xxx jobs below for different DNS domains per cluster or environment
   DOMAIN: appuioapp.ch
 
   # OpenShift project (aka Kubernetes namespace) to deploy in
@@ -56,68 +89,58 @@ variables:
   # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
   # Define value in deploy jobs below
   # NAMESPACE variable used in deploy.sh
-  # define/override in the various deploy-xxx jobs below where necessary
+  # Define/override in the various deploy-xxx jobs below where necessary
   NAMESPACE: sws-$CI_COMMIT_REF_SLUG
 
-  # Configure this variable in Secure Variables:
-  KUBERNETES_TOKEN: xxx
-
-  # OpenShift client (oc) version of appui/oc docker image used in openshift_login stub below
-  # For different clusters with different versions this variable must be separated (e.g. OPENSHIFT_VERSION_TEST: 3.11)
-  OPENSHIFT_VERSION: "3.9"
-
-  # Helm tiller namespace used in various deploy scripts/libs
+  # Helm tiller namespace used in various deploy jobs/scripts/libs
+  # Default is set for APPUiO cluster
   TILLER_NAMESPACE: sws-tiller
+
+  # Where is GitLab stuff (e.g. serviceaccount 'gitlab')?
+  # Default is set for APPUiO cluster
+  GITLAB_NAMESPACE: sws-gitlab
 
   # Helm repo with Forgerock helm charts
   # Will be iuploaded there by push-helm-charts job below
   HELM_REPO_URL: https://chartmuseum-sws-chartmuseum.appuioapp.ch
   HELM_REPO_USERNAME: appuio
+  #HELM_REPO_PASSWORD set at at https://gitlab.com/swissid/forgeops/settings/ci_cd
 
   # Forgerock Platform version
+  # This is currently used for most docker images, also for non Forgerock images
+  # This must change to be more granular and independent from Forgerock products
   VERSION: 6.5.0
 
-  # Where is GitLab stuff (e.g. serviceaccount 'gitlab')?
-  GITLAB_NAMESPACE: sws-gitlab
-
-  # ForgeOps config folder with helm yaml files (under ./config/$FORGEOPS_CONFIG)
-  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  # ForgeOps Gitlab config folder with helm yaml files (under ./config/$FORGEOPS_CONFIG)
+  # This is where all the parameterized yaml files for the helm charts are kept
+  # Using variables below, this config is "localized" per deployment job and environmente
   FORGEOPS_CONFIG: swissid-gitlab
 
   # The Forgerock components to deploy
   # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
   COMPONENTS: "frconfig configstore userstore ctsstore openam amster"
 
-  # Configstore settings
-  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  # Configstore default settings
+  # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   CONFIGSTORE_REPLICAS: 1
   CONFIGSTORE_AFFINITY: soft
   CONFIGSTORE_TOPOLOGY: kubernetes.io/hostname
 
-  # Tokenstore settings
-  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  # Tokenstore default settings
+  # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   CTS_REPLICAS: 1
   CTS_AFFINITY: soft
   CTS_TOPOLOGY: kubernetes.io/hostname
 
-  # Configstore settings
-  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  # Configstore default settings
+  # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   USERSTORE_REPLICAS: 1
   USERSTORE_AFFINITY: soft
   USERSTORE_TOPOLOGY: kubernetes.io/hostname
 
-  # OpenAM settings
-  # define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
+  # OpenAM default settings
+  # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   OPENAM_REPLICAS: 1
-
-  # Remove all deployments/configmaps/secrets/pvcs from namespace before every deployment?
-  # define/override to "no" in staging & production deployment jobs, as we must upgrade there
-  #RMALL: "yes"
-
-  # For Openshift cluster we use Routes, for native Kubernetes (e.g. GKE), we use Ingress
-  # Default to Openshift, override below in GKE deployment jobs
-  ROUTE_ENABLED: "true"
-  INGRESS_ENABLED: "false"
 
 
 #############################################################################
@@ -319,15 +342,8 @@ test2:
 # Stub to connect to Openshift cluster
 .openshift_login: &openshift_login
   before_script:
-    - echo "Login to $KUBERNETES_SERVER"
-    ### Obtain service account token as follows, then add it to the GitLab CI/CD variables
-    # oc project $GITLAB_NAMESPACE
-    # KUBERNETES_TOKEN=$( oc serviceaccounts get-token gitlab )
-    ### Add gitlab service account edit rights to $NAMESPACE.
-    ### This must be done manually, after $NAMESPACE is created.
-    ### Otherwise the "oc project" below will not work (as the gitlab service account has no rights in that namespace)
-    # oc -n $NAMESPACE policy add-role-to-user admin system:serviceaccount:$GITLAB_NAMESPACE:gitlab
-    - oc login "$KUBERNETES_SERVER" --token="$KUBERNETES_TOKEN"
+    - echo "Login to $OPENSHIFT_CLUSTER_URL"
+    - oc login "$OPENSHIFT_CLUSTER_URL" --token="$OPENSHIFT_CLUSTER_TOKEN"
 
 # Stub to deploy to APPUiO OpenShift cluster, removing and adding namespace/project
 .deploy-appuio: &deploy-appuio
@@ -390,7 +406,7 @@ cleanup-review-appuio:
 
 
 #############################################################################
-##  Deployments to Google Kubernetes Engine (GKE)
+##  Deployments to Google Kubernetes Engine (GKE) Clusters
 #############################################################################
 
 # Stub to connect to GKE
@@ -405,6 +421,7 @@ cleanup-review-appuio:
     - kubectl config set-context gke-context --cluster=$GKE_CLUSTER_NAME --user=gitlab --namespace=$GITLAB_NAMESPACE
     - kubectl config use-context gke-context
 
+# Separate kube_login stub because $KUBE_TOKEN cannot be assigned to GKE_TOKEN in a variables: section (Gitlab bug)
 .kube_login: &kube_login
   image: google/cloud-sdk:latest
   before_script:
@@ -441,11 +458,13 @@ deploy-review-gke:
     url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
     on_stop: cleanup-review-gke
   variables:
+    # forgeops gke-up.sh uses kube-system for for tiller & gitlab service account
     TILLER_NAMESPACE: kube-system
     GITLAB_NAMESPACE: kube-system
+    # Keep GKE and KUBE domains separate so we can deploy to both at the same time
     DOMAIN: gke.example.com
     FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
-    FORGEOPS_CONFIG: swissid-gitlab
+    # GKE is a Kubernetes cluster using Ingress, not Route
     ROUTE_ENABLED: "false"
     INGRESS_ENABLED: "true"
   <<: *deploy-gke
@@ -467,23 +486,20 @@ deploy-review-kube:
     url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
     on_stop: cleanup-review-kube
   variables:
+    # Gitlab Kubernetes integration uses $KUBE_NAMESPACE for tiller & gitlab service account
     TILLER_NAMESPACE: $KUBE_NAMESPACE
     GITLAB_NAMESPACE: $KUBE_NAMESPACE
+    # Keep GKE and KUBE domains separate so we can deploy to both at the same time
     DOMAIN: kube.example.com
     FQDN: login.$CI_COMMIT_REF_SLUG.$DOMAIN
-    FORGEOPS_CONFIG: swissid-gitlab
+    # Gitlab is using a "native" Kubernetes cluster that is using Ingress, not Route
     ROUTE_ENABLED: "false"
     INGRESS_ENABLED: "true"
   <<: *deploy-gke
   only:
     #kubernetes: active
-      # Deploy review apps to Gitlab Kubernetes cluster?
-      # This does not work yet, as the project service account created by Gitlab cannot create namespaces
-      # "only:kubernetes:active" does not seem to work, job will not run, even if active ... ???
-      # https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/22929
-      # https://gitlab.com/gitlab-org/gitlab-ce/issues/52148
-      # https://gitlab.com/gitlab-org/gitlab-ce/issues/40877
-      # Deactivate Kubernetes integration at the top of the Kubernetes screen at https://gitlab.com/swissid/forgeops/clusters/36946
+      # Does not work, see top of gitlab-ci.yml for explanation
+      # Use "variable: $KUBECONFIG" below instead
     refs:
       - branches
     variables:
@@ -503,6 +519,7 @@ cleanup-review-gke:
   variables:
     # We need the git repo for the cleanup-gke script above
     # GIT_STRATEGY: none
+    # forgeops gke-up.sh uses kube-system for for tiller & gitlab service account
     TILLER_NAMESPACE: kube-system
     GITLAB_NAMESPACE: kube-system
   <<: *cleanup-gke
@@ -526,10 +543,14 @@ cleanup-review-kube:
   variables:
     # We need the git repo for the cleanup-gke script above
     # GIT_STRATEGY: none
+    # Gitlab Kubernetes integration uses $KUBE_NAMESPACE for tiller & gitlab service account
     TILLER_NAMESPACE: $KUBE_NAMESPACE
     GITLAB_NAMESPACE: $KUBE_NAMESPACE
   <<: *cleanup-gke
   only:
+    #kubernetes: active
+      # Does not work, see top of gitlab-ci.yml for explanation
+      # Use "variable: $KUBECONFIG" below instead
     refs:
       - branches
     variables:
