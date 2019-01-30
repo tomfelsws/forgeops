@@ -453,6 +453,8 @@ deploy-review-gke:
     url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
     on_stop: cleanup-review-gke
   variables:
+    # For GKE we want a namespace without the "sws-" prefix
+    NAMESPACE: $CI_COMMIT_REF_SLUG
     # forgeops gke-up.sh uses kube-system for for tiller & gitlab service account
     TILLER_NAMESPACE: kube-system
     GITLAB_NAMESPACE: kube-system
@@ -481,6 +483,8 @@ deploy-review-kube:
     url: http://login.$CI_COMMIT_REF_SLUG.$DOMAIN
     on_stop: cleanup-review-kube
   variables:
+    # For GKE we want a namespace without the "sws-" prefix
+    NAMESPACE: $CI_COMMIT_REF_SLUG
     # Gitlab Kubernetes integration uses $KUBE_NAMESPACE for tiller & gitlab service account
     TILLER_NAMESPACE: $KUBE_NAMESPACE
     GITLAB_NAMESPACE: $KUBE_NAMESPACE
@@ -514,6 +518,8 @@ cleanup-review-gke:
   variables:
     # We need the git repo for the cleanup-gke script above
     # GIT_STRATEGY: none
+    # For GKE we want a namespace without the "sws-" prefix
+    NAMESPACE: $CI_COMMIT_REF_SLUG
     # forgeops gke-up.sh uses kube-system for for tiller & gitlab service account
     TILLER_NAMESPACE: kube-system
     GITLAB_NAMESPACE: kube-system
@@ -538,6 +544,8 @@ cleanup-review-kube:
   variables:
     # We need the git repo for the cleanup-gke script above
     # GIT_STRATEGY: none
+    # For GKE we want a namespace without the "sws-" prefix
+    NAMESPACE: $CI_COMMIT_REF_SLUG
     # Gitlab Kubernetes integration uses $KUBE_NAMESPACE for tiller & gitlab service account
     TILLER_NAMESPACE: $KUBE_NAMESPACE
     GITLAB_NAMESPACE: $KUBE_NAMESPACE
