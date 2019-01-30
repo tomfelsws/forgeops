@@ -353,7 +353,7 @@ test2:
     - create_appuio_project
     - oc project "$NAMESPACE"
     - source bin/deploy-helm-lib.sh
-    - setup_helm
+    - init_helm_client
     - add_helm_repo
     - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
 
