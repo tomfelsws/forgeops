@@ -179,7 +179,8 @@ deploy_charts()
     # For example for EKS/AWS VALUE_OVERIDE="storageClass=fast10"
     # or for AKS/Azure VALUE_OVERIDE="storageClass=managed-premium"
 
-    PROVIDER=$(kubectl get nodes -o jsonpath={.items[0].spec.providerID} | awk -F: '{print $1}')
+    #PROVIDER=$(kubectl get nodes -o jsonpath={.items[0].spec.providerID} | awk -F: '{print $1}')
+    PROVIDER=gce
     if [ "${PROVIDER}" == "gce" ]; then
         VALUE_OVERIDE=""
     elif [ "${PROVIDER}" == "aws" ]; then
