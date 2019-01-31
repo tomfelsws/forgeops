@@ -28,9 +28,9 @@ DOMAIN="${DOMAIN/\./}"
 COMPONENTS=(frconfig configstore userstore ctsstore openam amster)
 
 # Docker registry to use
-DOCKER_SERVER="registry.gitlab.com"
-DOCKER_USERNAME="gitlab+deploy-token-37414"
-DOCKER_PASSWORD="XsHwrHGZa8EDLb4LdkWR"
-DOCKER_EMAIL="operations.swissid@swisssign.com"
+DOCKER_REGISTRY_SERVER="registry.gitlab.com"
+DOCKER_REGISTRY_USERNAME="gitlab+deploy-token-37414"
+DOCKER_REGISTRY_PASSWORD="XsHwrHGZa8EDLb4LdkWR"
+DOCKER_REGISTRY_EMAIL="operations.swissid@swisssign.com"
 
 OPENAM_REPLICAS=2
