@@ -22,6 +22,8 @@ exit_script() {
 
 trap exit_script SIGINT SIGTERM SIGUSR1 EXIT
 
+echo "forgerock:x:$(id -u):0:forgerock user:${FORGEROCK_HOME}:/bin/bash" >> /etc/passwd
+
 git_config() 
 {
     cd /git/config
