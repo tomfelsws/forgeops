@@ -9,7 +9,8 @@ RUN apk add --no-cache git bash vim openssh-client \
     && adduser -s /bin/bash -h "$FORGEROCK_HOME" -u 11111 -D -G forgerock forgerock \
     && chown -R forgerock /opt \
     && git config --global user.email "auto-sync@forgerock.net"  \
-    && git config --global user.name "Git Auto-sync user"
+    && git config --global user.name "Git Auto-sync user" \
+    && chmod g=u /etc/passwd
 
 # GIT_ROOT is where git config is cloned to. Don't change this unless you know what you are doing.
 ENV GIT_ROOT /git/config
