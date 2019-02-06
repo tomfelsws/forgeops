@@ -5,7 +5,8 @@
 replicaCount: 1
 
 # Top level domain. Used to create the ingress
-domain: .example.com
+domain: example.com
+subdomain: iam
 
 # These are both used to form the FQDN for the load balancer.  See _helpers.tpl
 component: end-user-ui
@@ -19,7 +20,7 @@ service:
   name: end-user-ui
   type: ClusterIP
   externalPort: 80
-  internalPort: 8888
+  internalPort: 8080
 
 
 ingress:

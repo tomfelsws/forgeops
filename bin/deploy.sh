@@ -112,8 +112,10 @@ chk_config()
     fi
     echo -e "=>\tComponents: \"${COMPONENTS[*]}\""
 
-    AM_URL="${URL_PREFIX:-login}.${NAMESPACE}.${DOMAIN}"
-    IDM_URL="${IDM_URL_PREFIX:-openidm}.${NAMESPACE}.${DOMAIN}"
+    SUBDOMAIN="iam"
+    BASE_FQDN="${NAMESPACE}.${SUBDOMAIN}.${DOMAIN}"
+    AM_URL="${BASE_FQDN}/am"
+    IDM_URL="${BASE_FQDN}"
 }
 
 create_namespace()
@@ -195,7 +197,10 @@ deploy_charts()
 
 isalive_check()
 {
-    PROTO="https"
+    PROTO="http"
+    if [ "${CONTEXT}" = "minikube" ]; then
+        PROTO="https"
+    fi
     ALIVE_JSP="${PROTO}://${AM_URL}/isAlive.jsp"
     echo "=> Testing ${ALIVE_JSP}"
     STATUS_CODE="503"
@@ -209,7 +214,10 @@ isalive_check()
 
 isalive_check_idm()
 {
-    PROTO="https"
+    PROTO="http"
+    if [ "${CONTEXT}" = "minikube" ]; then
+        PROTO="https"
+    fi
     IDM_PING_ENDPOINT="${PROTO}://${IDM_URL}/openidm/info/ping"
     echo "=> Testing ${IDM_PING_ENDPOINT}"
     STATUS_CODE="503"
