@@ -1,6 +1,9 @@
 git:
-#  repo: git@gitlab.com:swissid/forgeops-init.git
-  repo: https://tofele:${GITLAB_TOKEN}@gitlab.com/swissid/forgeops-init.git
+  repo: git@gitlab.com:swissid/forgeops-init.git
+  # get Gitlab Personal Access Token at https://gitlab.com/profile/personal_access_tokens
+  # and add as GITLAB_TOKEN to Gitlab CI/CD env variables at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  # this should be a technical gitlab account, not your personal gitlab account
+  #repo: https://tofele:${GITLAB_TOKEN}@gitlab.com/swissid/forgeops-init.git
   branch: master
 
 certmanager:
