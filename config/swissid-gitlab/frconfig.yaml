@@ -1,6 +1,6 @@
 git:
-#  repo: git@gitlab.com:swissid/forgeops-init.git
-  repo: https://tofele:${GITLAB_TOKEN}@gitlab.com/swissid/forgeops-init.git
+  repo: git@gitlab.com:swissid/forgeops-init.git
+  #repo: https://tofele:${GITLAB_TOKEN}@gitlab.com/swissid/forgeops-init.git
   branch: master
 
 certmanager:
