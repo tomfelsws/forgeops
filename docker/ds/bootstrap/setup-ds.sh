@@ -29,6 +29,7 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --ldapsPort ${PORT_DIGIT}636 \
     --httpPort ${PORT_DIGIT}8080 \
     --httpsPort ${PORT_DIGIT}8443 \
+    --productionMode \
     --profile am-cts:6.5.0 \
     --set am-cts/amCtsAdminPassword:password \
     --set am-cts/tokenExpirationPolicy:ds \
@@ -36,6 +37,7 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --set am-identity-store/amIdentityStoreAdminPassword:password \
     --profile am-config:6.5.0 \
     --set am-config/amConfigAdminPassword:password \
+    --set am-config/baseDn:dc=swisssign,dc=com \
     --profile idm-repo:6.5.0 \
     --certNickname ${SSL_CERT_ALIAS} \
     --usePkcs12KeyStore ${SSL_KEYSTORE} \
