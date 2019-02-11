@@ -510,7 +510,7 @@ deploy-review-kube:
     - swissid
 
 # Delete from review environment in GKE
-cleanup-review-gke:
+.cleanup-review-gke:
   <<: *gke_login
   stage: cleanup-review
   when: manual
