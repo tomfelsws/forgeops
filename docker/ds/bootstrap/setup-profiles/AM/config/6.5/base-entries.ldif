@@ -1,0 +1,37 @@
+#
+# Copyright 2011-2018 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+
+dn: &{AM_CONFIG_BASE_DN}
+objectclass: top
+objectclass: untypedObject
+aci: (targetattr="*")(version 3.0;acl "Allow CRUDQ operations";
+ allow (search, read, write, add, delete)
+ (userdn = "ldap:///uid=am-config,ou=admins,&{AM_CONFIG_BASE_DN}");)
+aci: (targetcontrol="2.16.840.1.113730.3.4.3")(version 3.0;
+ acl "Allow persistent search"; allow (search, read)
+ (userdn = "ldap:///uid=am-config,ou=admins,&{AM_CONFIG_BASE_DN}");)
+aci: (targetcontrol="1.2.840.113556.1.4.473")(version 3.0;
+ acl "Allow server-side sorting"; allow (read)
+ (userdn = "ldap:///uid=am-config,ou=admins,&{AM_CONFIG_BASE_DN}");)
+
+dn: ou=admins,&{AM_CONFIG_BASE_DN}
+objectclass: top
+objectclass: organizationalUnit
+ou: admins
+
+dn: uid=am-config,ou=admins,&{AM_CONFIG_BASE_DN}
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: AM Configuration Admin
+sn: AM
+uid: openam_config
+userPassword: &{AM_CONFIG_ADMIN_PASSWORD}
+ds-privilege-name: subentry-write
+ds-privilege-name: update-schema

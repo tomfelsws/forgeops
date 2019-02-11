@@ -3,6 +3,7 @@
 . ./util.sh
 
 prepare
+customize_setup_profiles
 
 set -x
 
