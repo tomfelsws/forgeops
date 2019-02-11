@@ -1,0 +1,12 @@
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( changeId-oid NAME 'changeId' DESC 'Unique ID of the change.' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+attributeTypes: ( changesetId-oid NAME 'changesetId' DESC 'Unique ID of the changeset.' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+attributeTypes: ( changeStatus-oid NAME 'changeStatus' DESC 'Status of the change.' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+attributeTypes: ( changeDoneAt-oid NAME 'changeDoneAt' DESC 'General timestamp of the change' EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+attributeTypes: ( changeUser-oid NAME 'changeUser' DESC 'User who executed the change.' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+attributeTypes: ( changeDescription-oid NAME 'changeDescription' DESC 'Description of the change.' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )
+-
+add: objectClasses
+objectClasses: ( swissidChange-oid NAME 'swissidChange' DESC 'SwissID Change' SUP ( top ) STRUCTURAL MUST ( changeId ) MAY ( changesetId $ changeStatus $ changeDoneAt $ changeUser $ changeDescription) X-ORIGIN 'SESAM' X-SCHEMA-FILE '99-swissid-change.ldif' )

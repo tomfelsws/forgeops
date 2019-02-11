@@ -1,0 +1,4 @@
+update-datastore --realm %REALM_NAME% --name OpenDJ --datafile %CONFIG_GENERATED_DIR%/UserStore.properties
+update-datastore --realm %REALM_NAME_SUPPORT% --name OpenDJ --datafile %CONFIG_GENERATED_DIR%/UserStore.properties
+
+# update-datastore --realm / --name OpenDJ --datafile %CONFIG_GENERATED_DIR%/UserStore-Root-Domain.properties

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityConfig entityID="https://test3.suisseid-idp.signdemo.com/suisseid_v15" hosted="false" xmlns="urn:sun:fm:SAML:2.0:entityconfig">
+    <IDPSSOConfig metaAlias="/sesam/idp_v15">
+        <Attribute name="idpAuthncontextMapper">
+            <Value>com.sun.identity.saml2.plugins.DefaultIDPAuthnContextMapper</Value>
+        </Attribute>
+        <Attribute name="appLogoutUrl"/>
+        <Attribute name="attributeMap">
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname=swsFirstName</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationNumberFullQc=swsIdentificationNumberFullQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname=swsLastName</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://schemas.xmlsoap.org/ws/2005/05/identity/claims/gender=swsGender</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationIssuedOn=swsIdentificationIssuedOn</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/nationality=swsNationality</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/placeOfBirthQc=swsPlaceOfBirthQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/issuingCountry=swsIssuingCountry</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/surnameQc=swsLastNameQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationNumberQc=swsIdentificationNumberQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/suisseidno=swsSuisseIDNo</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/originQc=swsOriginQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationNumberFull=swsIdentificationNumberFull</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/nationalityQc=swsNationalityQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/genderQc=swsGenderQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationKindQc=swsIdentificationKindQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/issuingOfficeQc=swsIssuingOfficeQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/dateOfBirthQc=swsDateOfBirthQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/givenNames=swsGivenNames</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/dateOfBirthPartiallyKnown=swsPartiallyKnownDateOfBirth</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationIssuedOnQc=swsIdentificationIssuedOnQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationKind=swsIdentificationKind</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationValidUntil=swsIdentificationValidUntil</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/givenNameQc=swsFirstNameQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/organizationName=swsOrganizationName</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/givenNamesQc=swsGivenNamesQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/issuingOffice=swsIssuingOffice</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/origin=swsOrigin</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/title=swsTitle</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/placeOfBirth=swsPlaceOfBirth</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/issuingCountryQc=swsIssuingCountryQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://schemas.xmlsoap.org/ws/2005/05/identity/claims/dateofbirth=swsDateOfBirth</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationValidUntilQc=swsIdentificationValidUntilQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress=swsEmailAddress</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identificationNumber=swsIdentificationNumber</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/dateOfBirthPartiallyKnownQc=swsPartiallyKnownDateOfBirthQc</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/emailVerified=swsEmailVerified</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/emailVerifiedOn=swsEmailVerifiedOn</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identityVerified=swsIdentityVerified</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/identityVerifiedOn=swsIdentityVerifiedOn</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/postalAddress=swsPostalAddress</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/postalAddressVerified=swsPostalAddressVerified</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/postalAddressVerifiedOn=swsPostalAddressVerifiedOn</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/termsAndConditionsAccepted=swsTermsAndConditionsAccepted</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/termsAndConditionsAcceptedOn=swsTermsAndConditionsAcceptedOn</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:attrname-format:uri|http://www.ech.ch/xmlns/eCH-0113/1/preferredLanguage=preferredLanguage</Value>
+        </Attribute>
+        <Attribute name="proxyIDPFinderJSP"/>
+        <Attribute name="autofedAttribute">
+            <Value/>
+        </Attribute>
+        <Attribute name="proxyIDPFinderClass"/>
+        <Attribute name="wantNameIDEncrypted">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpSessionSyncEnabled">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpAuthncontextClassrefMapping">
+            <Value>urn:oasis:names:tc:SAML:2.0:ac:classes:TimeSyncToken|60||</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:ac:classes:SmartcardPKI|100|service=certificate|default</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified|0||</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport|0||</Value>
+        </Attribute>
+        <Attribute name="saeAppSecretList"/>
+        <Attribute name="signingCertKeyPass"/>
+        <Attribute name="assertionEffectiveTime">
+            <Value>300</Value>
+        </Attribute>
+        <Attribute name="autofedEnabled">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="wantMNIResponseSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="discoveryBootstrappingEnabled">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpDisableNameIDPersistence">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="wantLogoutRequestSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="cotlist">
+            <Value>cot</Value>
+        </Attribute>
+        <Attribute name="AuthUrl">
+            <Value>https://test3.suisseid-idp.signdemo.com/suisseid3/sp/headers</Value>
+        </Attribute>
+        <Attribute name="relayStateUrlList"/>
+        <Attribute name="wantArtifactResolveSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpAccountMapper">
+            <Value>com.sun.identity.saml2.plugins.DefaultIDPAccountMapper</Value>
+        </Attribute>
+        <Attribute name="wantLogoutResponseSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="enableProxyIDPFinderForAllSPs">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpAdapter">
+            <Value>com.suisseid.identity.saml2.plugins.SSIDPAdapter</Value>
+        </Attribute>
+        <Attribute name="basicAuthUser"/>
+        <Attribute name="assertionNotBeforeTimeSkew">
+            <Value>300</Value>
+        </Attribute>
+        <Attribute name="basicAuthPassword"/>
+        <Attribute name="idpECPSessionMapper">
+            <Value>com.sun.identity.saml2.plugins.DefaultIDPECPSessionMapper</Value>
+        </Attribute>
+        <Attribute name="wantMNIRequestSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="assertionCacheEnabled">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="idpAttributeMapper">
+            <Value>com.suisseid.identity.saml2.plugins.SuisseIDAttributeMapper</Value>
+        </Attribute>
+        <Attribute name="nameIDFormatMap">
+            <Value>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName=</Value>
+            <Value>urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos=</Value>
+            <Value>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress=mail</Value>
+            <Value>urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName=</Value>
+            <Value>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified=swsSuisseIdNo</Value>
+        </Attribute>
+        <Attribute name="metaAlias"/>
+        <Attribute name="RpUrl"/>
+        <Attribute name="basicAuthOn">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="saeIDPUrl">
+            <Value>https://test3.suisseid-idp.signdemo.com/suisseid/idpsaehandler/metaAlias/suisseid3/idp_v15</Value>
+        </Attribute>
+        <Attribute name="signingCertAlias">
+            <Value>SwissSign_SuisseID_Assertion_Signer_2016</Value>
+            <Value>SwissSign_SuisseID_Assertion_Signer_2012</Value>
+        </Attribute>
+    </IDPSSOConfig>
+    <AttributeAuthorityConfig metaAlias="/suisseid3/attra_v15">
+        <Attribute name="signingCertAlias">
+            <Value>SwissSign_SuisseID_Assertion_Signer_2016</Value>
+        </Attribute>
+        <Attribute name="encryptionCertAlias">
+            <Value/>
+        </Attribute>
+        <Attribute name="default_attributeAuthorityMapper">
+            <Value>com.sun.identity.saml2.plugins.DefaultAttributeAuthorityMapper</Value>
+        </Attribute>
+        <Attribute name="x509Subject_attributeAuthorityMapper">
+            <Value>com.sun.identity.saml2.plugins.X509SubjectAttributeAuthorityMapper</Value>
+        </Attribute>
+        <Attribute name="post_attributeAuthorityMapper">
+            <Value>com.suisseid.identity.saml2.plugins.SuisseIDAttributeAuthorityMapper</Value>
+        </Attribute>
+        <Attribute name="x509SubjectDataStoreAttrName">
+            <Value/>
+        </Attribute>
+        <Attribute name="assertionIDRequestMapper">
+            <Value>com.sun.identity.saml2.plugins.DefaultAssertionIDRequestMapper</Value>
+        </Attribute>
+        <Attribute name="cotlist">
+            <Value>cot</Value>
+        </Attribute>
+    </AttributeAuthorityConfig>
+</EntityConfig>

@@ -1,0 +1,16 @@
+create-backend-index --backend-name userRoot --index-name identityId \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name processId \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name processType \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name idCheckEmail \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name idCheckPhone \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name idVerifiedIdentityPostoffice \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name identityAccountId \
+  --set index-type:equality
+create-backend-index --backend-name userRoot --index-name identityProcessId \
+  --set index-type:equality

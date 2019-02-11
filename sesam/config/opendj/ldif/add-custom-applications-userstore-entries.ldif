@@ -1,0 +1,62 @@
+dn: dc=swisssign,dc=com
+changetype: modify
+add: aci
+aci: (targetattr="* || aci")(version 3.0;acl "Allow identity modification"; allow (write)(userdn = "ldap:///uid=support,ou=admins,dc=swisssign,dc=com");)
+aci: (targetattr!="userPassword||authPassword")(version 3.0; acl "Allow identity search"; allow (search, read)(userdn = "ldap:///uid=support,ou=admins,dc=swisssign,dc=com");)
+aci: (targetattr="* || aci")(version 3.0;acl "Allow identity modification"; allow (write)(userdn = "ldap:///uid=idcheck,ou=admins,dc=swisssign,dc=com");)
+aci: (targetattr!="userPassword||authPassword")(version 3.0; acl "Allow identity search"; allow (search, read)(userdn = "ldap:///uid=idcheck,ou=admins,dc=swisssign,dc=com");)
+aci: (targetattr="* || aci")(version 3.0;acl "Allow identity modification"; allow (write)(userdn = "ldap:///uid=selfmanagement,ou=admins,dc=swisssign,dc=com");)
+aci: (targetattr!="userPassword||authPassword")(version 3.0; acl "Allow identity search"; allow (search, read)(userdn = "ldap:///uid=selfmanagement,ou=admins,dc=swisssign,dc=com");)
+
+dn: dc=swisssign,dc=com                                                         
+changetype: modify
+delete: aci                                                                     
+aci: (target="ldap:///dc=swisssign,dc=com")(targetattr != "userPassword")(version 3.0; acl "OpenSSO-FAM Services anonymous access"; deny (all) userdn = "ldap:///anyone";)
+
+dn: ou=user_identity_idl_1,dc=swisssign,dc=com
+changetype: modify
+add: aci
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=support,ou=admins,dc=swisssign,dc=com");)
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=idcheck,ou=admins,dc=swisssign,dc=com");)
+
+dn: ou=id_check_process,dc=swisssign,dc=com
+changetype: modify
+add: aci
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=support,ou=admins,dc=swisssign,dc=com");)
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=idcheck,ou=admins,dc=swisssign,dc=com");)
+
+dn: ou=photo_id_process,dc=swisssign,dc=com
+changetype: modify
+add: aci
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=support,ou=admins,dc=swisssign,dc=com");)
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=idcheck,ou=admins,dc=swisssign,dc=com");)
+
+dn: uid=support,ou=admins,dc=swisssign,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Support Administrator
+sn: Support
+userPassword:@supportApplicationAdminPassword_placeholder@
+ds-privilege-name: password-reset
+
+dn: uid=idcheck,ou=admins,dc=swisssign,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: idcheck Administrator
+sn: idcheck
+userPassword:@idcheckApplicationAdminPassword_placeholder@
+ds-privilege-name: password-reset
+
+dn: uid=selfmanagement,ou=admins,dc=swisssign,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: selfmanagement Administrator
+sn: selfmanagement
+userPassword:@selfmanagementApplicationAdminPassword_placeholder@
+ds-privilege-name: password-reset

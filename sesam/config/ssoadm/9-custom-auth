@@ -1,0 +1,279 @@
+# FIDO Chain & Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamFido.xml
+register-auth-module -a com.swisssign.sesam.fido.SesamFido
+create-auth-instance --realm %REALM_NAME% --name Sesam-Fido --authtype SesamFido
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Fido
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Fido --modulename Sesam-Fido --criteria REQUISITE
+
+# Sesam-Init-StepUp Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamInitStepUp.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamInitStepUp
+create-auth-instance --realm %REALM_NAME% --name Sesam-Init-StepUp --authtype SesamInitStepUp
+
+# Sesam-MobileID Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamMobileID.xml
+register-auth-module -a com.swisssign.sesam.mobileid.SesamMobileID
+create-auth-instance --realm %REALM_NAME% --name Sesam-MobileID --authtype SesamMobileID
+
+# Sesam-ValidateSession Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamValidateSession.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamValidateSession
+create-auth-instance --realm %REALM_NAME% --name Sesam-ValidateSession-Change --authtype SesamValidateSession
+create-auth-instance --realm %REALM_NAME% --name Sesam-ValidateSession-1 --authtype SesamValidateSession
+create-auth-instance --realm %REALM_NAME% --name Sesam-ValidateSession-2 --authtype SesamValidateSession
+
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-ValidateSession-Change --authtype SesamValidateSession
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-ValidateSession-1 --authtype SesamValidateSession
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-ValidateSession-2 --authtype SesamValidateSession
+
+# Sesam-Retrieve-StepUp-User Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamRetrieveStepUpUser.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamRetrieveStepUpUser
+create-auth-instance --realm %REALM_NAME% --name Sesam-Retrieve-StepUp-User --authtype SesamRetrieveStepUpUser
+
+# Sesam-ConfirmPassword Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamConfirmPassword.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamConfirmPassword
+create-auth-instance --realm %REALM_NAME% --name Sesam-ConfirmPassword --authtype SesamConfirmPassword
+create-auth-instance --realm %REALM_NAME% --name Sesam-ConfirmPassword-HOTP --authtype SesamConfirmPassword
+update-auth-instance --realm %REALM_NAME% --name Sesam-ConfirmPassword-HOTP --attributevalues iplanet-am-auth-sesamconfirmpassword-auth-level=2
+
+# Sesam-UserReg Chain & all Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamUserReg.xml
+register-auth-module -a com.swisssign.sesam.registration.SesamUserReg
+create-auth-instance --realm %REALM_NAME% --name Sesam-UserReg --authtype SesamUserReg
+create-auth-cfg --realm %REALM_NAME% --name Sesam-UserReg
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg --modulename Sesam-UserReg --criteria REQUISITE
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement?fromReg=true"
+
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-UserReg --authtype SesamUserReg
+create-auth-cfg --realm %REALM_NAME_SUPPORT% --name Sesam-UserReg
+add-auth-cfg-entr --realm %REALM_NAME_SUPPORT% --name Sesam-UserReg --modulename Sesam-UserReg --criteria REQUISITE
+
+# Sesam-ForgotPassword Chain & all Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamForgotPasswordDone.xml
+register-auth-module -a com.swisssign.sesam.forgotpassword.SesamForgotPasswordDone
+create-auth-instance --realm %REALM_NAME% --name Sesam-ForgotPassword-Done --authtype SesamForgotPasswordDone
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ForgotPassword-Done --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-ForceChangePassword Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamForceChangePassword.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamForceChangePassword
+create-auth-instance --realm %REALM_NAME% --name Sesam-ForceChangePassword --authtype SesamForceChangePassword
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-ForceChangePassword --authtype SesamForceChangePassword
+
+# Sesam-Onboard Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamOnboardDone.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamOnboardDone
+create-auth-instance --realm %REALM_NAME% --name Sesam-Onboard-Done --authtype SesamOnboardDone
+
+# Sesam-LDAP Chain & Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamLDAP.xml
+register-auth-module -a com.swisssign.sesam.auth.SesamLDAP
+create-auth-instance --realm %REALM_NAME% --name Sesam-LDAP --authtype SesamLDAP
+create-auth-instance --realm %REALM_NAME% --name Sesam-LDAP-Push --authtype SesamLDAP
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-LDAP --authtype SesamLDAP
+create-auth-cfg --realm %REALM_NAME% --name Sesam-LDAP
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP --modulename Sesam-ValidateSession-1 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP --modulename Sesam-Init-StepUp --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP --modulename Sesam-LDAP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP --modulename Sesam-ForgotPassword-Done --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP --modulename Sesam-ForceChangePassword --criteria REQUISITE
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-LDAP --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-HOTP Module (with code imported from ForgfeRock SesamHOPT.java)
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamHOTP.xml
+register-auth-module -a com.swisssign.sesam.hotp.SesamHOTP
+create-auth-instance --realm %REALM_NAME% --name Sesam-HOTP --authtype SesamHOTP
+update-auth-instance --realm %REALM_NAME% --name Sesam-HOTP --datafile %CONFIG_GENERATED_DIR%/Auth_Sesam-HOTP.properties
+create-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --authtype SesamHOTP
+update-auth-instance --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --datafile %CONFIG_GENERATED_DIR%/Auth_Sesam-HOTP.properties
+
+# Sesam-HOTP Chain (SESAM)
+create-auth-cfg --realm %REALM_NAME% --name Sesam-HOTP
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-ValidateSession-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-Init-StepUp --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-LDAP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-ForgotPassword-Done --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-ForceChangePassword --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP --modulename Sesam-Onboard-Done --criteria OPTIONAL
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-HOTP --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-HOTP Chain (SUPPORT)
+create-auth-cfg --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP
+add-auth-cfg-entr --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --modulename Sesam-ValidateSession-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --modulename Sesam-LDAP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --modulename Sesam-ForceChangePassword --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --modulename Sesam-HOTP --criteria REQUISITE
+add-svc-attrs --realm %REALM_NAME_SUPPORT% --servicename iPlanetAMAuthService --attributevalues "iplanet-am-auth-org-config=Sesam-HOTP"
+add-svc-attrs --realm %REALM_NAME_SUPPORT% --servicename iPlanetAMAuthService --attributevalues "iplanet-am-auth-admin-auth-module=Sesam-HOTP"
+update-auth-cfg-props --realm %REALM_NAME_SUPPORT% --name Sesam-HOTP --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-UserReg-Onboarding Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-UserReg-Onboarding
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding --modulename Sesam-UserReg --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding --modulename Sesam-Onboard-Done --criteria OPTIONAL
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg-Onboarding --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg-Onboarding --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement?fromReg=true"
+
+# Update previously created ForgeRock-OATH Chain
+# add-auth-cfg-entr --realm %REALM_NAME% --name ForgeRock-OATH --modulename Sesam-HOTP --criteria REQUIRED
+
+# Sesam-ChangeEmail Chain & all Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamChangeEmail.xml
+register-auth-module -a com.swisssign.sesam.change.email.SesamChangeEmail
+create-auth-instance --realm %REALM_NAME% --name Sesam-ChangeEmail --authtype SesamChangeEmail
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangeEmail
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangeEmail --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangeEmail --modulename Sesam-ChangeEmail --criteria REQUISITE
+
+# Sesam-ChangePassword Chain & all Modules
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamChangePassword.xml
+register-auth-module -a com.swisssign.sesam.change.password.SesamChangePassword
+create-auth-instance --realm %REALM_NAME% --name Sesam-ChangePassword --authtype SesamChangePassword
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangePassword
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePassword --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePassword --modulename Sesam-ChangePassword --criteria REQUISITE
+
+# Sesam-ChangePhonenumber Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangePhonenumber
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber --modulename Sesam-HOTP --criteria REQUISITE
+
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/logininfo?operationState=success"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber --attributevalues  "iplanet-am-auth-login-failure-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/logininfo?operationState=failure"
+
+
+# Sesam-ChangePhonenumber-CL Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangePhonenumber-CL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-CL --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-CL --modulename Sesam-HOTP --criteria REQUISITE
+
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-CL --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/newcol"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-CL --attributevalues  "iplanet-am-auth-login-failure-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/logininfo?operationState=failure"
+
+# Sesam-ChangePhonenumber-PO Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangePhonenumber-PO
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-PO --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-PO --modulename Sesam-HOTP --options "idcheck=true" --criteria REQUISITE
+
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-PO --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/idcheck/#/identity-process-postoffice"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-PO --attributevalues  "iplanet-am-auth-login-failure-url=%SESAM_SUCCESS_URL_SSL%/idcheck/#/no-identity"
+
+# Sesam-ChangePhonenumber-SID3 Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-ChangePhonenumber-SID3
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-SID3 --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-ChangePhonenumber-SID3 --modulename Sesam-HOTP --options "idcheck=true" --criteria REQUISITE
+
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-SID3 --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/idcheck/#/identity-import-sid3"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-ChangePhonenumber-SID3 --attributevalues  "iplanet-am-auth-login-failure-url=%SESAM_SUCCESS_URL_SSL%/idcheck/#/no-identity"
+
+# Change Organization Authentication Configurarion
+add-svc-attrs --realm %REALM_NAME% --servicename iPlanetAMAuthService --attributevalues "iplanet-am-auth-org-config=Sesam-LDAP"
+
+# Update default ldapService Chain
+delete-auth-cfgs --realm %REALM_NAME% --names ldapService
+create-auth-cfg --realm %REALM_NAME% --name ldapService
+add-auth-cfg-entr --realm %REALM_NAME% --name ldapService --modulename LDAP --criteria REQUISITE
+
+# Sesam-Push Auth Chain
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamAuthenticatorPush.xml
+register-auth-module -a com.swisssign.sesam.push.SesamAuthenticatorPush
+create-auth-instance --realm %REALM_NAME% --name Sesam-Push-Auth-2 --authtype SesamAuthenticatorPush
+update-auth-instance --realm %REALM_NAME% --name Sesam-Push-Auth-2 --attributevalues iplanet-am-auth-sesamauthenticatorpush-auth-level=2
+
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Push-Auth
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth --modulename Sesam-ValidateSession-1 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth --modulename Sesam-Init-StepUp --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth --modulename Sesam-LDAP-Push --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth --modulename Sesam-ForgotPassword-Done --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth --modulename Sesam-ForceChangePassword --criteria SUFFICIENT
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Push-Auth --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-LDAP-ReAuth Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-LDAP-ReAuth
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP-ReAuth --modulename Sesam-Retrieve-StepUp-User --options "1faReAuth=true" --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-LDAP-ReAuth --modulename Sesam-ConfirmPassword --options "iplanet-am-auth-store-shared-state-enabled=true" --criteria REQUISITE
+
+# Sesam-HOTP-StepUp Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-HOTP-StepUp
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-Retrieve-StepUp-User --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-MobileID --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-Push-Auth-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-ConfirmPassword-HOTP --options "push=true" --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-StepUp --modulename Sesam-Onboard-Done --criteria OPTIONAL
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-HOTP-StepUp --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+# Sesam-Onboard-MobileID Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Onboard-MobileID
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Onboard-MobileID --modulename Sesam-ValidateSession-Change --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Onboard-MobileID --modulename Sesam-HOTP --options "onboardMobileID=true" --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Onboard-MobileID --modulename Sesam-MobileID --options "onboardMobileID=true" --criteria REQUISITE
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Onboard-MobileID --attributevalues  "iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/logininfo?operationState=midsuccess"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Onboard-MobileID --attributevalues  "iplanet-am-auth-login-failure-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement/#/logininfo?operationState=midfailure"
+
+# Sesam-HOTP-ReAuth Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-HOTP-ReAuth
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-Retrieve-StepUp-User --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-MobileID  --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-Push-Auth-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-ConfirmPassword --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-HOTP-ReAuth --modulename Sesam-Onboard-Done --criteria OPTIONAL
+
+
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Push-Auth-MFA
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-ValidateSession-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-Init-StepUp --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-LDAP-Push --options "2faAuth=true" --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-ForgotPassword-Done --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-ForceChangePassword --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-MobileID  --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-Push-Auth-2 --criteria SUFFICIENT
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --modulename Sesam-Onboard-Done --criteria OPTIONAL
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Push-Auth-MFA --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+
+
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamAuthenticatorPushRegistration.xml
+register-auth-module -a com.swisssign.sesam.push.registration.SesamAuthenticatorPushRegistration
+create-auth-instance --realm %REALM_NAME% --name Sesam-Push-Reg --authtype SesamAuthenticatorPushRegistration
+
+update-auth-instance --realm %REALM_NAME% --name Sesam-Push-Reg --datafile %CONFIG_GENERATED_DIR%/Auth_Push_Registration.properties
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Push-Reg
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Reg --modulename Sesam-Retrieve-StepUp-User --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Push-Reg --modulename Sesam-Push-Reg --criteria REQUIRED
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Push-Reg --attributevalues  "iplanet-am-auth-login-success-url=http://localhost/#success"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Push-Reg --attributevalues  "iplanet-am-auth-login-failure-url=http://localhost/#failure"
+
+# Sesam-UserReg-Onboarding-Push Chain
+create-auth-cfg --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --modulename Sesam-UserReg --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --modulename Sesam-HOTP --criteria REQUISITE
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --modulename Sesam-Onboard-Done --criteria OPTIONAL
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --modulename Sesam-Push-Reg --criteria REQUIRED
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --attributevalues  "iplanet-am-auth-post-login-process-class=com.swisssign.sesam.SesamPostAuth"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --attributevalues  "iplanet-am-auth-login-success-url=http://localhost/#success"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-UserReg-Onboarding-Push --attributevalues  "iplanet-am-auth-login-failure-url=http://localhost/#failure"
+
+# Sesam-Unlink-Push Chain & Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSesamUnlinkPush.xml
+register-auth-module -a com.swisssign.sesam.push.SesamUnlinkPush
+create-auth-instance --realm %REALM_NAME% --name Sesam-Unlink-Push --authtype SesamUnlinkPush
+create-auth-cfg --realm %REALM_NAME% --name Sesam-Unlink-Push
+
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Unlink-Push --modulename Sesam-Retrieve-StepUp-User --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name Sesam-Unlink-Push --modulename Sesam-Unlink-Push --criteria REQUIRED
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Unlink-Push --attributevalues  "iplanet-am-auth-login-success-url=http://localhost/#success"
+update-auth-cfg-props --realm %REALM_NAME% --name Sesam-Unlink-Push --attributevalues  "iplanet-am-auth-login-failure-url=http://localhost/#failure"
+
+# Suisseid-Migration Chain & Module
+create-svc -X %CONFIG_AUTH_GENERATED_DIR%/amAuthSuisseidMigration.xml
+register-auth-module -a com.swisssign.sesam.suisseid.SuisseidMigration
+create-auth-instance --realm %REALM_NAME% --name Suisseid-Migration --authtype SuisseidMigration
+create-auth-cfg --realm %REALM_NAME% --name Suisseid-Migration
+add-auth-cfg-entr --realm %REALM_NAME% --name Suisseid-Migration --modulename Suisseid-Migration --criteria REQUISITE

@@ -1,0 +1,2 @@
+# Cookie Domain
+set-attr-defs -s iPlanetAMPlatformService -t global -a iplanet-am-platform-cookie-domains=%OPENAM_COOKIE_DOMAIN% iplanet-am-platform-cookie-domains=%COOKIE_DOMAINS% iplanet-am-platform-cookie-domains=%OPENAM_LB_HOST% %SESAM_COOKIE_DOMAINS%

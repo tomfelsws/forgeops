@@ -1,0 +1,7 @@
+update-server-cfg --servername default --datafile %CONFIG_GENERATED_DIR%/Server.properties
+update-server-cfg --servername %OPENAM_SERVER_URL%%OPENAM_DEPLOYMENT_URI% -a com.iplanet.services.debug.level=%OPENAM_DEBUG_LEVEL%
+update-server-cfg --servername %OPENAM_SERVER_URL%%OPENAM_DEPLOYMENT_URI% -a %FQDN_MAPPING%
+update-server-cfg --servername default -a com.iplanet.am.session.invalidsessionmaxtime=12
+update-server-cfg --servername default -a com.iplanet.am.cookie.name=%OPENAM_COOKIE_NAME%
+update-server-cfg --servername default -a com.iplanet.am.cookie.secure=%OPENAM_COOKIE_SECURE%
+#update-server-cfg --servername default -a com.iplanet.am.cookie.encode=true

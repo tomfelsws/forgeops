@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityDescriptor entityID="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+    <SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls" ResponseLocation="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls" ResponseLocation="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPServices/"/>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</NameIDFormat>
+        <AssertionConsumerService index="0" isDefault="true" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls"/>
+        <AssertionConsumerService index="1" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="http://intersystems14.ihe-europe.net:8080/csp/healthshare/IdPSSO/HSMVP.SAML.SSO.LoginPage.cls"/>
+    </SPSSODescriptor>
+    <RoleDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query:AttributeQueryDescriptorType" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:query="urn:oasis:names:tc:SAML:metadata:ext:query">
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIEmTCCAoECAQEwDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNVBAYTAlVTMRYwFAYDVQQIDA1NYXNz
+YWNodXNldHRzMRIwEAYDVQQHDAlDYW1icmlkZ2UxFTATBgNVBAoMDEludGVyU3lzdGVtczEeMBwG
+A1UECwwVSVNDIFN3aXR6ZXJsYW5kIC0gRkxGMR4wHAYDVQQDDBVJU0MgU3dpdHplcmxhbmQgLSBG
+TEYwHhcNMTcwODIxMDkyNjAwWhcNMTgwODIxMDkyNjAwWjCBkzELMAkGA1UEBhMCVVMxFjAUBgNV
+BAgMDU1hc3NhY2h1c2V0dHMxEjAQBgNVBAcMCUNhbWJyaWRnZTEVMBMGA1UECgwMSW50ZXJTeXN0
+ZW1zMR4wHAYDVQQLDBVJU0MgU3dpdHplcmxhbmQgLSBGTEYxITAfBgNVBAMMGGhzc3dpc3MuaW50
+ZXJzeXN0ZW1zLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALyeIXtZJTNrriHT
+TCwIxoRToaZwL3A/8l9dvNvPvimSwupqEa3qjlDLJmAtekVCcmVt8eSm4Vt+/KwpHOJVDGsf/0d+
+VlZmq/3tLOIfxeAJLjpQ1H9EPmRYdnV7nxHzOQFWTFILSPmt+EviNhN6cSOKHRM8GYc1xv2uAvnQ
+93Z6kmidYRWpQH+CoU5xcWL8tkZPgYQezf/XNDHhSw5JfHZau/w5EiYKlJGXijS7Oqbd8yAmV1I9
+5DrpdRYGqxvZ7C/z/NbeTECiukuNu4PhabTNjRz6fiKq8Kj76xkdSPtbQmhCKg5F4ZU08ykaO+U2
+tf81jTtK9wGkoQrW6RKzzt8CAwEAATANBgkqhkiG9w0BAQsFAAOCAgEAvREEFMcdFDeyGW4xylnE
+xmlka+X92lixB/1kKAOcz1Ad7IkeiM5FPb77bfrgXBlp63OwF12pecWAkgljFRZ/oNubczXGrx9T
+70vkjzNvptTAL/nQ8M5NF0DE+ZSQWNm5Tnl+N2Fl//9Tp1vP6lGyN5+p1HaPYw4WkhibhicryEMl
+NFAFpw4290Xf+eEJyaKct51QtsbOzbb/iWiRt7owIshWOmnooAB0FI0chtkimxU6Ukc0a2Niy1K8
+uE7dGqoZpMb1vXo2yFGUdrkHnKQC3aX9CTWtqkip5XRFg5CJmJ4ixVGu3GtInC5ERfGuAqdPbuQn
+bgWFuqV6wPWoYlkN1dlkIXBFwFE9oUEStmkd1dXxh4eLNbtg9xKNgRY6EI9NYJDSMDcTo9CdArXS
+3TRFkTgPFSI9bI9iZqXMlbYVQIqbxEshxwvlCo8pl5rEgS/n2PpxKEnemx7FbSLtMjdTaCm9WH+8
+6yP2smoDqdHf9FfgGp+iWrVCqe4IA8WzWTbhy88x2M+OcDDNXr16Kaul8uszCU3rQOK7dW5HeE1J
+HuaRkJT/W1HY6uBKDqYLLP9IFscQ/Zbkkr1WehatWGdWz/Yl1I/UmEOOw9ke4kBUr3wBtxYCEpDv
+DyxQYc5gz6ApH4hQNu2TOBnbLGq0gANkGMbQumCAD9o2LLvpAWZ6Eng=
+                    </ds:X509Certificate>
+                </ds:X509Data>
+   </ds:KeyInfo>
+        </KeyDescriptor>
+        <KeyDescriptor use="encryption">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIEmTCCAoECAQEwDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNVBAYTAlVTMRYwFAYDVQQIDA1NYXNz
+YWNodXNldHRzMRIwEAYDVQQHDAlDYW1icmlkZ2UxFTATBgNVBAoMDEludGVyU3lzdGVtczEeMBwG
+A1UECwwVSVNDIFN3aXR6ZXJsYW5kIC0gRkxGMR4wHAYDVQQDDBVJU0MgU3dpdHplcmxhbmQgLSBG
+TEYwHhcNMTcwODIxMDkyNjAwWhcNMTgwODIxMDkyNjAwWjCBkzELMAkGA1UEBhMCVVMxFjAUBgNV
+BAgMDU1hc3NhY2h1c2V0dHMxEjAQBgNVBAcMCUNhbWJyaWRnZTEVMBMGA1UECgwMSW50ZXJTeXN0
+ZW1zMR4wHAYDVQQLDBVJU0MgU3dpdHplcmxhbmQgLSBGTEYxITAfBgNVBAMMGGhzc3dpc3MuaW50
+ZXJzeXN0ZW1zLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALyeIXtZJTNrriHT
+TCwIxoRToaZwL3A/8l9dvNvPvimSwupqEa3qjlDLJmAtekVCcmVt8eSm4Vt+/KwpHOJVDGsf/0d+
+VlZmq/3tLOIfxeAJLjpQ1H9EPmRYdnV7nxHzOQFWTFILSPmt+EviNhN6cSOKHRM8GYc1xv2uAvnQ
+93Z6kmidYRWpQH+CoU5xcWL8tkZPgYQezf/XNDHhSw5JfHZau/w5EiYKlJGXijS7Oqbd8yAmV1I9
+5DrpdRYGqxvZ7C/z/NbeTECiukuNu4PhabTNjRz6fiKq8Kj76xkdSPtbQmhCKg5F4ZU08ykaO+U2
+tf81jTtK9wGkoQrW6RKzzt8CAwEAATANBgkqhkiG9w0BAQsFAAOCAgEAvREEFMcdFDeyGW4xylnE
+xmlka+X92lixB/1kKAOcz1Ad7IkeiM5FPb77bfrgXBlp63OwF12pecWAkgljFRZ/oNubczXGrx9T
+70vkjzNvptTAL/nQ8M5NF0DE+ZSQWNm5Tnl+N2Fl//9Tp1vP6lGyN5+p1HaPYw4WkhibhicryEMl
+NFAFpw4290Xf+eEJyaKct51QtsbOzbb/iWiRt7owIshWOmnooAB0FI0chtkimxU6Ukc0a2Niy1K8
+uE7dGqoZpMb1vXo2yFGUdrkHnKQC3aX9CTWtqkip5XRFg5CJmJ4ixVGu3GtInC5ERfGuAqdPbuQn
+bgWFuqV6wPWoYlkN1dlkIXBFwFE9oUEStmkd1dXxh4eLNbtg9xKNgRY6EI9NYJDSMDcTo9CdArXS
+3TRFkTgPFSI9bI9iZqXMlbYVQIqbxEshxwvlCo8pl5rEgS/n2PpxKEnemx7FbSLtMjdTaCm9WH+8
+6yP2smoDqdHf9FfgGp+iWrVCqe4IA8WzWTbhy88x2M+OcDDNXr16Kaul8uszCU3rQOK7dW5HeE1J
+HuaRkJT/W1HY6uBKDqYLLP9IFscQ/Zbkkr1WehatWGdWz/Yl1I/UmEOOw9ke4kBUr3wBtxYCEpDv
+DyxQYc5gz6ApH4hQNu2TOBnbLGq0gANkGMbQumCAD9o2LLvpAWZ6Eng=
+                    </ds:X509Certificate>
+                </ds:X509Data>
+   </ds:KeyInfo>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc">
+                <xenc:KeySize xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">128</xenc:KeySize>
+   </EncryptionMethod>
+        </KeyDescriptor>
+    </RoleDescriptor>
+    <XACMLAuthzDecisionQueryDescriptor WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"/>
+</EntityDescriptor>
+

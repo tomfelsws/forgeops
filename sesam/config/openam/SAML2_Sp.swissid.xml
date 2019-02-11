@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityDescriptor entityID="saml2.sp.swissid" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+    <SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+                        MIIDaDCCAlCgAwIBAgIDcB/YMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYTAlVLMRAwDgYDVQQI
+                        EwdCcmlzdG9sMRAwDgYDVQQHEwdCcmlzdG9sMRIwEAYDVQQKEwlGb3JnZVJvY2sxDzANBgNVBAsT
+                        Bk9wZW5BTTENMAsGA1UEAxMEdGVzdDAeFw0xNjAzMTgxMTU2MjhaFw0yNjAzMTYxMTU2MjhaMGUx
+                        CzAJBgNVBAYTAlVLMRAwDgYDVQQIEwdCcmlzdG9sMRAwDgYDVQQHEwdCcmlzdG9sMRIwEAYDVQQK
+                        EwlGb3JnZVJvY2sxDzANBgNVBAsTBk9wZW5BTTENMAsGA1UEAxMEdGVzdDCCASIwDQYJKoZIhvcN
+                        AQEBBQADggEPADCCAQoCggEBAKNbl89eP6B8kZATNSPe3+OZ3esLx31hjX+dakHtPwXCAaCKqJFw
+                        jwKdxyRuPdsVG+8Dbk3PGhk26aJrSE93EpxeqmQqxNPMeD+N0/8pjkuVYWwPIQ/ts2iTiWOVn7wz
+                        lE4ASfvupqOR5pjuYMWNo/pd4L7QNjUCKoAt9H11HMyiP+6roo/EYgX4AH7OAhfUMncYsopWhkW/
+                        ze9z8wTXc8BAEgDmt8zFCez1CtqJB/MlSBUGDgk8oHYDsHKmx05baBaOBQ8LRGP5SULSbRtu34eL
+                        FootBIn0FvUZSnwTiSpbaHHRgWrMOVm07oSLWBuO3h/bj38zBuuqqVsAK8YuyoECAwEAAaMhMB8w
+                        HQYDVR0OBBYEFHxfAbr6PQ5Xgc+jVx+AGTPnnpWZMA0GCSqGSIb3DQEBCwUAA4IBAQAZBMJ29/2i
+                        dv1ztC6ArHtB4kw/nHHwthXFwtWAN7sRPB8tLW7fD8aJ43RQr5107Bg1Lgkmt+FZxpafqUC/mukj
+                        IzGzbW0COMSOTcWUGss+HxK6M6Fl9aOzKJMct1uOSpPFgjItcGqydGZXR2FH93vXWoAotUwtZ119
+                        IixIdxpOJwYJg0HFn+GEfpU1PmiLfq2/uwqJ0hGCNfNcm9puagzhQrcDFOnolxjnYPSfSkU5wxlG
+                        o99yE5eJwoHXXU7csaZVttmx7sPj1lUENogXUM6JMqzSyEIm1XCOCL8rZJkZ781W5CwZhuJTNzV3
+                        1sBREs8FaaCeksu7Y48BmkUqw6E9
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPSloRedirect/metaAlias/sesam/sp" ResponseLocation="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPSloRedirect/metaAlias/sesam/sp"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPSloPOST/metaAlias/sesam/sp" ResponseLocation="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPSloPOST/metaAlias/sesam/sp"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPSloSoap/metaAlias/sesam/sp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniRedirect/metaAlias/sesam/sp" ResponseLocation="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniRedirect/metaAlias/sesam/sp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniPOST/metaAlias/sesam/sp" ResponseLocation="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniPOST/metaAlias/sesam/sp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniSoap/metaAlias/sesam/sp" ResponseLocation="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/SPMniSoap/metaAlias/sesam/sp"/>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</NameIDFormat>
+        <AssertionConsumerService index="0" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/Consumer/metaAlias/sesam/sp"/>
+        <AssertionConsumerService index="1" isDefault="true" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/Consumer/metaAlias/sesam/sp"/>
+        <AssertionConsumerService index="2" Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/Consumer/ECP/metaAlias/sesam/sp"/>
+    </SPSSODescriptor>
+</EntityDescriptor>

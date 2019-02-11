@@ -1,0 +1,30 @@
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Technical Users" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Technical Users" --privileges PolicyAdmin
+
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-1L" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-1L" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-2L" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-2L" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-CDO" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-CDO" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-RP-M" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Z-SESAM-SUPPORT-RP-M" --privileges PolicyAdmin
+
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Technical Users" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "Technical Users" --privileges PolicyAdmin
+
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-1L" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-1L" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-2L" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-2L" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-CDO" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-CDO" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-RP-M" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "Z-SESAM-SUPPORT-RP-M" --privileges PolicyAdmin
+
+add-privileges --realm / --idtype Group --idname "OpenAM Administrators" --privileges RealmAdmin
+add-privileges --realm / --idtype Group --idname "OpenAM Administrators" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "OpenAM Administrators" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME% --idtype Group --idname "OpenAM Administrators" --privileges PolicyAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "OpenAM Administrators" --privileges RealmAdmin
+add-privileges --realm %REALM_NAME_SUPPORT% --idtype Group --idname "OpenAM Administrators" --privileges PolicyAdmin

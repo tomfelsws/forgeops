@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding="ISO-8859-1"?>
+<!--
+  Copyright 2016-2017 ForgeRock AS. All Rights Reserved
+ 
+  Use of this code requires a commercial software license with ForgeRock AS.
+  or with one of its affiliates. All use shall be exclusively subject
+  to such license between the licensee and ForgeRock AS.
+-->
+<!DOCTYPE ServicesConfiguration
+        PUBLIC "=//forgerock//Service Management Services (SMS) 1.0 DTD//EN"
+        "jar://com/sun/identity/sm/sms.dtd">
+
+<ServicesConfiguration>
+    <Service name="iPlanetAMAuthSesamAuthenticatorPushService" version="1.0">
+        <Schema
+                serviceHierarchy="/DSAMEConfig/authentication/iPlanetAMAuthSesamAuthenticatorPushService"
+                i18nFileName="amAuthAuthenticatorPush"
+                revisionNumber="1"
+                i18nKey="iPlanetAMAuthSesamAuthenticatorPushServiceDescription"
+                resourceName="authPush">
+
+            <Organization>
+                <AttributeSchema name="RequiredValueValidator" type="validator" syntax="string">
+                    <DefaultValues>
+                        <Value>com.sun.identity.sm.RequiredValueValidator</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+                <AttributeSchema name="iplanet-am-auth-sesamauthenticatorpush-auth-level" resourceName="authLevel"
+                                 type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                 i18nKey="a500">
+                    <DefaultValues>
+                        <Value>0</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+                <AttributeSchema name="forgerock-am-auth-push-message-response-timeout"
+                                 type="single"
+                                 syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                 validator="RequiredValueValidator"
+                                 i18nKey="a601"
+                                 order="200"
+                                 resourceName="timeoutInMilliSecconds">
+                    <DefaultValues>
+                        <Value>60000</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+                <AttributeSchema name="forgerock-am-auth-push-message"
+                                 type="single"
+                                 syntax="string"
+                                 validator="RequiredValueValidator"
+                                 i18nKey="a602"
+                                 order="300"
+                                 resourceName="pushMessage">
+                    <DefaultValues>
+                        <Value>Login attempt from {{user}} at {{issuer}}</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+                <SubSchema name="serverconfig" inheritance="multiple" resourceName="USE-PARENT">
+                    <AttributeSchema name="iplanet-am-auth-sesamauthenticatorpush-auth-level" resourceName="authLevel"
+                                     type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                     i18nKey="a500">
+                        <DefaultValues>
+                            <Value>0</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+                    <AttributeSchema name="forgerock-am-auth-push-message-response-timeout"
+                                     type="single"
+                                     syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                     validator="RequiredValueValidator"
+                                     i18nKey="a601"
+                                     order="200"
+                                     resourceName="timeoutInMilliSecconds">
+                        <DefaultValues>
+                            <Value>60000</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+                    <AttributeSchema name="forgerock-am-auth-push-message"
+                                     type="single"
+                                     syntax="string"
+                                     validator="RequiredValueValidator"
+                                     i18nKey="a602"
+                                     order="300"
+                                     resourceName="pushMessage">
+                        <DefaultValues>
+                            <Value>Login attempt from {{user}} at {{issuer}}</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+                </SubSchema>
+            </Organization>
+        </Schema>
+    </Service>
+</ServicesConfiguration>

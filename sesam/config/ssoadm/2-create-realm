@@ -1,0 +1,13 @@
+# SESAM
+create-realm --realm %REALM_NAME%
+set-realm-attrs -e %REALM_NAME% -s sunIdentityRepositoryService -p -a %ORGANIZATION_ALIASES%
+set-realm-svc-attrs -e %REALM_NAME% -s iPlanetAMAuthService -a openam-auth-stateless-sessions=false
+set-realm-svc-attrs -e %REALM_NAME% -s iPlanetAMAuthService -a iplanet-am-auth-login-success-url=%SESAM_SUCCESS_URL_SSL%/selfmanagement
+
+# Change Minimum Password Length to 6 for SESAM
+set-realm-svc-attrs -s sunIdentityRepositoryService -e %REALM_NAME% -a sunIdRepoAttributeValidator=class=com.sun.identity.idm.server.IdRepoAttributeValidatorImpl sunIdRepoAttributeValidator=minimumPasswordLength=6
+
+# SUPPORT
+create-realm --realm %REALM_NAME_SUPPORT%
+set-realm-attrs -e %REALM_NAME_SUPPORT% -s sunIdentityRepositoryService -p -a %ORGANIZATION_ALIASES_SUPPORT%
+set-realm-svc-attrs -e %REALM_NAME_SUPPORT% -s iPlanetAMAuthService -a openam-auth-stateless-sessions=false

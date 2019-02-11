@@ -1,0 +1,4 @@
+dn: ou=social,dc=swisssign,dc=com
+ou: social
+objectClass: organizationalUnit
+objectClass: top

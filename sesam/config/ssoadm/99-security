@@ -1,0 +1,3 @@
+# Disable module based authenticaton
+set-realm-svc-attrs  --realm %REALM_NAME% --servicename iPlanetAMAuthService -a sunEnableModuleBasedAuth=false
+set-realm-svc-attrs  --realm %REALM_NAME_SUPPORT% --servicename iPlanetAMAuthService -a sunEnableModuleBasedAuth=false

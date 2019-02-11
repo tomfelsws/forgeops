@@ -1,0 +1,51 @@
+# Mail Service
+add-svc-realm --realm %REALM_NAME% --servicename MailServer --datafile %CONFIG_GENERATED_DIR%/Svc_MailService.properties
+add-svc-realm --realm %REALM_NAME_SUPPORT% --servicename MailServer --datafile %CONFIG_GENERATED_DIR%/Svc_MailService.properties
+
+# User Self Service
+# add-svc-realm --realm %REALM_NAME% --servicename selfService --datafile %CONFIG_GENERATED_DIR%/Svc_UserSelfService.properties
+
+# Push Notification Service
+add-svc-realm --realm %REALM_NAME% --servicename PushNotificationService --datafile %CONFIG_GENERATED_DIR%/Svc_PushNotificationService.properties
+
+# Scripting Service
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=groovy.json.internal.LazyMap
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.util.Date
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.util.Locale
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.text.SimpleDateFormat
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.util.TimeZone
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.util.GregorianCalendar
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=sun.util.calendar.ZoneInfo
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=org.forgerock.opendj.ldap.GeneralizedTime
+set-sub-cfg --servicename ScriptingService -g OIDC_CLAIMS/engineConfiguration -o add -a whiteList=java.time.Instant
+
+create-sub-cfg --realm %REALM_NAME% --servicename ScriptingService --subconfigname scriptConfigurations/scriptConfiguration --subconfigid "OIDC_SwissID_Claims_Script" --datafile %CONFIG_GENERATED_DIR%/Script_OIDC_SwissID_Claims.properties
+create-sub-cfg --realm %REALM_NAME% --servicename ScriptingService --subconfigname scriptConfigurations/scriptConfiguration --subconfigid "Policy_Condition_Phonenumber_Script" --datafile %CONFIG_GENERATED_DIR%/Script_Policy_Phonenumber_2FA.properties
+create-sub-cfg --realm %REALM_NAME_SUPPORT% --servicename ScriptingService --subconfigname scriptConfigurations/scriptConfiguration --subconfigid "Policy_Condition_Support_Phonenumber_Script" --datafile %CONFIG_GENERATED_DIR%/Script_Policy_Support_Phonenumber_2FA.properties
+
+# Validation Service
+add-svc-realm --realm %REALM_NAME% --servicename validationService
+add-svc-attrs --realm %REALM_NAME% --servicename validationService  -a %VALID_GOTO_URLS%
+add-svc-realm --realm %REALM_NAME_SUPPORT% --servicename validationService
+add-svc-attrs --realm %REALM_NAME_SUPPORT% --servicename validationService  -a %VALID_GOTO_URLS%
+
+# Policies SESAM
+create-xacml --realm %REALM_NAME% --xmlfile %CONFIG_GENERATED_DIR%/Policy_OAuth2Provider.xml
+create-xacml --realm %REALM_NAME% --xmlfile %CONFIG_GENERATED_DIR%/Policy_iPlanetAMWebAgentService.xml
+
+# Policies SUPPORT
+create-xacml --realm %REALM_NAME_SUPPORT% --xmlfile %CONFIG_GENERATED_DIR%/Policy_Support_iPlanetAMWebAgentService.xml
+
+# Update realm properties
+add-svc-attrs --realm %REALM_NAME% --servicename iPlanetAMAuthService --datafile %CONFIG_GENERATED_DIR%/RealmAuth.properties
+add-svc-attrs --realm %REALM_NAME_SUPPORT% --servicename iPlanetAMAuthService --datafile %CONFIG_GENERATED_DIR%/RealmAuth.properties
+
+# SAML
+create-cot --realm %REALM_NAME% --cot cot
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Idp.swissid.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Idp.swissid.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.swissid.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.swissid.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.fedlet.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.fedlet.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.ihe.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.ihe.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.intersystems.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.intersystems.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.hc-dev-idp.swissepd.ch.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Sp.hc-dev-idp.swissepd.ch.extended.xml --cot cot --spec saml2
+import-entity --realm %REALM_NAME% --meta-data-file %CONFIG_GENERATED_DIR%/SAML2_Idp.test3.suisseid.xml --extended-data-file %CONFIG_GENERATED_DIR%/SAML2_Idp.test3.suisseid.extended.xml --cot cot --spec saml2

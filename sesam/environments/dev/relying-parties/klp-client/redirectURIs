@@ -1,0 +1,12 @@
+https://sesam-dev.pnet.ch:7011/swissid-ref-app/cb-basic.jsp
+https://sesam-dev.pnet.ch:7011/swissid-ref-app/cb-implicit.jsp
+https:///vzzw5n.pnet.ch/id-confirmation
+https://localhost:8080/id-confirmation
+https://d2.idp.klp.post.ch/id-confirmation
+https://accountds1.post.ch/id-confirmation
+https://accountdev1.post.ch/id-confirmation
+https://accounttest.post.ch/id-confirmation
+https://d2.idp.klp.post.ch/redirect/id-confirmation
+https://accountds1.post.ch/redirect/id-confirmation
+https://accountdev1.post.ch/redirect/id-confirmation
+https://accounttest.post.ch/redirect/id-confirmation

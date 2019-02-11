@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:PolicySet PolicySetId="/:2016.12.01.13.08.55.161" Version="2016.12.01.13.08.55.161" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides" xmlns:xacml3="classpath:xsd/xacml-core-v3-schema-wd-17.xsd" xmlns:ns2="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17">
+    <ns2:Target/>
+    <ns2:Policy PolicyId="OAuth2ProviderPolicy" Version="2016.11.23.14.49.49.777" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides">
+        <ns2:Description></ns2:Description>
+        <ns2:Target>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:json-subject-match">
+                        <ns2:AttributeValue DataType="urn:sun:opensso:entitlement:json-subject-type:com.sun.identity.entitlement.AndSubject">{"memberESubjects": [
+                            {
+                            "className": "com.sun.identity.entitlement.NotSubject",
+                            "state": "{\"memberESubject\": {\n  \"className\": \"com.sun.identity.entitlement.JwtClaimSubject\",\n  \"state\": \"{\\n  \\\"claimName\\\": \\\"acr\\\",\\n  \\\"claimValue\\\": \\\"loa-2\\\"\\n}\"\n}}"
+                            },
+                            {
+                            "className": "org.forgerock.openam.entitlement.conditions.subject.AuthenticatedUsers",
+                            "state": "{}"
+                            }
+                            ]}</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:sun:opensso:entitlement:json-subject" DataType="urn:sun:opensso:entitlement:json-subject-type:com.sun.identity.entitlement.AndSubject" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:resource-match:application:OAuth2">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">{SESAM_SERVER_URL_SSL}{OPENAM_DEPLOYMENT_URI}/oauth2/authorize?*</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:application-match">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">OAuth2</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:sun:opensso:application-category" AttributeId="urn:sun:opensso:application-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:OAuth2">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:OAuth2">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+        </ns2:Target>
+        <ns2:VariableDefinition VariableId="sun.opensso.entitlement.applicationName">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">OAuth2</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.createdBy">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">id=dsameuser,ou=user,{USERSTORE_SUFFIX}</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.lastModifiedBy">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">id=amadmin,ou=user,{USERSTORE_SUFFIX}</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.creationDate">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#dateTime">2016-11-15T12:18:35.951</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.lastModifiedDate">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#dateTime">2016-11-23T14:49:49.777</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:Rule RuleId="null:permit-rule" Effect="Permit">
+            <ns2:Description>Permit Rule</ns2:Description>
+            <ns2:Target>
+                <ns2:AnyOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:OAuth2">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:OAuth2">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                </ns2:AnyOf>
+            </ns2:Target>
+            <ns2:Condition>
+                <ns2:Apply FunctionId="urn:sun:opensso:entitlement:json-subject-and-condiiton-satisfied">
+                    <ns2:AttributeValue DataType="urn:sun:opensso:entitlement:json-subject-type:com.sun.identity.entitlement.AndSubject" privilegeComponent="entitlementSubject">{"memberESubjects": [
+                        {
+                        "className": "com.sun.identity.entitlement.NotSubject",
+                        "state": "{\"memberESubject\": {\n  \"className\": \"com.sun.identity.entitlement.JwtClaimSubject\",\n  \"state\": \"{\\n  \\\"claimName\\\": \\\"acr\\\",\\n  \\\"claimValue\\\": \\\"loa-2\\\"\\n}\"\n}}"
+                        },
+                        {
+                        "className": "org.forgerock.openam.entitlement.conditions.subject.AuthenticatedUsers",
+                        "state": "{}"
+                        }
+                        ]}</ns2:AttributeValue>
+                </ns2:Apply>
+            </ns2:Condition>
+        </ns2:Rule>
+    </ns2:Policy>
+</ns2:PolicySet>

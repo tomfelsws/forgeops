@@ -1,0 +1,126 @@
+{
+  "metadata" : {
+    "realm" : "/sesam",
+    "amsterVersion" : "5.5.0",
+    "entityType" : "OAuth2Provider",
+    "entityId" : "OAuth2Provider",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "coreOAuth2Config" : {
+      "refreshTokenLifetime" : 15552000,
+      "accessTokenLifetime" : 3600,
+      "codeLifetime" : 120,
+      "issueRefreshTokenOnRefreshedToken" : true,
+      "issueRefreshToken" : true,
+      "statelessTokensEnabled" : false
+    },
+    "advancedOAuth2Config" : {
+      "customLoginUrlTemplate" : null,
+      "supportedScopes": [
+        "email|Your email address",
+        "openid|SwissID identifier",
+        "phone|Your telephone number(s)",
+        "profile|General profile information",
+        "suisseid_number|SuisseID number",
+        "swissid_signature|Signature"
+      ],
+      "codeVerifierEnforced" : false,
+      "tokenSigningHmacSharedSecret" : null,
+      "tokenSigningAlgorithm" : "HS256",
+      "authenticationAttributes" : [ "uid" ],
+      "defaultScopes" : [ "phone", "openid", "profile", "email" ],
+      "scopeImplementationClass" : "com.swisssign.sesam.suisseid.SwissIDScopeValidator",
+      "modifiedTimestampAttribute" : "swissidModifyTimestamp",
+      "responseTypeClasses" : [ "code|org.forgerock.oauth2.core.AuthorizationCodeResponseTypeHandler", "id_token|org.forgerock.openidconnect.IdTokenResponseTypeHandler", "token|org.forgerock.oauth2.core.TokenResponseTypeHandler" ],
+      "tokenSigningECDSAKeyAlias" : [ "ES512|es512test", "ES384|es384test", "ES256|es256test" ],
+      "hashSalt" : "y5j9bVhEx9MvQspH",
+      "moduleMessageEnabledInPasswordGrant" : false,
+      "tokenCompressionEnabled" : null,
+      "createdTimestampAttribute" : "createTimestamp",
+      "displayNameAttribute" : "cn",
+      "keypairName" : "test",
+      "supportedSubjectTypes" : [ "public", "pairwise" ]
+    },
+    "coreOIDCConfig" : {
+      "supportedIDTokenEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "jwtTokenLifetime" : 3600,
+      "supportedClaims" : [ "phone_number_verified|Phone number verified", "phone_number|Phone number", "gender|Gender", "email_verified|Email address verified", "family_name|Family name", "language|Language", "given_name|Given name", "updated_at|Last user modification", "email|Email address","urn:swissid:first_name|First name", "urn:swissid:date_of_birth|Date of birth", "urn:swissid:place_of_birth|Place of birth", "urn:swissid:nationality|Nationality", "urn:swissid:identity_valid_until|Valid until", "urn:swissid:suisseid_number|SuisseID number", "urn:swissid:qor|Identity quality of registration", "urn:swissid:age_over|Age over", "urn:swissid:doc_hash|Document hash","urn:swissid:doc_name|Document name", "urn:swissid:identity_id|Identity ID"],
+      "supportedIDTokenEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "A256KW", "RSA1_5", "dir", "A192KW" ],
+      "supportedIDTokenSigningAlgorithms" : [ "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512" ],
+      "oidcClaimsScript" : "OIDC_SwissID_Claims_Script",
+      "tokenEncryptionSigningKeyAlias" : [ "RSA1_5|test", "RSA-OAEP|test", "RSA-OAEP-256|test" ]
+    },
+    "advancedOIDCConfig" : {
+      "storeOpsTokens" : true,
+      "defaultACR" : "loa-1",
+      "supportedRequestParameterEncryptionEnc" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "claimsParameterSupported" : true,
+      "amrMappings" : {
+        "urn:swissid:otp.app.1fa": "Sesam-Push-Auth-1",
+        "urn:swissid:otp.app.2fa": "Sesam-Push-Auth-2",
+        "urn:swissid:frc.pwd": "Sesam-ConfirmPassword",
+        "urn:swissid:reg.pwd": "Sesam-UserReg",
+        "urn:swissid:reg.otp.sms": "Sesam-Onboard-Done",
+        "urn:swissid:reset.pwd": "Sesam-ForgotPassword-Done",
+        "urn:swissid:pwd.pwd": "Sesam-LDAP-Push",
+        "urn:swissid:otp.sms": "Sesam-HOTP",
+        "pin": "Sesam-MobileID",
+        "hwk": "Sesam-MobileID"
+      },
+      "requireRequestUriRegistration" : false,
+      "alwaysAddClaimsToToken" : true,
+      "supportedRequestParameterEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "RSA1_5", "A256KW", "dir", "A192KW" ],
+      "authorisedOpenIdConnectSSOClients" : [ ],
+      "idTokenInfoClientAuthenticationEnabled" : true,
+      "supportedRequestParameterSigningAlgorithms" : [ "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512" ],
+      "loaMapping" : {
+        "loa-1" : "Sesam-Push-Auth",
+        "loa-1.1" : "Sesam-UserReg",
+        "loa-1.2" : "Sesam-LDAP-ReAuth",
+        "loa-2" : "Sesam-Push-Auth-MFA",
+        "loa-2.1" : "Sesam-HOTP-StepUp",
+        "loa-2.2" : "Sesam-UserReg-Onboarding",
+        "loa-2.3" : "Sesam-HOTP-ReAuth",
+        "qoa1" : "Sesam-Push-Auth",
+        "qoa1.1" : "Sesam-UserReg",
+        "qoa1.2" : "Sesam-LDAP-ReAuth",
+        "qoa2" : "Sesam-Push-Auth-MFA",
+        "qoa2.1" : "Sesam-HOTP-StepUp",
+        "qoa2.2" : "Sesam-UserReg-Onboarding",
+        "qoa2.3" : "Sesam-HOTP-ReAuth"
+      },
+      "jkwsURI" : null
+    },
+    "clientDynamicRegistrationConfig" : {
+      "dynamicClientRegistrationSoftwareStatementRequired" : false,
+      "requiredSoftwareStatementAttestedAttributes" : [ "redirect_uris" ],
+      "generateRegistrationAccessTokens" : true,
+      "allowDynamicRegistration" : false
+    },
+    "consent" : {
+      "enableRemoteConsent" : false,
+      "supportedRcsRequestSigningAlgorithms" : [ "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512" ],
+      "supportedRcsResponseSigningAlgorithms" : [ "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512" ],
+      "clientsCanSkipConsent" : true,
+      "supportedRcsRequestEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "RSA1_5", "A256KW", "dir", "A192KW" ],
+      "supportedRcsResponseEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "supportedRcsRequestEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "remoteConsentServiceId" : null,
+      "savedConsentAttribute" : "oauth2SaveConsent",
+      "supportedRcsResponseEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "A256KW", "RSA1_5", "dir", "A192KW" ]
+    },
+    "deviceCodeConfig" : {
+      "devicePollInterval" : 5,
+      "completionUrl" : null,
+      "deviceCodeLifetime" : 300,
+      "verificationUrl" : null
+    },
+    "_type" : {
+      "_id" : "oauth-oidc",
+      "name" : "OAuth2 Provider",
+      "collection" : false
+    }
+  }
+}

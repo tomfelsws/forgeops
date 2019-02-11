@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ServicesConfiguration
+        PUBLIC "=//iPlanet//Service Management Services (SMS) 1.0 DTD//EN"
+        "jar://com/sun/identity/sm/sms.dtd">
+
+<ServicesConfiguration>
+    <Service name="iPlanetAMAuthSesamLDAPService" version="1.0">
+        <Schema
+                serviceHierarchy="/DSAMEConfig/authentication/iPlanetAMAuthSesamLDAPService"
+                i18nFileName="amAuthSesam" revisionNumber="10"
+                i18nKey="SesamLDAP" resourceName="sesamldap">
+            <Organization>
+                <!-- Specify resourceName for a JSON-friendly property in the REST SMS -->
+                <AttributeSchema name="iplanet-am-auth-sesamldap-auth-level" resourceName="authLevel"
+                                 type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                 i18nKey="a500">
+                    <DefaultValues>
+                        <Value>1</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+
+                <AttributeSchema
+                        name="iplanet-am-auth-sesamldap-reCaptcha"
+                        cosQualifier="default" type="single"
+                        syntax="boolean" i18nKey="a521" resourceName="reCaptcha">
+                    <BooleanValues>
+                        <BooleanTrueValue i18nKey="i18nTrue">true</BooleanTrueValue>
+                        <BooleanFalseValue i18nKey="i18nFalse">false</BooleanFalseValue>
+                    </BooleanValues>
+                    <DefaultValues>
+                        <Value>true</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+
+                <AttributeSchema name="iplanet-am-auth-sesamldap-reCaptchaSiteKey"
+                                 type="single"
+                                 syntax="string"
+                                 i18nKey="a522"
+                                 resourceName="reCaptchaSiteKey">
+                    <DefaultValues>
+                        <Value>{SWISSID_CAPTCHA_SITE_KEY}</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+
+                <AttributeSchema name="iplanet-am-auth-sesamldap-reCaptchaSharedKey"
+                                 type="single"
+                                 syntax="string"
+                                 i18nKey="a523"
+                                 resourceName="reCaptchaSharedKey">
+                    <DefaultValues>
+                        <Value>{SWISSID_CAPTCHA_SECRET_KEY}</Value>
+                    </DefaultValues>
+                </AttributeSchema>
+
+                <!--
+                 For Auth Modules, the parent Schema element specifies the REST SMS resourceName,
+                 and the nested SubSchema must have resourceName="USE-PARENT"
+                -->
+                <SubSchema name="serverconfig" inheritance="multiple" resourceName="USE-PARENT">
+                    <AttributeSchema name="iplanet-am-auth-sesamldap-auth-level" resourceName="authLevel"
+                                     type="single" syntax="number_range" rangeStart="0" rangeEnd="2147483647"
+                                     i18nKey="a500">
+                        <DefaultValues>
+                            <Value>1</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+
+                    <AttributeSchema
+                            name="iplanet-am-auth-sesamldap-reCaptcha"
+                            cosQualifier="default" type="single"
+                            syntax="boolean" i18nKey="a521" resourceName="reCaptcha">
+                        <BooleanValues>
+                            <BooleanTrueValue i18nKey="i18nTrue">true</BooleanTrueValue>
+                            <BooleanFalseValue i18nKey="i18nFalse">false</BooleanFalseValue>
+                        </BooleanValues>
+                        <DefaultValues>
+                            <Value>false</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+
+                    <AttributeSchema name="iplanet-am-auth-sesamldap-reCaptchaSiteKey"
+                                     type="single"
+                                     syntax="string"
+                                     i18nKey="a522"
+                                     resourceName="reCaptchaSiteKey">
+                        <DefaultValues>
+                            <Value>{SWISSID_CAPTCHA_SITE_KEY}</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+
+                    <AttributeSchema name="iplanet-am-auth-sesamldap-reCaptchaSharedKey"
+                                     type="single"
+                                     syntax="string"
+                                     i18nKey="a523"
+                                     resourceName="reCaptchaSharedKey">
+                        <DefaultValues>
+                            <Value>{SWISSID_CAPTCHA_SECRET_KEY}</Value>
+                        </DefaultValues>
+                    </AttributeSchema>
+
+                </SubSchema>
+            </Organization>
+        </Schema>
+    </Service>
+</ServicesConfiguration>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityConfig entityID="https://sp.ihe-europe.net/shibboleth" hosted="false" xmlns="urn:sun:fm:SAML:2.0:entityconfig">
+    <SPSSOConfig>
+        <Attribute name="cotlist">
+            <Value>cot</Value>
+        </Attribute>
+    </SPSSOConfig>
+</EntityConfig>
+

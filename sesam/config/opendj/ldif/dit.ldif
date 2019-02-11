@@ -1,0 +1,9 @@
+dn: ou=people,dc=swisssign,dc=com
+objectClass: top
+objectClass: organizationalunit
+ou: OpenAM Administrators
+
+dn: ou=groups,dc=swisssign,dc=com
+objectClass: top
+objectClass: organizationalunit
+ou: OpenAM Administrators

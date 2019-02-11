@@ -1,0 +1,14 @@
+dn: ou=user_identity_idl_1,dc=swisssign,dc=com
+ou: user_identity_idl_1
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=id_check_process,dc=swisssign,dc=com
+ou: id_check_process
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=photo_id_process,dc=swisssign,dc=com
+ou: photo_id_process
+objectClass: organizationalUnit
+objectClass: top

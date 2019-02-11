@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityDescriptor entityID="https://test3.suisseid-idp.signdemo.com/suisseid_v15" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+    <IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIF2DCCBMCgAwIBAgIUUETMcfxlPugQGT72XjwXdkQDgBowDQYJKoZIhvcNAQEL
+BQAwVDELMAkGA1UEBhMCQ0gxFTATBgNVBAoTDFN3aXNzU2lnbiBBRzEuMCwGA1UE
+AxMlU3dpc3NTaWduIFBlcnNvbmFsIEdvbGQgQ0EgMjAxNCAtIEcyMjAeFw0xNjEy
+MTIxMDMxMjZaFw0yMTEyMTIxMDMxMjZaMHQxCzAJBgNVBAYTAkNIMRUwEwYDVQQK
+EwxTd2lzc1NpZ24gQUcxETAPBgNVBAsTCFN1aXNzZUlEMTswOQYDVQQDEzJwc2V1
+ZG86IFN3aXNzU2lnbiBTdWlzc2VJRCBBc3NlcnRpb24gU2lnbmVyIChTVEFHKTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOJsKh4wWR6Pb/mvzvyqGOd0
+vUgSWkwxUC7Y0l1oP2h4mASeRJ96QsFe2Y2pntms+qeMAG4m2RsQ7d80ZQfMEgVX
+6llB/O9FZTRoCpeT4gGtz2QkA1thCuM/pFguH7IK+2vYkAIC99wFAWTxfwkqiL48
+EH93DUSJHyOdorRhaZEofB17GjS9L2Cu1t6bhp1yLdf8hMPFlhGIRSpAnSWaR0hY
+zeA8+JJC3KEHkbaymIAjUDx479Btw4Cu4oHGWyB1YDJP6YwgQ0PDZmlC4tpM1mPB
+Wy01LpzqjF4PYjyGNhOtCGzbg9Ag2xBP5OlkocPhdB/dDVoRWXnHpTI14rGpsNMC
+AwEAAaOCAoAwggJ8MA4GA1UdDwEB/wQEAwIHgDAdBgNVHQ4EFgQU2jFBWwMEWkXj
+5P0vw3pplXaNkzUwHwYDVR0jBBgwFoAU2jL5SfhRzJhxZgzZzrbbkj8JS+8wgf8G
+A1UdHwSB9zCB9DBHoEWgQ4ZBaHR0cDovL2NybC5zd2lzc3NpZ24ubmV0L0RBMzJG
+OTQ5Rjg1MUNDOTg3MTY2MENEOUNFQjZEQjkyM0YwOTRCRUYwgaiggaWggaKGgZ9s
+ZGFwOi8vZGlyZWN0b3J5LnN3aXNzc2lnbi5uZXQvQ049REEzMkY5NDlGODUxQ0M5
+ODcxNjYwQ0Q5Q0VCNkRCOTIzRjA5NEJFRiUyQ089U3dpc3NTaWduJTJDQz1DSD9j
+ZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0P2Jhc2U/b2JqZWN0Q2xhc3M9Y1JMRGlz
+dHJpYnV0aW9uUG9pbnQwXwYDVR0gBFgwVjBUBglghXQBWQECAQYwRzBFBggrBgEF
+BQcCARY5aHR0cDovL3JlcG9zaXRvcnkuc3dpc3NzaWduLmNvbS9Td2lzc1NpZ24t
+R29sZC1DUC1DUFMucGRmMIHGBggrBgEFBQcBAQSBuTCBtjBkBggrBgEFBQcwAoZY
+aHR0cDovL3N3aXNzc2lnbi5uZXQvY2dpLWJpbi9hdXRob3JpdHkvZG93bmxvYWQv
+REEzMkY5NDlGODUxQ0M5ODcxNjYwQ0Q5Q0VCNkRCOTIzRjA5NEJFRjBOBggrBgEF
+BQcwAYZCaHR0cDovL29jc3Auc3dpc3NzaWduLm5ldC9EQTMyRjk0OUY4NTFDQzk4
+NzE2NjBDRDlDRUI2REI5MjNGMDk0QkVGMA0GCSqGSIb3DQEBCwUAA4IBAQA80ksY
+7gE0Twc823Q/Ek2IhXmpd7YQdQSqbmA4r8/5K1++1V97v+UHCZHIZljDYMlzmr7R
+E3i3/1zaEjImHhiL+P6/vtXAu13RRKQpsz7MFiDH9pnjxRfKUYV5MiUgNUrS+c+m
+7LW+NhHx+J56EVibsy4C3Gqh3Qaz+oh6urXJ3KjYqZVFywwjwI7TWwNafVKoLVCy
+ydHX7NLep7t/N225PfczjMxuzNRD0m4YV5/AKNHgIMroqtypm094TNZsqaTAf/o+
+KMEt9J05uQN2jCJQoKlhpR/72MS+6FSXX6QCtua9fx8PzghfB8/VjlAC560/R8Cq
+7Q1nQan4RCTu4We4
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIGBjCCBO6gAwIBAgIQAOsVRLSWNHWhfcYJ4pPpNDANBgkqhkiG9w0BAQUFADBT
+MQswCQYDVQQGEwJDSDEVMBMGA1UEChMMU3dpc3NTaWduIEFHMS0wKwYDVQQDEyRT
+d2lzc1NpZ24gUGVyc29uYWwgR29sZCBDQSAyMDA4IC0gRzIwHhcNMTIwMzEzMDgx
+MzI2WhcNMTcwMzEzMDgxMzI2WjBrMQswCQYDVQQGEwJDSDEUMBIGA1UEChMLU2ln
+bmRlbW8gQUcxETAPBgNVBAsTCFN1aXNzZUlEMTMwMQYDVQQDEypwc2V1ZG86IFNp
+Z25kZW1vIFN1aXNzZUlEIEFzc2VydGlvbiBTaWduZXIwggEiMA0GCSqGSIb3DQEB
+AQUAA4IBDwAwggEKAoIBAQCh6394t3ScEcQ/Jiu4VQxuGoKZybl/FEA9Eg5PjgKQ
+CxIuSDQzUoWgiP+UXZ/qZ/o8Y5zDoee+EBrQq/nbuKpAOeq7DkfEV4U+aph67v0y
++E7/ZH2JLdZ8SeNSCP2HimBKKT5+0XkAvQu2qafeTCv4GKkCquO9Eh0m4U35naRD
+wtnKyD0037bj6BYXUtF/qcBWJeHYc04e/+QlNfm46uKJthw51DHC15b63EUXik91
+uwO0Mq4DNXzogIltDFd530Cgl0J8FSVw+kZTWcjwzH8DYNfJlikPAyyB+OSqaIwb
+t5A9JCs8MkUQDxWv7pwEwOt6sqHiYle0KdLpcjCkxyUnAgMBAAGjggK8MIICuDAf
+BgNVHSMEGDAWgBQdBJOn8tXUHje+uqGuWCNy3iSVNjAdBgNVHQ4EFgQU+SjzrFSi
+D5IZ7FLILN+/zsquAvgwDgYDVR0PAQH/BAQDAgeAMIIBEAYDVR0fBIIBBzCCAQMw
+TKBKoEiGRmh0dHA6Ly9jcmwuc3dpc3Muc2lnbmRlbW8uY29tLzFEMDQ5M0E3RjJE
+NUQ0MUUzN0JFQkFBMUFFNTgyMzcyREUyNDk1MzYwgbKgga+ggayGgalsZGFwOi8v
+ZGlyZWN0b3J5LnN3aXNzLnNpZ25kZW1vLmNvbS9DTj0xRDA0OTNBN0YyRDVENDFF
+MzdCRUJBQTFBRTU4MjM3MkRFMjQ5NTM2JTJDTz1Td2lzc1NpZ24lMjBBRyUyQ0M9
+Q0g/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdD9iYXNlP29iamVjdENsYXNzPWNS
+TERpc3RyaWJ1dGlvblBvaW50MIHhBggrBgEFBQcBAQSB1DCB0TBkBggrBgEFBQcw
+AYZYaHR0cDovL2dvbGQtcGVyc29uYWwtZzIub2NzcC5zd2lzcy5zaWduZGVtby5j
+b20vMUQwNDkzQTdGMkQ1RDQxRTM3QkVCQUExQUU1ODIzNzJERTI0OTUzNjBpBggr
+BgEFBQcwAoZdaHR0cDovL3N3aXNzLnNpZ25kZW1vLmNvbS9jZ2ktYmluL2F1dGhv
+cml0eS9kb3dubG9hZC8xRDA0OTNBN0YyRDVENDFFMzdCRUJBQTFBRTU4MjM3MkRF
+MjQ5NTM2MG4GA1UdIARnMGUwVwYJYIV0AVkBAgEFMEowSAYIKwYBBQUHAgEWPGh0
+dHA6Ly9yZXBvc2l0b3J5LnN3aXNzc2lnbi5jb20vU3dpc3NTaWduLUdvbGQtQ1At
+Q1BTLVI1LnBkZjAKBghghXQFGgEBBDANBgkqhkiG9w0BAQUFAAOCAQEAPz8/F1zx
+qIEq7sLPnnergbFwwnRNu4Y2094SCv3XN3kAB2b/7/z3Y7wPVAaq3aAa9pAv88w1
+JynMl3AVFmcibIpNkJIUtA2PqwldZ084AhBbYj8oDaPZshsjQC7lEuZQk36FNQvl
+DNI7U+X0XYNeIiu9QVRzU5DGpZWxXb0Fjn17JBxTYSyQde2MWy4NhRkjJVltI48T
+cg077Tn9gsv40yl3OepuOsixWdD2PcRltyM9ZYvNA3hcHvdE/0FERj7ZPaGBEywJ
+xqs43CTbrhU/Oymn+JY9ZUnVNYIyyNGPVTQsnnfPFyH8V3eJQFYRNSPi1odDomZL
+Kt8Y1o2GMPyUVQ==
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <ArtifactResolutionService index="0" isDefault="true" Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/ArtifactResolver/metaAlias/suisseid3/idp_v15"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPSloPOST/metaAlias/suisseid3/idp_v15" ResponseLocation="https://test3.suisseid-idp.signdemo.com/suisseid/IDPSloPOST/metaAlias/suisseid3/idp_v15"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPSloRedirect/metaAlias/suisseid3/idp_v15" ResponseLocation="https://test3.suisseid-idp.signdemo.com/suisseid/IDPSloRedirect/metaAlias/suisseid3/idp_v15"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPSloSoap/metaAlias/suisseid3/idp_v15"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPMniPOST/metaAlias/suisseid3/idp_v15" ResponseLocation="https://test3.suisseid-idp.signdemo.com/suisseid/IDPMniPOST/metaAlias/suisseid3/idp_v15"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPMniRedirect/metaAlias/suisseid3/idp_v15" ResponseLocation="https://test3.suisseid-idp.signdemo.com/suisseid/IDPMniRedirect/metaAlias/suisseid3/idp_v15"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/IDPMniSoap/metaAlias/suisseid3/idp_v15"/>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</NameIDFormat>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://test3.suisseid-idp.signdemo.com/suisseid/SSORedirect/metaAlias/suisseid3/idp_v15"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://test3.suisseid-idp.signdemo.com/suisseid/SSOPOST/metaAlias/suisseid3/idp_v15"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/SSOSoap/metaAlias/suisseid3/idp_v15"/>
+        <NameIDMappingService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/NIMSoap/metaAlias/suisseid3/idp_v15"/>
+    </IDPSSODescriptor>
+    <AttributeAuthorityDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIF2DCCBMCgAwIBAgIUUETMcfxlPugQGT72XjwXdkQDgBowDQYJKoZIhvcNAQEL
+BQAwVDELMAkGA1UEBhMCQ0gxFTATBgNVBAoTDFN3aXNzU2lnbiBBRzEuMCwGA1UE
+AxMlU3dpc3NTaWduIFBlcnNvbmFsIEdvbGQgQ0EgMjAxNCAtIEcyMjAeFw0xNjEy
+MTIxMDMxMjZaFw0yMTEyMTIxMDMxMjZaMHQxCzAJBgNVBAYTAkNIMRUwEwYDVQQK
+EwxTd2lzc1NpZ24gQUcxETAPBgNVBAsTCFN1aXNzZUlEMTswOQYDVQQDEzJwc2V1
+ZG86IFN3aXNzU2lnbiBTdWlzc2VJRCBBc3NlcnRpb24gU2lnbmVyIChTVEFHKTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOJsKh4wWR6Pb/mvzvyqGOd0
+vUgSWkwxUC7Y0l1oP2h4mASeRJ96QsFe2Y2pntms+qeMAG4m2RsQ7d80ZQfMEgVX
+6llB/O9FZTRoCpeT4gGtz2QkA1thCuM/pFguH7IK+2vYkAIC99wFAWTxfwkqiL48
+EH93DUSJHyOdorRhaZEofB17GjS9L2Cu1t6bhp1yLdf8hMPFlhGIRSpAnSWaR0hY
+zeA8+JJC3KEHkbaymIAjUDx479Btw4Cu4oHGWyB1YDJP6YwgQ0PDZmlC4tpM1mPB
+Wy01LpzqjF4PYjyGNhOtCGzbg9Ag2xBP5OlkocPhdB/dDVoRWXnHpTI14rGpsNMC
+AwEAAaOCAoAwggJ8MA4GA1UdDwEB/wQEAwIHgDAdBgNVHQ4EFgQU2jFBWwMEWkXj
+5P0vw3pplXaNkzUwHwYDVR0jBBgwFoAU2jL5SfhRzJhxZgzZzrbbkj8JS+8wgf8G
+A1UdHwSB9zCB9DBHoEWgQ4ZBaHR0cDovL2NybC5zd2lzc3NpZ24ubmV0L0RBMzJG
+OTQ5Rjg1MUNDOTg3MTY2MENEOUNFQjZEQjkyM0YwOTRCRUYwgaiggaWggaKGgZ9s
+ZGFwOi8vZGlyZWN0b3J5LnN3aXNzc2lnbi5uZXQvQ049REEzMkY5NDlGODUxQ0M5
+ODcxNjYwQ0Q5Q0VCNkRCOTIzRjA5NEJFRiUyQ089U3dpc3NTaWduJTJDQz1DSD9j
+ZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0P2Jhc2U/b2JqZWN0Q2xhc3M9Y1JMRGlz
+dHJpYnV0aW9uUG9pbnQwXwYDVR0gBFgwVjBUBglghXQBWQECAQYwRzBFBggrBgEF
+BQcCARY5aHR0cDovL3JlcG9zaXRvcnkuc3dpc3NzaWduLmNvbS9Td2lzc1NpZ24t
+R29sZC1DUC1DUFMucGRmMIHGBggrBgEFBQcBAQSBuTCBtjBkBggrBgEFBQcwAoZY
+aHR0cDovL3N3aXNzc2lnbi5uZXQvY2dpLWJpbi9hdXRob3JpdHkvZG93bmxvYWQv
+REEzMkY5NDlGODUxQ0M5ODcxNjYwQ0Q5Q0VCNkRCOTIzRjA5NEJFRjBOBggrBgEF
+BQcwAYZCaHR0cDovL29jc3Auc3dpc3NzaWduLm5ldC9EQTMyRjk0OUY4NTFDQzk4
+NzE2NjBDRDlDRUI2REI5MjNGMDk0QkVGMA0GCSqGSIb3DQEBCwUAA4IBAQA80ksY
+7gE0Twc823Q/Ek2IhXmpd7YQdQSqbmA4r8/5K1++1V97v+UHCZHIZljDYMlzmr7R
+E3i3/1zaEjImHhiL+P6/vtXAu13RRKQpsz7MFiDH9pnjxRfKUYV5MiUgNUrS+c+m
+7LW+NhHx+J56EVibsy4C3Gqh3Qaz+oh6urXJ3KjYqZVFywwjwI7TWwNafVKoLVCy
+ydHX7NLep7t/N225PfczjMxuzNRD0m4YV5/AKNHgIMroqtypm094TNZsqaTAf/o+
+KMEt9J05uQN2jCJQoKlhpR/72MS+6FSXX6QCtua9fx8PzghfB8/VjlAC560/R8Cq
+7Q1nQan4RCTu4We4
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://test3.suisseid-idp.signdemo.com/suisseid/AttributeServicePost/post/metaAlias/suisseid3/attra_v15"/>
+        <AssertionIDRequestService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://test3.suisseid-idp.signdemo.com/suisseid/AttributeServicePost/post/metaAlias/suisseid3/attra_v15"/>
+        <AssertionIDRequestService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI" Location="https://test3.suisseid-idp.signdemo.com/suisseid/AttributeServicePost/post/metaAlias/suisseid3/attra_v15"/>
+        <AttributeProfile>urn:oasis:names:tc:SAML:2.0:profiles:attribute:basic</AttributeProfile>
+    </AttributeAuthorityDescriptor>
+    <Organization>
+        <OrganizationName xml:lang="de">Die Schweizerische Post / SwissSign</OrganizationName>
+        <OrganizationName xml:lang="it">La Posta swizzera / SwissSign</OrganizationName>
+        <OrganizationName xml:lang="fr">La Poste suisse / SwissSign</OrganizationName>
+        <OrganizationName xml:lang="en">Swiss Post / SwissSign</OrganizationName>
+        <OrganizationDisplayName xml:lang="de">Swiss Post SuisseID IDP</OrganizationDisplayName>
+        <OrganizationDisplayName xml:lang="it">Swiss Post SuisseID IDP</OrganizationDisplayName>
+        <OrganizationDisplayName xml:lang="fr">Swiss Post SuisseID IDP</OrganizationDisplayName>
+        <OrganizationDisplayName xml:lang="en">Swiss Post SuisseID IDP</OrganizationDisplayName>
+        <OrganizationURL xml:lang="de">http://idp.swisssign.net</OrganizationURL>
+        <OrganizationURL xml:lang="it">http://idp.swisssign.net</OrganizationURL>
+        <OrganizationURL xml:lang="fr">http://idp.swisssign.net</OrganizationURL>
+        <OrganizationURL xml:lang="en">http://idp.swisssign.net</OrganizationURL>
+    </Organization>
+    <ContactPerson contactType="technical">
+        <Company>SwissSign AG</Company>
+        <EmailAddress>helpdesk@swisssign.com</EmailAddress>
+    </ContactPerson>
+</EntityDescriptor>

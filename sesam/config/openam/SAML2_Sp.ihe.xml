@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityDescriptor ID="_0e2e068f2f5d1bc32deb8be9e98e857e0ab16916" entityID="https://sp.ihe-europe.net/shibboleth" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+    <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <KeyDescriptor>
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:KeyName>sp</ds:KeyName>
+                <ds:X509Data>
+                    <ds:X509SubjectName>CN=sp</ds:X509SubjectName>
+                    <ds:X509Certificate>
+MIIDzTCCAjWgAwIBAgIJAKCo5ApriflMMA0GCSqGSIb3DQEBCwUAMA0xCzAJBgNVBAMTAnNwMB4X
+DTE4MDQwMzE1MDEzNFoXDTI4MDMzMTE1MDEzNFowDTELMAkGA1UEAxMCc3AwggGiMA0GCSqGSIb3
+DQEBAQUAA4IBjwAwggGKAoIBgQDIj6nJoN2WOxOfSUycPpTV8x3KopCF5sGyLyrtUnj6NGvmdR/W
+ex7ng/n/okYUxoWC+R8AsA7ALMokerdWmhKzKR+4Aiz/GKCK3Q11trTi9y6fruuki1I2p+MXLDCX
+uavlJm1tBVbfhO+0QUGMNw9CRd6hbIsJo7O6k5ocKkSLt90A3/RJEiRqaOOeJlmqy5XI9sYyPKkw
+7lcsIWhuM++mNjM2gY0XGEWFyeGAti7Z0A8spG4W6OFSaOzTnLqchwrW4PFdEssVbtDfIGcU8I+I
+125AzgJlSZPr1UjskhHHqqGHeYjayOzd61Jk7v1Px0h27ix9Bi4RUN6GCD543HJr2tQljqZJkB+R
+ulG8cwAsUujIvcGSPYnv4FDuIqFDio4ibVRxGEuC3qdXzgdJE9pvDEfO+YGYxoCaZSuK+82Va8XX
+C+3up18LKmgfFqz3OvTH3cQflQEC9BKBIB+bF15qJFYPD9dtc4AKNh/KQtk39QfZhHCPL8tY5ZDa
+2XHtYqkCAwEAAaMwMC4wDQYDVR0RBAYwBIICc3AwHQYDVR0OBBYEFP2xyPu8GhQnqPtIyEh7fXnn
+WyAHMA0GCSqGSIb3DQEBCwUAA4IBgQCc9QvNJ5kAQUN3isdO4jyfGpPn16xufguIr1H8Zrh/51tJ
+yysLjO6FU9PGv4ENpylr/fnwq3Hve7QHDI3Ni9U5OuIetN0P1aM888454qGISqJ0/V7dI3ydk5b2
+A0Q41A785YHAGA0QAkNHEy/U9nWQU0Tb81rhrcetO+pHGq7pXOhvkWSXYPJn17W29IrjuMFmIJn2
+YPJPbnVOP5OQ2CjIKSoM99SHLmj3+Q7KuVbu9boPjct083xPkZGvHRDVJ/BcSymKQ/Is8JFQg6wE
+DAzglYLB2FkXEyeNEvFTVqk0QxbiZM3rf+Qyua+HcxkA+YNowAquYgvkfKaHBw+ETFB4EAYEQOy+
+tb29oG35euJ38H8jBlXg6COTVru/o5i7SG1QY8WZMqGmCZqWfU02II8JMsvXBXpkhsVHVgodKVak
+FdgUCxvDeUR9hucEtX1l7o16MIKxP0iqQ1eu6pk3mcir6Pnz++eRRMXT1gInopjLE9Mt8E/zywP+
+AhlGO8kqSSI=
+                    </ds:X509Certificate>
+                </ds:X509Data>
+      </ds:KeyInfo>
+            <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes128-gcm"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes192-gcm"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes192-cbc"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#rsa-oaep"/>
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+        </KeyDescriptor>
+        <ArtifactResolutionService index="1" Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://sp.ihe-europe.net/Shibboleth.sso/Artifact/SOAP"/>
+        <AssertionConsumerService index="1" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://sp.ihe-europe.net/Shibboleth.sso/SAML2/POST"/>
+        <AssertionConsumerService index="2" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://sp.ihe-europe.net/Shibboleth.sso/SAML2/POST-SimpleSign"/>
+        <AssertionConsumerService index="3" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://sp.ihe-europe.net/Shibboleth.sso/SAML2/Artifact"/>
+        <AssertionConsumerService index="4" Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://sp.ihe-europe.net/Shibboleth.sso/SAML2/ECP"/>
+    </SPSSODescriptor>
+</EntityDescriptor>
+

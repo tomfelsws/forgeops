@@ -1,0 +1,10 @@
+# SESAM OAuth2 agent / RP
+create-agent --realm %REALM_NAME% --agentname sesam --agenttype OAuth2Client --datafile %CONFIG_GENERATED_DIR%/Agent_OAuth2Client.sesam.properties
+create-agent --realm %REALM_NAME% --agentname am-social --agenttype OAuth2Client --datafile %CONFIG_GENERATED_DIR%/Agent_OAuth2Client.am-social.properties
+create-agent --realm %REALM_NAME% --agentname swissid-app --agenttype OAuth2Client --datafile %CONFIG_GENERATED_DIR%/Agent_OAuth2Client.swissid-app.properties
+
+# SESAM web agent
+create-agent --realm %REALM_NAME% --agentname %WEB_AGENT_NAME% --agenttype WebAgent --datafile %CONFIG_GENERATED_DIR%/Agent_Web.AccountSesam.properties
+
+# SUPPORT web agent
+create-agent --realm %REALM_NAME_SUPPORT% --agentname %WEB_AGENT_NAME_SUPPORT% --agenttype WebAgent --datafile %CONFIG_GENERATED_DIR%/Agent_Web.SupportSesam.properties

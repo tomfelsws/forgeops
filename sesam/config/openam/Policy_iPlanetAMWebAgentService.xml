@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:PolicySet PolicySetId="SESAM:2017.01.18.15.07.37.630" Version="2017.01.18.15.07.37.630" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides" xmlns:xacml3="classpath:xsd/xacml-core-v3-schema-wd-17.xsd" xmlns:ns2="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17">
+    <ns2:Target/>
+    <ns2:Policy PolicyId="2FA_ENFORCEMENT" Version="2017.01.18.13.13.26.206" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides">
+        <ns2:Description></ns2:Description>
+        <ns2:Target>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:json-subject-match">
+                        <ns2:AttributeValue DataType="urn:sun:opensso:entitlement:json-subject-type:org.forgerock.openam.entitlement.conditions.subject.AuthenticatedUsers">{}</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:sun:opensso:entitlement:json-subject" DataType="urn:sun:opensso:entitlement:json-subject-type:org.forgerock.openam.entitlement.conditions.subject.AuthenticatedUsers" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:resource-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">{EXTERNAL_APP_URL}/*</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:resource-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">{EXTERNAL_APP_URL}/*?*</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:application-match">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">iPlanetAMWebAgentService</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:sun:opensso:application-category" AttributeId="urn:sun:opensso:application-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+            <ns2:AnyOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DELETE</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+                <ns2:AllOf>
+                    <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                        <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PUT</ns2:AttributeValue>
+                        <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </ns2:Match>
+                </ns2:AllOf>
+            </ns2:AnyOf>
+        </ns2:Target>
+        <ns2:VariableDefinition VariableId="sun.opensso.entitlement.applicationName">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">iPlanetAMWebAgentService</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.createdBy">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">id=amadmin,ou=user,dc=swisssign,dc=com</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.lastModifiedBy">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">id=amadmin,ou=user,dc=swisssign,dc=com</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.creationDate">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#dateTime">2017-01-18T13:07:29.173</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:VariableDefinition VariableId="sun.opensso.privilege.lastModifiedDate">
+            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#dateTime">2017-01-18T13:13:26.206</ns2:AttributeValue>
+        </ns2:VariableDefinition>
+        <ns2:Rule RuleId="null:permit-rule" Effect="Permit">
+            <ns2:Description>Permit Rule</ns2:Description>
+            <ns2:Target>
+                <ns2:AnyOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DELETE</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                    <ns2:AllOf>
+                        <ns2:Match MatchId="urn:sun:opensso:entitlement:action-match:application:iPlanetAMWebAgentService">
+                            <ns2:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PUT</ns2:AttributeValue>
+                            <ns2:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </ns2:Match>
+                    </ns2:AllOf>
+                </ns2:AnyOf>
+            </ns2:Target>
+            <ns2:Condition>
+                <ns2:Apply FunctionId="urn:sun:opensso:entitlement:json-subject-and-condiiton-satisfied">
+                    <ns2:AttributeValue DataType="urn:sun:opensso:entitlement:json-subject-type:org.forgerock.openam.entitlement.conditions.subject.AuthenticatedUsers" privilegeComponent="entitlementSubject">{}</ns2:AttributeValue>
+                    <ns2:AttributeValue DataType="urn:sun:opensso:entitlement:json-condition-type:org.forgerock.openam.entitlement.conditions.environment.ScriptCondition" privilegeComponent="entitlementCondition">{ "scriptId": "Policy_Condition_Phonenumber_Script" }</ns2:AttributeValue>
+                </ns2:Apply>
+            </ns2:Condition>
+        </ns2:Rule>
+    </ns2:Policy>
+</ns2:PolicySet>

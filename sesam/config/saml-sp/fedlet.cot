@@ -1,0 +1,5 @@
+sun-fm-saml2-writerservice-url=
+sun-fm-cot-status=Active
+cot-name=cot
+sun-fm-trusted-providers=saml2.idp.swissid,saml2.sp.fedlet
+sun-fm-saml2-readerservice-url=

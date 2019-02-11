@@ -1,0 +1,10 @@
+# ForgeRock-OATH Auth Chain
+create-auth-instance --realm %REALM_NAME% --name ForgeRock-OATH --authtype AuthenticatorOATH
+update-auth-instance --realm %REALM_NAME% --name ForgeRock-OATH --datafile %CONFIG_GENERATED_DIR%/Auth_ForgeRock-OATH.properties
+create-auth-cfg --realm %REALM_NAME% --name ForgeRock-OATH
+add-auth-cfg-entr --realm %REALM_NAME% --name ForgeRock-OATH --modulename LDAP --criteria REQUIRED
+add-auth-cfg-entr --realm %REALM_NAME% --name ForgeRock-OATH --modulename ForgeRock-OATH --criteria REQUIRED
+
+# Update LDAP Module
+update-auth-instance --realm %REALM_NAME% --name LDAP --datafile %CONFIG_GENERATED_DIR%/Auth_LDAP.properties
+update-auth-instance --realm %REALM_NAME_SUPPORT% --name LDAP --datafile %CONFIG_GENERATED_DIR%/Auth_LDAP.properties

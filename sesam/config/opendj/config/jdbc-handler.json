@@ -1,0 +1,41 @@
+{
+  "class": "org.forgerock.audit.handlers.jdbc.JdbcAuditEventHandler",
+  "config": {
+    "name": "JDBC Audit log",
+    "topics": [
+      "ldap-access"
+    ],
+    "databaseType": "derby",
+    "enabled": true,
+    "buffering": {
+      "enabled": false,
+      "writeInterval": 1,
+      "autoFlush": true,
+      "maxBatchedEvents": 100,
+      "maxSize": 5000,
+      "writerThreads": 1
+    },
+    "connectionPool": {
+      "jdbcUrl": "jdbc:derby://localhost:1527/MyDbTest",
+      "autoCommit": true,
+      "connectionTimeout": 30000,
+      "idleTimeout": 600000,
+      "maxLifetime": 1800000,
+      "minIdle": 10,
+      "maxPoolSize": 10,
+      "poolName": "Name of the connection pool"
+    },
+    "tableMappings": [
+      {
+        "event": "ldap-access",
+        "table": "USERS",
+        "fieldToColumn": {
+          "userId": "UID",
+          "eventName": "STATUS",
+          "timestamp": "deletedOnRFC3339",
+          "ldap": "LDAP"
+        }
+      }
+    ]
+  }
+}
