@@ -1,5 +1,0 @@
-dn: cn=OpenAM Administrators,ou=groups,dc=swisssign,dc=com
-changetype: add
-objectClass: groupofuniquenames
-objectClass: top
-cn: OpenAM Administrators

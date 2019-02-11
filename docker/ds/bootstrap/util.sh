@@ -209,14 +209,24 @@ EOF
           --offline \
           --no-prompt
 
-    # still required for AM 6.5 ???
+    # SwissID userStoreApplyAci(): still required for AM 6.5 userstore ???
+    # This is included in the new DS 6.5 setup profiles for configstore and CTS but not for user/identitystore ... so not required ???
+    #echo "Applying ACIs..."
+    #./bin/dsconfig set-access-control-handler-prop \
+    #      --add 'global-aci:(target="ldap://cn=schema")(targetattr="attributeTypes||objectClasses")(version 3.0; acl "Modify schema"; allow (write) userdn="ldap://uid=openam,ou=admins,$baseDN";)' \
+    #      --offline \
+    #      --no-prompt
+
+
+    # SwissID userStoreUpdatePasswordPolicy(): still required for AM 6.5 ???
     echo "Setting default password policy..."
     ./bin/dsconfig set-password-policy-prop \
-          --policy-name "Default Password Policy" --set "default-password-storage-scheme:Salted SHA-256" \
+          --policy-name "Default Password Policy" \
+          --set "default-password-storage-scheme:Salted SHA-256" \
           --offline \
           --no-prompt
 
-    # still required for AM 6.5 ???
+    # SwissID userStoreApplyUniqueness(): still required for AM 6.5 ???
     echo "Enabling UID unique attribute..."
     ./bin/dsconfig set-plugin-prop \
           --plugin-name "UID Unique Attribute" \
@@ -232,7 +242,6 @@ EOF
     #       --set enabled:true \
     #       --offline \
     #       --no-prompt
-
 }
 
 create_backend() {
@@ -257,7 +266,7 @@ create_backend() {
 }
 
 post_config() {
-    # still required for AM 6.5 ???
+    # SwissID userStoreApplyUniqueness(): still required for AM 6.5 ???
     # moved here because of the following error if done before start-ds in offline mode
     # msg=An error occurred while attempting to initialize an instance of class org.opends.server.plugins.UniqueAttributePlugin as a Directory Server plugin using the information in configuration entry cn=Email Unique Attribute,cn=Plugins,cn=config: ConfigException: The unique attribute plugin defined in configuration entry cn=Email Unique Attribute,cn=Plugins,cn=config is configured to operate on attribute mail but there is no equality index defined for this attribute in backend amIdentityStore (UniqueAttributePlugin.java:126 UniqueAttributePlugin.java:88 PluginConfigManager.java:356 PluginConfigManager.java:317 DirectoryServer.java:1361 DirectoryServer.java:4015). This plugin will be disabled
 

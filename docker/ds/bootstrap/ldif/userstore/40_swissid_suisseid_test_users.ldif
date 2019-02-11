@@ -10,11 +10,10 @@ identityGender : 1
 identityNationality : CHE
 identityPlaceOfBirth : Uster
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-8015-4082-3416
 identityIdentificationNumber : 123
 identityIdentificationNumberFull : 12345
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -37,7 +36,7 @@ identityNationality : CHE
 identityIdentificationNumber : 124
 identityIdentificationNumberFull : 12346
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -62,11 +61,10 @@ identityGender : 2
 identityNationality : CHE
 identityPlaceOfBirth : Versoix
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-9534-4082-4201
 identityIdentificationNumber : 130
 identityIdentificationNumberFull : 13045
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -88,11 +86,10 @@ identityGender : 2
 identityNationality : CHE
 identityPlaceOfBirth : Versoix
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-9534-4082-4201
 identityIdentificationNumber : 131
 identityIdentificationNumberFull : 13145
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -114,11 +111,10 @@ identityGender : 2
 identityNationality : CHE
 identityPlaceOfBirth : Versoix
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-9534-4082-4202
 identityIdentificationNumber : 132
 identityIdentificationNumberFull : 13245
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -140,11 +136,10 @@ identityGender : 2
 identityNationality : CHE
 identityPlaceOfBirth : Versoix
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-9534-4082-4203
 identityIdentificationNumber : 133
 identityIdentificationNumberFull : 13345
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -166,11 +161,10 @@ identityGender : 2
 identityNationality : CHE
 identityPlaceOfBirth : Versoix
 identityDateOfBirthFull : 19800116000000.000Z
-identitySuisseIdNo : 1300-9534-4082-4204
 identityIdentificationNumber : 134
 identityIdentificationNumberFull : 13445
 identityIdentificationKind : 0
-identityQualityOfRegistration : 3
+identityQualityOfRegistration : 2
 identityIssuingCountry : CHE
 identityIssuingOffice : Zürich ZH
 identityIdentificationIssuedOn : 20090813145607.0Z
@@ -179,5 +173,3 @@ identityCheckDateTime : 20090813145607.0Z
 identityProcessId : 1
 identityStatus: CURRENT
 identityAccountId : test-b242e422-9ce9-99d5-12ec-int-verifiedid
-
-

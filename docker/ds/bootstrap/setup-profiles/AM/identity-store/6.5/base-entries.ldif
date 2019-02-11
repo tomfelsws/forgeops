@@ -36,6 +36,8 @@ objectClass: top
 objectClass: organizationalunit
 ou: admins
 
+# SwissID has different uid=openam instead of uid=am-identity-bind-account
+#dn: uid=openam,ou=admins,dc=swisssign,dc=com
 dn: uid=am-identity-bind-account,ou=admins,&{AM_IDENTITY_STORE_BASE_DN}
 objectClass: top
 objectClass: person
@@ -47,3 +49,6 @@ uid: am-identity-bind-account
 userPassword: &{AM_IDENTITY_STORE_ADMIN_PASSWORD}
 ds-privilege-name: password-reset
 ds-privilege-name: proxied-auth
+# SwissID has additional privileges
+ds-privilege-name: update-schema
+ds-privilege-name: subentry-write

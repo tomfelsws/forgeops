@@ -11,3 +11,10 @@ objectClass: organizationalUnit
 objectClass: top
 aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=support,ou=admins,@BASE_DN@");)
 aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=idcheck,ou=admins,@BASE_DN@");)
+
+dn: ou=photo_id_process,@BASE_DN@
+ou: photo_id_process
+objectClass: organizationalUnit
+objectClass: top
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=support,ou=admins,@BASE_DN@");)
+aci: (version 3.0; acl "Add or delete identities"; allow (add, delete)(userdn = "ldap:///uid=idcheck,ou=admins,@BASE_DN@");)

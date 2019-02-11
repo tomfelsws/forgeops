@@ -24,6 +24,7 @@ uid: 46eecb24-1311-49d9-a985-4deb9c98ee34
 cn: Hans Meier
 sn: Meier
 givenName: Hans
+suisseIdNo : 1300-8015-4082-3416
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765204554@sms.post.ch
 inetUserStatus: Active
@@ -65,6 +66,114 @@ inetUserStatus: Active
 uid: test@example.com
 mail: test@example.com
 sesamGender: 1
+preferredLocale: de_CH
+preferredTimeZone: GMT+01:00
+userPassword: changeit
+accountRecoveryCode: {SSHA-256}SFfN7kvQEUtRbZrCF+9g8aQkRG22G/YIhcFMYeIiIKzBJ9JYWPmgzJyL/wYnRPHk
+accountRecoveryCodeGeneratedAt: 20090813145607.0Z
+swissidModifyTimestamp: 20090813145607.0Z
+
+dn: uid=ccbc36e2-b6f8-4a01-8979-c6fa0ecfc4b2,ou=people,@BASE_DN@
+changetype: add
+objectClass: oathDeviceProfilesContainer
+objectClass: iplanet-am-user-service
+objectClass: person
+objectClass: organizationalperson
+objectClass: pushDeviceProfilesContainer
+objectClass: sunAMAuthAccountLockout
+objectClass: iPlanetPreferences
+objectClass: top
+objectClass: sunIdentityServerLibertyPPService
+objectClass: sunFMSAML2NameIdentifier
+objectClass: inetorgperson
+objectClass: sunFederationManagerDataStore
+objectClass: devicePrintProfilesContainer
+objectClass: iplanet-am-auth-configuration-service
+objectClass: kbaInfoContainer
+objectClass: iplanet-am-managed-person
+objectClass: inetuser
+objectClass: swissidAccountExtension
+uid: ccbc36e2-b6f8-4a01-8979-c6fa0ecfc4b2
+cn: Simon Test
+sn: Test
+givenName: Simon
+telephonenumber: +41765201234
+mobileTelephoneNumber: +41765204554@sms.post.ch
+inetUserStatus: Active
+sesamGender: 1
+mail: simon@test.com
+preferredLocale: de_CH
+preferredTimeZone: GMT+01:00
+userPassword: changeit
+accountRecoveryCode: {SSHA-256}SFfN7kvQEUtRbZrCF+9g8aQkRG22G/YIhcFMYeIiIKzBJ9JYWPmgzJyL/wYnRPHk
+accountRecoveryCodeGeneratedAt: 20090813145607.0Z
+swissidModifyTimestamp: 20090813145607.0Z
+
+dn: uid=b8604de9-5899-4698-89b0-4c3d5283ff0d,ou=people,@BASE_DN@
+changetype: add
+objectClass: oathDeviceProfilesContainer
+objectClass: iplanet-am-user-service
+objectClass: person
+objectClass: organizationalperson
+objectClass: pushDeviceProfilesContainer
+objectClass: sunAMAuthAccountLockout
+objectClass: iPlanetPreferences
+objectClass: top
+objectClass: sunIdentityServerLibertyPPService
+objectClass: sunFMSAML2NameIdentifier
+objectClass: inetorgperson
+objectClass: sunFederationManagerDataStore
+objectClass: devicePrintProfilesContainer
+objectClass: iplanet-am-auth-configuration-service
+objectClass: kbaInfoContainer
+objectClass: iplanet-am-managed-person
+objectClass: inetuser
+objectClass: swissidAccountExtension
+uid: b8604de9-5899-4698-89b0-4c3d5283ff0d
+cn: Max Muster
+sn: Muster
+givenName: Max
+telephonenumber: +41765201234
+mobileTelephoneNumber: +41765204554@sms.post.ch
+inetUserStatus: Active
+sesamGender: 1
+mail: muster@test.com
+preferredLocale: de_CH
+preferredTimeZone: GMT+01:00
+userPassword: changeit
+accountRecoveryCode: {SSHA-256}SFfN7kvQEUtRbZrCF+9g8aQkRG22G/YIhcFMYeIiIKzBJ9JYWPmgzJyL/wYnRPHk
+accountRecoveryCodeGeneratedAt: 20090813145607.0Z
+swissidModifyTimestamp: 20090813145607.0Z
+
+dn: uid=eb1a981a-8367-48b4-8fec-dc4d84c7090a,ou=people,@BASE_DN@
+changetype: add
+objectClass: oathDeviceProfilesContainer
+objectClass: iplanet-am-user-service
+objectClass: person
+objectClass: organizationalperson
+objectClass: pushDeviceProfilesContainer
+objectClass: sunAMAuthAccountLockout
+objectClass: iPlanetPreferences
+objectClass: top
+objectClass: sunIdentityServerLibertyPPService
+objectClass: sunFMSAML2NameIdentifier
+objectClass: inetorgperson
+objectClass: sunFederationManagerDataStore
+objectClass: devicePrintProfilesContainer
+objectClass: iplanet-am-auth-configuration-service
+objectClass: kbaInfoContainer
+objectClass: iplanet-am-managed-person
+objectClass: inetuser
+objectClass: swissidAccountExtension
+uid: eb1a981a-8367-48b4-8fec-dc4d84c7090a
+cn: Mobile SwissSign
+sn: SwissSign
+givenName: Mobile
+telephonenumber: +41765201234
+mobileTelephoneNumber: +41765204554@sms.post.ch
+inetUserStatus: Active
+sesamGender: 1
+mail: mobile@tech.swisssign.com
 preferredLocale: de_CH
 preferredTimeZone: GMT+01:00
 userPassword: changeit
@@ -1877,6 +1986,7 @@ uid: test-b242e422-9ce9-99d5-12ec-local-verifiedid
 cn: Verified Verena Vetter local
 sn: Vetter local
 givenName: Verena
+suisseIdNo : 1300-9534-4082-4201
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765201234@sms.post.ch
 inetUserStatus: Active
@@ -1888,15 +1998,9 @@ userPassword: changeit
 oauth2SaveConsent: sesam openid profile
 oauth2SaveConsent: sesam openid email
 oauth2SaveConsent: sesam phone openid
-oauth2SaveConsent: sesam swissid_nationality openid
-oauth2SaveConsent: sesam openid swissid_place_of_birth
-oauth2SaveConsent: sesam phone swissid_nationality openid swissid_age_over email
-oauth2SaveConsent: sesam openid swissid_date_of_birth
+oauth2SaveConsent: sesam openid
 oauth2SaveConsent: sesam phone openid email
 oauth2SaveConsent: sesam suisseid_number openid
-oauth2SaveConsent: sesam swissid_nationality openid profile
-oauth2SaveConsent: sesam openid swissid_age_over
-oauth2SaveConsent: sesam openid swissid_valid_until
 idVerifiedIdentityPostoffice: test-b242e422-9ce9-13a6-298c-local-verifiedid
 swissidModifyTimestamp: 20180906111100.0Z
 
@@ -1924,6 +2028,7 @@ uid: test-b242e422-9ce9-99d5-12ec-dev-verifiedid
 cn: Verified Verena Vetter dev
 sn: Vetter dev
 givenName: Verena
+suisseIdNo : 1300-9534-4082-4201
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765201234@sms.post.ch
 inetUserStatus: Active
@@ -1972,6 +2077,7 @@ uid: test-b242e422-9ce9-99d5-12ec-test-verifiedid
 cn: Verified Verena Vetter test
 sn: Vetter test
 givenName: Verena
+suisseIdNo : 1300-9534-4082-4202
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765201234@sms.post.ch
 inetUserStatus: Active
@@ -2020,6 +2126,7 @@ uid: test-b242e422-9ce9-99d5-12ec-eng-verifiedid
 cn: Verified Verena Vetter eng
 sn: Vetter eng
 givenName: Verena
+suisseIdNo : 1300-9534-4082-4203
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765201234@sms.post.ch
 inetUserStatus: Active
@@ -2068,6 +2175,7 @@ uid: test-b242e422-9ce9-99d5-12ec-int-verifiedid
 cn: Verified Verena Vetter int
 sn: Vetter int
 givenName: Verena
+suisseIdNo : 1300-9534-4082-4204
 telephonenumber: +41765201234
 mobileTelephoneNumber: +41765201234@sms.post.ch
 inetUserStatus: Active
@@ -2094,20 +2202,18 @@ swissidModifyTimestamp: 20180906111100.0Z
 
 
 
+
+# -----------------------------------------------------------------------
+# Test users to verify suisseID3 to swissid4 import
+
+
+
+
+
 # (removed Users for IDP Discovery)
 
 
 # Group assignments (keep at the bottom of the file) ----------------------------------------------------------------
-
-# idcheck pilot group
-dn: cn=Z-SESAM-IDCHECK,ou=groups,@BASE_DN@
-changetype: modify
-add: uniqueMember
-uniqueMember: uid=46eecb24-1311-49d9-a985-4deb9c98ee34,ou=people,@BASE_DN@
-uniqueMember: uid=test@example.com,ou=people,@BASE_DN@
-uniqueMember: uid=sesamtest@post.ch,ou=people,@BASE_DN@
-uniqueMember: uid=46eecb24-1311-49d9-a985-43219c98ee34,ou=people,@BASE_DN@
-uniqueMember: uid=46eecb24-4321-49d9-a985-43219c98ee34,ou=people,@BASE_DN@
 
 # SwissIDApp pilot group
 dn: cn=Z-SESAM-SWISSID-APP,ou=groups,@BASE_DN@
