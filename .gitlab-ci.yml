@@ -247,9 +247,11 @@ build-ds-docker-image:
   only:
     refs:
       - swissid
+      - branches
     changes:
       - docker/downloader/**/*
       - docker/ds/**/*
+      - ,gitlab-ci.yml
 
 #build-apache-agent-docker-image:
 #  <<: *build-docker-image
