@@ -251,7 +251,7 @@ build-ds-docker-image:
     changes:
       - docker/downloader/**/*
       - docker/ds/**/*
-      - ,gitlab-ci.yml
+      - .gitlab-ci.yml
 
 #build-apache-agent-docker-image:
 #  <<: *build-docker-image
