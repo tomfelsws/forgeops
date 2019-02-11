@@ -5,7 +5,6 @@
 ##############################################################################
 
 BATCH_DIR=$(cd $(dirname "$0"); pwd)
-source ${BATCH_DIR}/opendj/lib-jdk.sh
 source ${BATCH_DIR}/opendj/lib-header-opendj.sh
 source ${BATCH_DIR}/opendj/lib-shared-opendj.sh
 
@@ -27,13 +26,10 @@ echo ""
 # Base Setup
 ##############################################################################
 
-jdk_init
-
 if [ "$installOpenDJ" = "true" ]; then
     echo "*** Start base installation..."
     cleanupExistingOpenDJInstallation
     unzipOpenDJ
-    deploy_jdk
     createPasswordFile
     baseSetup
     unzipSupportExtractTool
