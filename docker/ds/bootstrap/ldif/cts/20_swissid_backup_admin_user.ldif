@@ -1,5 +1,4 @@
-#dn: uid=backup,ou=admins,ou=tokens
-dn: uid=backup,ou=admins,ou=famrecords,ou=openam-session,ou=tokens
+dn: uid=backup,ou=admins,@BASE_DN@
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson

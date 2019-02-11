@@ -7,11 +7,6 @@
 configStoreSetup() {
     echo "*** Setup Config Store..."
 
-    # Execute on primary only (secondary will replicate schema, DIT, ACIs and data)
-    if [ "$primaryOrSecondary" = "primary" ]; then
-        importMonitoringAdminUsers
-    fi
-
     if [ "$configureReplication" = "true" -o "$upgradeOpenDJ" = "true" ]; then
         echo "Configuring replication"
         replicateStores

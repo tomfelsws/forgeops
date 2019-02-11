@@ -2,7 +2,6 @@
 #set -x
 
 ARCHIVE=/var/tmp/opendj.zip
-SUPPORT_TOOL=/var/tmp/opendj-support-extract-tool.zip
 SHARED=$PWD/shared
 
 # CA_KEYSTORE=$SHARED/ca-keystore.p12
@@ -114,10 +113,8 @@ prepare()
     copy_secrets
     #create_keystores
     unzip -q $ARCHIVE
-    unzip -q $SUPPORT_TOOL
     mkdir -p run
     mv opendj $DJ
-    mv opendj-support-extract-tool $DJ/opendj
 }
 
 configure()
@@ -182,6 +179,7 @@ EOF
           --offline \
           --no-prompt
 
+    # SwissID base setup
     echo "Disabling LDAP port..."
     ./bin/dsconfig set-connection-handler-prop \
           --handler-name "LDAP" \
@@ -189,6 +187,7 @@ EOF
           --offline \
           --no-prompt
 
+    # SwissID base setup
     echo "Setting combined log format..."
     ./bin/dsconfig set-log-publisher-prop \
           --publisher-name 'File-Based Access Logger' \
@@ -196,9 +195,17 @@ EOF
           --offline \
           --no-prompt
 
-    echo "Setting SMTP server to localhost..."
-    ./bin/dsconfig set-global-configuration-prop \
-          --set smtp-server:localhost \
+    # SwissID configureMonitoring()
+    echo "Creating JMX connection handler..."
+    ./bin/dsconfig create-connection-handler \
+          --handler-name "JMX Connection Handler" \
+          --type jmx \
+          --set enabled:true \
+          --set listen-port:$JMX_PORT \
+          --set rmi-port:$JMX_RMI_PORT \
+          --set use-ssl:true \
+          --set key-manager-provider:"Default Key Manager" \
+          --set ssl-cert-nickname:$SSL_CERT_ALIAS \
           --offline \
           --no-prompt
 
@@ -215,19 +222,6 @@ EOF
           --plugin-name "UID Unique Attribute" \
           --set base-dn:ou=people,$BASE_DN \
           --set enabled:true \
-          --offline \
-          --no-prompt
-
-    echo "Creating JMX connection handler..."
-    ./bin/dsconfig create-connection-handler \
-          --handler-name "JMX Connection Handler" \
-          --type jmx \
-          --set enabled:true \
-          --set listen-port:$JMX_PORT \
-          --set rmi-port:$JMX_RMI_PORT \
-          --set use-ssl:true \
-          --set key-manager-provider:"Default Key Manager" \
-          --set ssl-cert-nickname:$SSL_CERT_ALIAS \
           --offline \
           --no-prompt
 
@@ -295,7 +289,7 @@ load_ldifs() {
   	           echo "Loading ${file}"
                # search + replace all placeholder variables. Naming conventions are from AM.
               sed -e "s/@BASE_DN@/$BASE_DN/"  <${file}  >/tmp/file.ldif
-              bin/ldapmodify -D "cn=Directory Manager"  --continueOnError -h ${DSHOST} -p ${PORT_DIGIT}389 -w password /tmp/file.ldif
+              bin/ldapmodify -D "cn=Directory Manager" --continueOnError -h ${DSHOST} -p ${PORT_DIGIT}389 -w password /tmp/file.ldif
             done
         done
     fi

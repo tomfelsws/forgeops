@@ -1,18 +1,5 @@
 #!/bin/bash
 
-try() {
-    command_to_execute=$*
-    eval ${command_to_execute};
-    command_execution_exitcode=$?
-
-    if [ ${command_execution_exitcode} -ne 0 ]; then
-        echo "------------------------------------------------------------------------------------------------------"
-        echo "Install aborted: command [${command_to_execute}] failed with error code $command_execution_exitcode"
-        echo "------------------------------------------------------------------------------------------------------"
-        exit 1
-    fi
-}
-
 # Point to point replication between OpenDJ nodes
 replicateStores() {
     echo "*** Start replication..."
@@ -44,11 +31,6 @@ replicateStores() {
         echo ".........Now configuring changelog for delete and edit operations...................."
         configureChangeLog
     fi
-}
-
-rebuildIndex() {
-    echo "     o rebuild index"
-    try "$binDir/rebuild-index  --hostname localhost --port $adminConnectorPort  --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --baseDN \"$baseDN\"  --rebuildAll  --start 0 --trustAll "
 }
 
 configureChangeLog() {
@@ -126,19 +108,4 @@ configureLdapStats() {
     echo "     o setup LDAP statistics cronjob"
     chmod 755 ${BATCH_DIR}/opendj/status-ldap.sh
     ( crontab -l | grep -v "${BATCH_DIR}/opendj/status-ldap.sh $env $server_to_configure" ; echo "00,15,30,45 * * * * ${BATCH_DIR}/opendj/status-ldap.sh $env $server_to_configure 2>/dev/null") | crontab -
-}
-
-importMonitoringAdminUsers() {
-    echo "*** Import monitoring admin users"
-    try "sed -e \"s/@opendjjmxmonitoringuserPassword_placeholder@/${opendjJMXMonitoringAdminPassword}/\" \"${CONFIG_DIR}/opendj/ldif/add-opendj-monitoring-admin-entries.ldif\" > $opendjExtractTargetPath/add-opendj-monitoring-admin-entries.ldif"
-    try "$binDir/ldapmodify --continueOnError --hostname localhost --port $ldapsPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --filename $opendjExtractTargetPath/add-opendj-monitoring-admin-entries.ldif  --useSSL --trustAll "
-    rm -rf $opendjExtractTargetPath/add-opendj-monitoring-admin-entries.ldif
-}
-
-configureMonitoring() {
-    echo "*** Configure monitoring"
-    # try "$binDir/dsconfig set-connection-handler-prop  --hostname localhost --port $adminConnectorPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --handler-name \"JMX Connection Handler\" --set enabled:true --set use-ssl:true --set key-manager-provider:\"cn=JKS,cn=Key Manager Providers,cn=config\" --set ssl-cert-nickname:server-cert --trustAll -n "
-    # $binDir/dsconfig set-connection-handler-prop  --hostname localhost --port $adminConnectorPort --bindDN  "$rootUserDN" --bindPasswordFile "$passwordFile" --handler-name "JMX Connection Handler" --set enabled:true --set rmi-port:$jmxRMIPort --set use-ssl:true --set key-manager-provider:JKS --set ssl-cert-nickname:server-cert --trustAll -n
-    echo "     o create JMX Connection Handler"
-    $binDir/dsconfig create-connection-handler --hostname localhost --port $adminConnectorPort --bindDN  "$rootUserDN" --bindPasswordFile "$passwordFile" --handler-name "JMX Connection Handler" --type jmx --set enabled:true --set listen-port:$jmxPort --set rmi-port:$jmxRMIPort --set use-ssl:true --set key-manager-provider:"Default Key Manager" --set ssl-cert-nickname:server-cert --trustAll --no-prompt
 }

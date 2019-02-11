@@ -1,5 +1,4 @@
-#dn: uid=jmxmonitoring,ou=admins,ou=tokens
-dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens
+dn: uid=jmxmonitoring,ou=admins,@BASE_DN@
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson

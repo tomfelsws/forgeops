@@ -1,4 +1,4 @@
-dn: uid=jmxmonitoring,ou=admins,ou=am-config
+dn: uid=jmxmonitoring,ou=admins,@BASE_DN@
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
