@@ -1,47 +1,7 @@
 #!/bin/bash
 
-##############################################################################
-# Set global variables
-##############################################################################
-
 BATCH_DIR=$(cd $(dirname "$0"); pwd)
 source ${BATCH_DIR}/opendj/lib-shared-opendj.sh
-
-##############################################################################
-# Start
-##############################################################################
-
-echo "*************************************************************************"
-echo "***"
-echo "***   Setup OpenDJ $opendjVersion"
-echo "***"
-echo "***   Store Type: $storeType"
-echo "***"
-echo "***   Deployment is started (`date`)"
-echo "*************************************************************************"
-echo ""
-
-##############################################################################
-# Base Setup
-##############################################################################
-
-if [ "$installOpenDJ" = "true" ]; then
-    echo "*** Start base installation..."
-    cleanupExistingOpenDJInstallation
-    unzipOpenDJ
-    createPasswordFile
-    baseSetup
-    unzipSupportExtractTool
-
-    if [ "$generateSelfSignedCertificate" = "true" ]; then
-        exportServerCert
-    fi
-
-    if [ "$turnOffLdapPort" = "true" ]; then
-        disableLdapPort
-    fi
-
-fi
 
 ##############################################################################
 # Config Store
@@ -79,9 +39,3 @@ configureReplicationStatus
 if [ "$configureBackup" = "true" ]; then
     configureBackup
 fi
-
-echo "*************************************************************************"
-echo "***"
-echo "*** Deployment is finished (`date`)"
-echo "***"
-echo "*************************************************************************"

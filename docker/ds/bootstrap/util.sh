@@ -9,7 +9,9 @@ SHARED=$PWD/shared
 # CA_CERT=$SHARED/ca-cert.p12
 # KEYSTORE_PIN=$SHARED/keystore.pin
 
+# adding cert alias used in SwissID here for reference: sever-cert
 SSL_CERT_ALIAS=server-cert
+# use opendj-ssl cert alias as this is used in other places as well
 SSL_CERT_ALIAS=opendj-ssl
 SSL_CERT_CN="CN=*.example.com,O=OpenDJ SSL"
 CA_CERT_ALIAS=opendj-ca
@@ -51,7 +53,7 @@ copy_secrets()
 
 create_keystores()
 {
-    if [ -d $SECRETS ]; then 
+    if [ -d $SECRETS ]; then
         echo "Keystores exists - skipping"
         return
     fi
@@ -123,7 +125,7 @@ prepare()
 {
     clean
     copy_secrets
-    #create_keystores 
+    #create_keystores
     unzip -q $ARCHIVE
     customize_setup_profile
     unzip -q $SUPPORT_TOOL
@@ -190,6 +192,13 @@ EOF
     echo "Disabling JSON LDAP access logger..."
     ./bin/dsconfig set-log-publisher-prop \
           --publisher-name "Json File-Based Access Logger" \
+          --set enabled:false \
+          --offline \
+          --no-prompt
+
+    echo "Disabling LDAP port..."
+    ./bin/dsconfig set-connection-handler-prop \
+          --handler-name "LDAP" \
           --set enabled:false \
           --offline \
           --no-prompt
