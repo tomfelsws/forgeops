@@ -447,7 +447,7 @@ cleanup-review-appuio:
     - ./bin/remove-all.sh -N "$NAMESPACE"
 
 # Deploy to review environment in GKE
-deploy-review-gke:
+.deploy-review-gke:
   <<: *gke_login
   stage: deploy-review
   environment:
