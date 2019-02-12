@@ -1,0 +1,69 @@
+#
+# Copyright 2018 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+dn: cn=schema
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+# Schema definitions for use with example Class of Service collective attributes
+attributeTypes: ( example-class-of-service-attribute-type
+  NAME 'classOfService'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  USAGE userApplications
+  X-ORIGIN 'DS Documentation Examples' )
+attributeTypes: ( example-class-of-service-disk-quota
+  NAME 'diskQuota'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  USAGE userApplications
+  X-ORIGIN 'DS Documentation Examples' )
+attributeTypes: ( example-class-of-service-mail-quota
+  NAME 'mailQuota'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  USAGE userApplications
+  X-ORIGIN 'DS Documentation Examples' )
+objectClasses: ( example-class-of-service-object-class
+  NAME 'cos'
+  SUP top
+  AUXILIARY
+  MAY ( classOfService $ diskQuota $ mailQuota )
+  X-ORIGIN 'DS Documentation Examples' )
+# Schema definitions for "json" attribute and auxiliary object class
+attributeTypes: ( json-attribute-oid
+  NAME 'json'
+  SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
+  EQUALITY caseIgnoreJsonQueryMatch
+  SINGLE-VALUE
+  X-ORIGIN 'DS Documentation Examples' )
+objectClasses: ( json-object-class-oid
+  NAME 'jsonObject'
+  SUP top
+  AUXILIARY
+  MAY ( json )
+  X-ORIGIN 'DS Documentation Examples' )
+# Schema definitions for "jsonToken" attribute and auxiliary object class
+attributeTypes: ( jsonToken-attribute-oid
+  NAME 'jsonToken'
+  SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
+  EQUALITY caseIgnoreJsonTokenIDMatch
+  SINGLE-VALUE
+  X-ORIGIN 'DS Documentation Examples' )
+objectClasses: ( json-token-object-class-oid
+  NAME 'JsonTokenObject'
+  SUP top
+  AUXILIARY
+  MAY ( jsonToken )
+  X-ORIGIN 'DS Documentation Examples' )

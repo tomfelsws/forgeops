@@ -1,0 +1,248 @@
+#
+# Copyright 2017-2018 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+
+dn: dc=openidm,&{DOMAIN}
+objectClass: domain
+objectClass: top
+dc: openidm
+#aci: (targetattr="*")(version 3.0; acl "IDM Access"; allow (all)
+#  userdn="ldap:///uid=idm,ou=user,dc=managed,dc=openidm,&{DOMAIN}";)
+
+# Links OU
+
+dn: ou=links,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: links
+
+# Internal OU
+
+dn: ou=internal,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: internal
+
+# Internal Users OU
+
+dn: ou=users,ou=internal,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+
+# Internal Roles OU
+
+dn: ou=roles,ou=internal,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: roles
+
+# Internal UserMeta OU
+
+dn: ou=usermeta,ou=internal,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: usermeta
+
+# Notification OU
+
+dn: ou=notification,ou=internal,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: notification
+
+# Config OU
+
+dn: ou=config,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: config
+
+# File OU
+
+dn: ou=file,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: file
+
+# Security OU
+
+dn: ou=Security,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: Security
+
+# Security Keys OU
+
+dn: ou=Keys,ou=Security,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: Keys
+
+##
+# Clustered Recon OUs
+##
+
+dn: ou=clusteredrecontargetids,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: clusteredrecontargetids
+
+dn: ou=reconprogressstate,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: reconprogressstate
+
+##
+# default generic object
+##
+dn: ou=generic,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: generic
+
+##
+# scheduler
+##
+dn: ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: scheduler
+
+dn: ou=triggers,ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: triggers
+
+dn: ou=jobs,ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: jobs
+
+dn: ou=calendars,ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: calendars
+
+dn: ou=jobGroups,ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: jobGroups
+
+dn: ou=triggerGroups,ou=scheduler,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: triggerGroups
+
+##
+# cluster
+##
+dn: ou=cluster,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: cluster
+
+dn: ou=states,ou=cluster,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: states
+
+dn: ou=events,ou=cluster,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: events
+
+##
+# relationships
+##
+dn: ou=relationships,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: relationships
+
+##
+# updates
+##
+dn: ou=updates,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: updates
+
+##
+# Managed Object OUs
+##
+
+dn: ou=managed,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: managed
+
+dn: ou=user,ou=managed,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: user
+
+dn: ou=role,ou=managed,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: role
+
+dn: ou=group,ou=managed,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: group
+
+dn: ou=assignment,ou=managed,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: assignment
+
+##
+# UI
+##
+
+dn: ou=ui,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: ui
+
+dn: ou=notification,ou=ui,dc=openidm,&{DOMAIN}
+objectClass: organizationalUnit
+objectClass: top
+ou: notification
+
+##
+# jsonstorage
+##
+
+dn: ou=jsonstorage,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: jsonstorage
+
+##
+# locks
+##
+
+dn: ou=locks,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: locks
+
+##
+# syncqueue
+##
+
+dn: ou=sync,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: sync
+
+dn: ou=queue,ou=sync,dc=openidm,&{DOMAIN}
+objectclass: organizationalunit
+objectclass: top
+ou: queue
