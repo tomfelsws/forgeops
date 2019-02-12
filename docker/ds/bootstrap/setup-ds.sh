@@ -17,7 +17,10 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 # Note this choice has some restrictions with respect to AM session notifications.
 # Please refer to the documentation for futher details.
 
-./setup directory-server --help
+./setup directory-server --help-profiles
+./setup directory-server --help-profile am-config
+./setup directory-server --help-profile am-cts
+./setup directory-server --help-profile am-identity-store
 
 ./setup directory-server \
     --rootUserDn "cn=Directory Manager" \
