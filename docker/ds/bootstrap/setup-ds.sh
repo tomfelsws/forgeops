@@ -36,9 +36,11 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --productionMode \
     --profile am-cts:6.5.0 \
     --set am-cts/amCtsAdminPassword:password \
+    --set am-cts/baseDn:dc=swisssign,dc=com \
     --set am-cts/tokenExpirationPolicy:ds \
     --profile am-identity-store:6.5.0 \
     --set am-identity-store/amIdentityStoreAdminPassword:password \
+    --set am-identity-store/baseDn:dc=swisssign,dc=com \
     --profile am-config:6.5.0 \
     --set am-config/amConfigAdminPassword:password \
     --set am-config/baseDn:dc=swisssign,dc=com \
