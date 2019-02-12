@@ -2,14 +2,13 @@
 # args -?     3 -= sample data
 . ./util.sh
 
+set -x
+
 prepare
 customize_setup_profiles
 
-set -x
-
 echo "Setting up server..."
 cd $DJ
-
 
 SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 
