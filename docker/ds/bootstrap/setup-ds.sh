@@ -33,7 +33,6 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --ldapsPort ${PORT_DIGIT}636 \
     --httpPort ${PORT_DIGIT}8080 \
     --httpsPort ${PORT_DIGIT}8443 \
-    --productionMode \
     --profile am-cts:6.5.0 \
     --set am-cts/amCtsAdminPassword:password \
     --set am-cts/baseDn:dc=swisssign,dc=com \
