@@ -1,4 +1,4 @@
-dn: uid=jmxmonitoring,ou=admins,@CTS_BASE_DN@
+dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,@CTS_BASE_DN@
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
