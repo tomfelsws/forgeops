@@ -27,16 +27,16 @@ objectClass: organizationalUnit
 objectClass: top
 ou: tokens
 
-#dn: ou=openam-session,&{AM_CTS_BASE_DN}
 # SwissID: additional layer ou=tokens that is not part of DS 6.5.1 or 7.0
 dn: ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
+#dn: ou=openam-session,&{AM_CTS_BASE_DN}
 objectClass: organizationalUnit
 objectClass: top
 ou: openam-session
 
-#dn: ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
 # SwissID: additional layer ou=tokens that is not part of DS 6.5.1 or 7.0
 dn: ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
+#dn: ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
 ou: famrecords
 objectClass: organizationalUnit
 
