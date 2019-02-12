@@ -2,13 +2,14 @@
 # args -?     3 -= sample data
 . ./util.sh
 
-set -x
-
 prepare
 customize_setup_profiles
 
+set -x
+
 echo "Setting up server..."
 cd $DJ
+
 
 SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 
@@ -16,11 +17,6 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 # Other choices are am-cts/tokenExpirationPolicy:am and am-cts/tokenExpirationPolicy:am-sessions-only
 # Note this choice has some restrictions with respect to AM session notifications.
 # Please refer to the documentation for futher details.
-
-./setup directory-server --help-profiles
-./setup directory-server --help-profile am-config
-./setup directory-server --help-profile am-cts
-./setup directory-server --help-profile am-identity-store
 
 ./setup directory-server \
     --rootUserDn "cn=Directory Manager" \
@@ -49,10 +45,6 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --acceptLicense \
     --doNotStart
 
-
-cat /tmp/opendj-setup-*
-
-cat /tmp/base-entries.ldif*
 
 # If the server is not the first, we can skip the rest of the setup, as only the first server is templated out.
 if [ "${PORT_DIGIT}" != "1" ]; then
