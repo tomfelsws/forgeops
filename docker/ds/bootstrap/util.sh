@@ -202,12 +202,13 @@ EOF
           --no-prompt
 
     # SwissID base setup
-    echo "Disabling LDAP port..."
-    ./bin/dsconfig set-connection-handler-prop \
-          --handler-name "LDAP" \
-          --set enabled:false \
-          --offline \
-          --no-prompt
+    # Not disabling LDAP as we need this during docker build phase
+    #echo "Disabling LDAP port..."
+    #./bin/dsconfig set-connection-handler-prop \
+    #      --handler-name "LDAP" \
+    #      --set enabled:false \
+    #      --offline \
+    #      --no-prompt
 
     # SwissID base setup
     echo "Setting combined log format..."
