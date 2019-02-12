@@ -105,13 +105,13 @@ customize_setup_profiles() {
   # remove setup profiles that come with DS 6.5.0
   rm -rf $TARGET
   # replace with setup profiles from pre-GA DS 7.0 (Feb 11, 2019), based on
+  pwd
   ls -l
-  ls -l ..
-  ls -l ../..
-  ls -l ../../setup-profiles
-  ls -l /var/tmp/bootstrap
+  ls -l /var/tmp/bootstrap/setup-profiles
+  ls -l /var/tmp/bootstrap/setup-profiles/*
   cp -rp /var/tmp/bootstrap/setup-profiles $TARGET
   ls -l $TARGET
+  ls -l $TARGET/*
 }
 
 prepare()
