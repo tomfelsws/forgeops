@@ -42,14 +42,14 @@ objectClass: organizationalUnit
 
 # SwissID has different level for admins (without ou=famrecords,ou=openam-session)
 #dn: ou=admins,&{AM_CTS_BASE_DN}
-dn: ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
+dn: ou=admins,ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
 objectClass: top
 objectClass: organizationalunit
 ou: OpenAM Administrator
 
 # SwissID has different level for admins (without ou=famrecords,ou=openam-session)
 #dn: uid=openam_cts,ou=admins,&{AM_CTS_BASE_DN}
-dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
+dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
