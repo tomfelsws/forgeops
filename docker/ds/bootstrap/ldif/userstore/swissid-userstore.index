@@ -1,3 +1,4 @@
+create-backend-index --backend-name @BACKEND@ --index-name mail --set index-type:equality
 create-backend-index --backend-name @BACKEND@ --index-name identityId --set index-type:equality
 create-backend-index --backend-name @BACKEND@ --index-name processId --set index-type:equality
 create-backend-index --backend-name @BACKEND@ --index-name processType --set index-type:equality

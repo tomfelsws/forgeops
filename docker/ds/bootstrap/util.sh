@@ -329,8 +329,8 @@ load_ldifs() {
 
 post_start() {
     load_ldifs
-    post_config
     build_indexes amIdentityStore
+    post_config
 }
 
 build_indexes() {
