@@ -81,9 +81,9 @@ convert_to_template()
 
     echo "Converting $1 config.ldif to use commons configuration"
 
-    BASE_DN_X=$( echo $BASE_DN | sed -e "s/,/\\,/g")
-    CS_BASE_DN_X=$( echo $CS_BASE_DN | sed -e "s/,/\\,/g")
-    CTS_BASE_DN_X=$( echo $CTS_BASE_DN | sed -e "s/,/\\,/g")
+    BASE_DN_X=$( echo $BASE_DN | sed -e "s/,/\\\,/g")
+    CS_BASE_DN_X=$( echo $CS_BASE_DN | sed -e "s/,/\\\,/g")
+    CTS_BASE_DN_X=$( echo $CTS_BASE_DN | sed -e "s/,/\\\,/g")
     echo "BASE_DN_X = $BASE_DN_X"
     echo "CS_BASE_DN_X = $CS_BASE_DN_X"
     echo "CTS_BASE_DN_X = $CTS_BASE_DN_X"
