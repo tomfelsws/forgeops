@@ -84,16 +84,9 @@ convert_to_template()
     BASE_DN_X=$( echo $BASE_DN | sed -e "s/,/\\\\\\\,/g")
     CS_BASE_DN_X=$( echo $CS_BASE_DN | sed -e "s/,/\\\\\\\,/g")
     CTS_BASE_DN_X=$( echo $CTS_BASE_DN | sed -e "s/,/\\\\\\\,/g")
-    echo "BASE_DN_X = $BASE_DN_X"
-    echo "CS_BASE_DN_X = $CS_BASE_DN_X"
-    echo "CTS_BASE_DN_X = $CTS_BASE_DN_X"
-
     # update config.ldif. continue on error is set so we keep applying the changes
     # Some of the configuration changes won't apply if replication is not being configured.
     sed -e "s/@BASE_DN@/$BASE_DN_X/" -e "s/@CS_BASE_DN@/$CS_BASE_DN_X/" -e "s/@CTS_BASE_DN@/$CTS_BASE_DN_X/" ../../config-changes.ldif > ../../config-changes-sed.ldif
-    echo "++++++++++++++++++++++++++++++++++++++++++++++"
-    grep "cn=dc=swisssign" ../../config-changes-sed.ldif
-    echo "++++++++++++++++++++++++++++++++++++++++++++++"
     ./bin/ldifmodify -c -o config/config.ldif.new config/config.ldif ../../config-changes-sed.ldif
     mv config/config.ldif.new config/config.ldif
     rm ../../config-changes-sed.ldif
