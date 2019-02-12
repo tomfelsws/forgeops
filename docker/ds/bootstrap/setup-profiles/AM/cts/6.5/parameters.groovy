@@ -7,13 +7,11 @@
  */
 
 define.stringParameter "backendName" \
-       usage "Name" \
        help "Name of the backend for storing tokens" \
        defaultValue "amCts" \
        advanced()
 
 define.stringParameter "baseDn" \
-       usage "DN" \
        help "The base DN to use to store AM's tokens in" \
        defaultValue "ou=tokens" \
        property "AM_CTS_BASE_DN" \

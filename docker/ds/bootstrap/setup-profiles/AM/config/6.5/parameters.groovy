@@ -7,13 +7,11 @@
  */
 
 define.stringParameter "backendName" \
-       usage "Name" \
        help "Name of the backend for storing config" \
        defaultValue "cfgStore" \
        advanced()
 
 define.stringParameter "baseDn" \
-       usage "DN" \
        help "The base DN to use to store AM's configuration in" \
        defaultValue "ou=am-config" \
        property "AM_CONFIG_BASE_DN" \

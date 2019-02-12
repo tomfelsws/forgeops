@@ -7,13 +7,11 @@
  */
 
 define.stringParameter "backendName" \
-       usage "Name" \
        help "Name of the backend for storing identities" \
        defaultValue "amIdentityStore" \
        advanced()
 
 define.stringParameter "baseDn" \
-       usage "DN" \
        help "The base DN to use to store identities in" \
        defaultValue "ou=identities" \
        property "AM_IDENTITY_STORE_BASE_DN" \
