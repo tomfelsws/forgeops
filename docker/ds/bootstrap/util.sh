@@ -100,7 +100,7 @@ customize_setup_profiles() {
   # TODO: remove this code once DS 6.5.1 or 7.0 ships
   # See https://bugster.forgerock.org/jira/browse/OPENDJ-5950 for DS 6.5.1
   # See https://bugster.forgerock.org/jira/browse/OPENDJ-5727 for DS 7.0
-  TARGET=$DJ/opendj/template/setup-profiles
+  TARGET=$DJ/template/setup-profiles
   ls -l $TARGET
   # remove setup profiles that come with DS 6.5.0
   rm -rf $TARGET
