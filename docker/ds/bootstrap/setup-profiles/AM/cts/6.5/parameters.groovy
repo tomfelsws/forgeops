@@ -23,13 +23,27 @@ define.passwordParameter "amCtsAdminPassword" \
        prompt "Provide the AM CTS administrator password:" \
        property "AM_CTS_ADMIN_PASSWORD"
 
-define.enumStringParameter "tokenExpirationPolicy", [
-        "am":               "AM CTS reaper manages token expiration and deletion",
-        "am-sessions-only": "AM CTS reaper manages SESSION token expiration and deletion. "
-                          + "DS manages expiration and deletion for all other token types. "
-                          + "AM continues to send notifications about session expiration and timeouts to agents",
-        "ds":               "DS manages token expiration and deletion. "
-                          + "AM session-related functionality is impacted and notifications are not sent" ] \
+define.enumStringParameter "tokenExpirationPolicy", "am", "am-sessions-only", "ds" \
+       help "How CTS manages token expiration and deletion. Allowed values are 'am', 'am-sessions-only' and 'ds'. ",
+            "If set to 'am', the AM CTS reaper manages token expiration and deletion. ",
+            "If set to 'am-sessions-only', the AM CTS reaper manages SESSION token expiration and deletion. ",
+            "OpenDJ manages expiration and deletion for all other token types. ",
+            "AM continues to send notifications about session expiration and timeouts to agents. ",
+            "If set to 'ds', OpenDJ manages token expiration and deletion. AM session-related functionality is ",
+            "impacted and notifications are not sent." \
        description "Token expiration and deletion" \
-       prompt "Configure how CTS will manage token expiration and deletion:" \
+       prompt "Configure how CTS will manage token expiration and deletion.",
+              "Different policies are:",
+              "",
+              "am:",
+              "AM CTS reaper manages token expiration and deletion.",
+              "",
+              "am-sessions-only:",
+              "AM CTS reaper manages SESSION token expiration and deletion.",
+              "DS manages expiration and deletion for all other token types.",
+              "AM continues to send notifications about session expiration and timeouts to agents.",
+              "",
+              "ds: ",
+              "DS manages token expiration and deletion.",
+              "AM session-related functionality is impacted and notifications are not sent." \
        defaultValue "am"
