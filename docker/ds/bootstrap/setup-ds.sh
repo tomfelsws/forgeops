@@ -17,6 +17,8 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 # Note this choice has some restrictions with respect to AM session notifications.
 # Please refer to the documentation for futher details.
 
+./setup directory-server --help
+
 ./setup directory-server \
     --rootUserDn "cn=Directory Manager" \
     --rootUserPassword password \
@@ -43,6 +45,8 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --acceptLicense \
     --doNotStart
 
+
+cat /tmp/opendj-setup-*
 
 # If the server is not the first, we can skip the rest of the setup, as only the first server is templated out.
 if [ "${PORT_DIGIT}" != "1" ]; then
