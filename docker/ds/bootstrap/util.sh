@@ -106,16 +106,16 @@ customize_setup_profiles() {
   # replace with setup profiles from pre-GA DS 7.0 (Feb 11, 2019), based on
   cp -rp setup-profiles $TARGET
 
-  TARGET=opendj/template/setup-profiles/AM/identity-store/6.5/profile.groovy
-  sed -e "s/ou=identities/${BASE_DN}/g" $TARGET > /tmp/profile.groovy
-  chmod 644 $TARGET
-  mv /tmp/profile.groovy $TARGET
-  chmod 444 $TARGET
+  #TARGET=opendj/template/setup-profiles/AM/identity-store/6.5/profile.groovy
+  #sed -e "s/ou=identities/${BASE_DN}/g" $TARGET > /tmp/profile.groovy
+  #chmod 644 $TARGET
+  #mv /tmp/profile.groovy $TARGET
+  #chmod 444 $TARGET
 
-  TARGET=opendj/template/setup-profiles/AM/identity-store/6.5/base-entries.ldif
-  chmod 644 $TARGET
-  cp -p base-entries-is.ldif $TARGET
-  chmod 444 $TARGET
+  #TARGET=opendj/template/setup-profiles/AM/identity-store/6.5/base-entries.ldif
+  #chmod 644 $TARGET
+  #cp -p base-entries-is.ldif $TARGET
+  #chmod 444 $TARGET
 
 #  TARGET=opendj/template/setup-profiles/AM/cts/6.5/profile.groovy
 #  sed -e "s/ou=tokens/${BASE_DN}/g" $TARGET > /tmp/profile.groovy
