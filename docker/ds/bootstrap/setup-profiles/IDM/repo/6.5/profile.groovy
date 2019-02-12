@@ -19,7 +19,7 @@ def addJsonEqualityMatchingRule(String providerName, String name, String oid, Co
         arguments.add("--set")
         arguments.add("indexed-field:" + indexedField)
     }
-    ds.config arguments
+    ds.config arguments.toArray(new String[0])
 }
 
 addJsonEqualityMatchingRule "IDM managed/user Json Schema",
@@ -43,7 +43,7 @@ addJsonEqualityMatchingRule "IDM Cluster Object Json Schema",
                             "1.3.6.1.4.1.36733.2.3.4.4",
                             [ "timestamp", "state"]
 
-ds.addBackendWithDefaultUserIndexes backendName, "dc=openidm," + domain
+ds.addBackendWithDefaultUserIndexes backendName, "dc=openidm," + domain.toString()
 
 ds.addSchemaFiles()
 
@@ -62,14 +62,5 @@ ds.addIndex "fr-idm-syncqueue-resourceid", "equality"
 ds.addIndex "fr-idm-syncqueue-state", "equality"
 ds.addIndex "fr-idm-syncqueue-remainingretries", "equality"
 ds.addIndex "fr-idm-syncqueue-createdate", "equality"
-
-// create vlv index on fr-idm-syncqueue-createdate to support sorting of potentially > 4000 entries
-ds.config "create-backend-vlv-index",
-        "--index-name", "syncqueue-by-create-date",
-        "--backend-name", backendName,
-        "--set", "base-dn:ou=queue,ou=sync,dc=openidm," + domain,
-        "--set", "sort-order:+fr-idm-syncqueue-createdate",
-        "--set", "scope:single-level",
-        "--set", "filter:(&)"
 
 ds.importLdif "base-entries.ldif"

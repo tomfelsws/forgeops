@@ -1,5 +1,5 @@
 #
-# Copyright 2017-2019 ForgeRock AS. All Rights Reserved
+# Copyright 2017-2018 ForgeRock AS. All Rights Reserved
 #
 # Use of this code requires a commercial software license with ForgeRock AS.
 # or with one of its affiliates. All use shall be exclusively subject
@@ -21,25 +21,21 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.4
   NAME 'fr-idm-link-type'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.5
   NAME 'fr-idm-link-qualifier'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.6
   NAME 'fr-idm-link-firstid'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.7
   NAME 'fr-idm-link-secondid'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.1
   NAME 'fr-idm-link'
@@ -49,7 +45,6 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.1
          fr-idm-link-qualifier $
          fr-idm-link-firstid $
          fr-idm-link-secondid )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Generic Object
@@ -60,14 +55,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.10
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.3
   NAME 'fr-idm-generic-obj'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-json )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Internal User
@@ -78,14 +71,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.8
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.2
   NAME 'fr-idm-internal-user'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-password )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Internal Role
@@ -94,25 +85,21 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.2.12
   NAME 'fr-idm-temporal-constraints'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   ORDERING caseIgnoreJsonQueryMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.33
   NAME 'fr-idm-privilege'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   ORDERING caseIgnoreJsonQueryMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.34
   NAME 'fr-idm-name'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.35
   NAME 'fr-idm-condition'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.4
   NAME 'fr-idm-internal-role'
@@ -124,7 +111,6 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.4
         fr-idm-temporal-constraints $
         fr-idm-condition $
         fr-idm-privilege )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Clustered Recon Target Ids
@@ -133,7 +119,6 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.11
   NAME 'fr-idm-recon-id'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.12
   NAME 'fr-idm-recon-targetIds'
@@ -141,7 +126,6 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.12
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.5
   NAME 'fr-idm-recon-clusteredTargetIds'
@@ -149,7 +133,6 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.5
   STRUCTURAL
   MUST ( fr-idm-recon-id $
          fr-idm-recon-targetIds )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Cluster
@@ -159,14 +142,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.24
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatchClusterObject
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.8
   NAME 'fr-idm-cluster-obj'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-cluster-json )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Managed User
@@ -177,14 +158,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.13
   EQUALITY caseIgnoreJsonQueryMatchManagedUser
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.6
   NAME 'fr-idm-managed-user'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-managed-user-json )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Managed Role
@@ -195,14 +174,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.25
   EQUALITY caseIgnoreJsonQueryMatchManagedRole
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.9
   NAME 'fr-idm-managed-role'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-managed-role-json )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Relationship
@@ -213,14 +190,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.26
   EQUALITY caseIgnoreJsonQueryMatchRelationship
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService')
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.10
   NAME 'fr-idm-relationship'
   SUP top
   STRUCTURAL
   MUST ( fr-idm-relationship-json )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DsSRepoService' )
 ###
 # Explicit Managed User schema
@@ -228,55 +203,47 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.10
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.14
   NAME 'fr-idm-accountStatus'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.15
   NAME 'fr-idm-effectiveRole'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.16
   NAME 'fr-idm-effectiveAssignment'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.17
   NAME 'fr-idm-kbaInfo'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.18
   NAME 'fr-idm-lastSync'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.19
   NAME 'fr-idm-preferences'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.23
   NAME 'fr-idm-consentedMapping'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.9
   NAME 'fr-idm-role'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   ORDERING caseIgnoreJsonQueryMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.7
   NAME 'fr-idm-managed-user-explicit'
@@ -293,7 +260,6 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.7
         fr-idm-lastSync $
         fr-idm-preferences $
         fr-idm-consentedMapping )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # Locks
@@ -303,14 +269,12 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.32
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.13
   NAME 'fr-idm-lock'
   SUP top
   STRUCTURAL
   MAY ( fr-idm-lock-nodeid )
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 ###
 # syncqueue
@@ -320,83 +284,71 @@ attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.36
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.37
   NAME 'fr-idm-syncqueue-resourcecollection'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.38
   NAME 'fr-idm-syncqueue-resourceid'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.39
   NAME 'fr-idm-syncqueue-mapping'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.40
   NAME 'fr-idm-syncqueue-objectrev'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.41
   NAME 'fr-idm-syncqueue-oldobject'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.42
   NAME 'fr-idm-syncqueue-newobject'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.43
   NAME 'fr-idm-syncqueue-context'
   SYNTAX 1.3.6.1.4.1.36733.2.1.3.1
   EQUALITY caseIgnoreJsonQueryMatch
   ORDERING caseIgnoreOrderingMatch
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.44
   NAME 'fr-idm-syncqueue-state'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.45
   NAME 'fr-idm-syncqueue-nodeid'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.46
   NAME 'fr-idm-syncqueue-remainingretries'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 attributeTypes: ( 1.3.6.1.4.1.36733.2.3.1.47
   NAME 'fr-idm-syncqueue-createdate'
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
   ORDERING caseIgnoreOrderingMatch
   SINGLE-VALUE
-  X-STABILITY 'Internal'
   X-ORIGIN 'OpenIDM DSRepoService' )
 objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.14
   NAME 'fr-idm-syncqueue'
@@ -410,10 +362,8 @@ objectClasses: ( 1.3.6.1.4.1.36733.2.3.2.14
         fr-idm-syncqueue-state $
         fr-idm-syncqueue-remainingretries $
         fr-idm-syncqueue-createdate )
-  MAY (fr-idm-syncqueue-oldobject $
-       fr-idm-syncqueue-newobject $
-       fr-idm-syncqueue-nodeid $
-       fr-idm-syncqueue-objectrev )
-  X-STABILITY 'Internal'
-  X-ORIGIN 'OpenIDM DSRepoService' )
-
+    MAY (fr-idm-syncqueue-oldobject $
+         fr-idm-syncqueue-newobject $
+         fr-idm-syncqueue-nodeid $
+         fr-idm-syncqueue-objectrev )
+    X-ORIGIN 'OpenIDM DSRepoService' )
