@@ -101,10 +101,14 @@ customize_setup_profiles() {
   # See https://bugster.forgerock.org/jira/browse/OPENDJ-5950 for DS 6.5.1
   # See https://bugster.forgerock.org/jira/browse/OPENDJ-5727 for DS 7.0
   TARGET=opendj/template/setup-profiles
+  ls -l $TARGET
   # remove setup profiles that come with DS 6.5.0
   rm -rf $TARGET
   # replace with setup profiles from pre-GA DS 7.0 (Feb 11, 2019), based on
   cp -rp setup-profiles $TARGET
+  ls -l $TARGET
+  echo "***"
+  ls -l opendj/template
 }
 
 prepare()
