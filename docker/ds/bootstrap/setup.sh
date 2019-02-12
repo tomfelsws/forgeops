@@ -35,6 +35,7 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --baseDn $BASE_DN \
         --baseDn $CTS_BASE_DN \
         --baseDn $CS_BASE_DN \
+        --baseDn $IDM_BASE_DN \
         --host1 dsrs1.example.com --port1 1444 --replicationPort1 1989 \
         --host2 dsrs2.example.com --port2 2444 --replicationPort2 2989 \
         --no-prompt
@@ -45,6 +46,7 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --baseDn $BASE_DN \
         --baseDn $CTS_BASE_DN \
         --baseDn $CS_BASE_DN \
+        --baseDn $IDM_BASE_DN \
         --hostname dsrs1.example.com --port 1444 \
         --no-prompt
 
