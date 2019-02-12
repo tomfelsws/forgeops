@@ -22,10 +22,10 @@ aci: (version 3.0;acl "Delete entries"; allow (delete) userdn =
  "ldap:///uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}";)
 
 # SwissID: additional layer ou=tokens that is not part of DS 6.5.1 or 7.0
-dn: ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
+dn: ou=tokens,&{AM_CTS_BASE_DN}
 objectClass: organizationalUnit
 objectClass: top
-ou: openam-sessions
+ou: tokens
 
 #dn: ou=openam-session,&{AM_CTS_BASE_DN}
 # SwissID: additional layer ou=tokens that is not part of DS 6.5.1 or 7.0
@@ -36,19 +36,19 @@ ou: openam-session
 
 #dn: ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
 # SwissID: additional layer ou=tokens that is not part of DS 6.5.1 or 7.0
-dn: ou=famrecords,ou=openam-session,ou=tokens,dc=swisssign,dc=com
+dn: ou=famrecords,ou=openam-session,ou=tokens,&{AM_CTS_BASE_DN}
 ou: famrecords
 objectClass: organizationalUnit
 
 # SwissID has different level for admins (without ou=famrecords,ou=openam-session)
-#dn: ou=admins,dc=swisssign,dc=com
+#dn: ou=admins,&{AM_CTS_BASE_DN}
 dn: ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
 objectClass: top
 objectClass: organizationalunit
 ou: OpenAM Administrator
 
 # SwissID has different level for admins (without ou=famrecords,ou=openam-session)
-#dn: uid=openam_cts,ou=admins,dc=swisssign,dc=com
+#dn: uid=openam_cts,ou=admins,&{AM_CTS_BASE_DN}
 dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
 objectClass: top
 objectClass: person
