@@ -33,9 +33,8 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --bindDn1 "cn=directory manager" --bindPassword1 password \
         --bindDn2 "cn=directory manager" --bindPassword2 password \
         --baseDn $BASE_DN \
-        --baseDn ou=tokens \
-        --baseDn ou=am-config \
-        --baseDn dc=openidm,dc=example,dc=com \
+        --baseDn $CTS_BASE_DN \
+        --baseDn $CS_BASE_DN \
         --host1 dsrs1.example.com --port1 1444 --replicationPort1 1989 \
         --host2 dsrs2.example.com --port2 2444 --replicationPort2 2989 \
         --no-prompt
@@ -44,9 +43,8 @@ if [ -n "$CONFIG_REPLICATION" ]; then
     ./run/dsrs1/bin/dsreplication initialize-all \
         -I admin -w password -X \
         --baseDn $BASE_DN \
-        --baseDn ou=tokens \
-        --baseDn ou=am-config \
-        --baseDn dc=openidm,dc=example,dc=com \
+        --baseDn $CTS_BASE_DN \
+        --baseDn $CS_BASE_DN \
         --hostname dsrs1.example.com --port 1444 \
         --no-prompt
 

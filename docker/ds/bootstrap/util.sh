@@ -320,7 +320,7 @@ load_ldifs() {
   	        do
   	           echo "Loading ${file}"
                # search + replace all placeholder variables. Naming conventions are from AM.
-              sed -e "s/@BASE_DN@/$BASE_DN/"  <${file}  >/tmp/file.ldif
+              sed -e "s/@BASE_DN@/$BASE_DN/" -e "s/@CS_BASE_DN@/$CS_BASE_DN/" -e "s/@CTS_BASE_DN@/$CTS_BASE_DN/"<${file}  >/tmp/file.ldif
               bin/ldapmodify -D "cn=Directory Manager" --continueOnError -h ${DSHOST} -p ${PORT_DIGIT}389 -w password /tmp/file.ldif
             done
         done

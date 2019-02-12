@@ -1,4 +1,4 @@
-dn: uid=backup,ou=admins,@BASE_DN@
+dn: uid=backup,ou=admins,@CS_BASE_DN@
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
