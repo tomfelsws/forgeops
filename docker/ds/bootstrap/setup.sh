@@ -81,6 +81,8 @@ convert_to_template()
 
     echo "Converting $1 config.ldif to use commons configuration"
 
+    cat config/config.ldif
+
     # update config.ldif. continue on error is set so we keep applying the changes
     # Some of the configuration changes won't apply if replication is not being configured.
     sed -e "s/@BASE_DN@/$BASE_DN/g" ../../config-changes.ldif > ../../config-changes-sed.ldif
