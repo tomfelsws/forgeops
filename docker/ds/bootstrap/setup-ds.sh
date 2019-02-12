@@ -53,6 +53,8 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 
 cat /tmp/opendj-setup-*
 
+cat /tmp/base-entries.ldif*
+
 # If the server is not the first, we can skip the rest of the setup, as only the first server is templated out.
 if [ "${PORT_DIGIT}" != "1" ]; then
     echo "Exiting setup early for server ${PORT_DIGIT}"
