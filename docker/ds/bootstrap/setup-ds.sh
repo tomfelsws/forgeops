@@ -40,10 +40,9 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --set am-cts/tokenExpirationPolicy:ds \
     --profile am-identity-store:6.5.0 \
     --set am-identity-store/amIdentityStoreAdminPassword:password \
-    --set am-identity-store/baseDn:dc=swisssign,dc=com \
+    --set am-identity-store/baseDn:dc=swisssign,dc=net \
     --profile am-config:6.5.0 \
     --set am-config/amConfigAdminPassword:password \
-    --set am-config/baseDn:dc=swisssign,dc=com \
     --certNickname ${SSL_CERT_ALIAS} \
     --usePkcs12KeyStore ${SSL_KEYSTORE} \
     --keyStorePasswordFile ${KEYSTORE_PIN} \
