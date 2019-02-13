@@ -35,16 +35,15 @@ update_pw() {
     sed -ibak "s#userPassword: .*#userPassword: $pw#" "$2"
 }
 
-relocate_data() 
-{
+relocate_data() {
     # Does data/db contain directories?
     if [ "$(find data/db  -type d)" ]; then
         echo "Data volume contains existing data"
-	# If continer is restarted then original db directory reappears 
-	# from the docker image hence move it out of the way otherwise
-	# symbolic linking below will not work
-	mv db db.tmp || true
-	ln -s data/db .
+        # If continer is restarted then original db directory reappears
+        # from the docker image hence move it out of the way otherwise
+        # symbolic linking below will not work
+        mv db db.tmp || true
+        ln -s data/db .
     else
         # The data directory is mounted as pvc in k8s env.  If testing
         # with "docker run",  make sure to  mount a data volume
@@ -59,7 +58,6 @@ relocate_data()
 start() {
     echo "Starting DS"
     echo "Server id $SERVER_ID"
-    #exec dumb-init -- ./bin/start-ds --nodetach
     exec tini -v -- ./bin/start-ds --nodetach
 }
 
@@ -81,7 +79,6 @@ pause() {
     done
 }
 
-
 init_container() {
     relocate_data
     # Set the passwords to the values of the mounted secrets.
@@ -102,19 +99,16 @@ restore() {
     scripts/restore.sh -o
 }
 
-
 CMD="${1:-run}"
-
 echo "Command is $CMD"
 
-echo "Server id is $SERVER_ID"
-
+echo "Server ID is $SERVER_ID"
 
 case "$CMD" in
 start)
     init_container
     if [ "$SERVER_ID" == "10" ]; then
-        # We are on the first server of the stateful set, so let's initialize a few things
+        # We are on the first pod of the stateful set, so let's initialize a few things
         echo "*** We are on the first $DJ_INSTANCE pod, performing SwissID initialization and restarting server ..."
         start_noexec
         init_swissid
