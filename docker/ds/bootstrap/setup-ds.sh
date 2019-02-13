@@ -10,6 +10,7 @@ set -x
 echo "Setting up server..."
 cd $DJ
 
+
 SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 
 # The amCts profile with --set am-cts/tokenExpirationPolicy:ds uses the directory to reap tokens.
@@ -95,7 +96,6 @@ configure
 
 ./bin/start-ds
 
-# From util.sh. Consider moving the logic here...
 post_start
 
 cd ..
