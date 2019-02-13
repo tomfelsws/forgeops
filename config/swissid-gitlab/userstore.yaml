@@ -6,6 +6,8 @@ instance: userstore
 userstore:
   enabled: true
 
+baseDN: "$USERSTORE_BASE_DN"
+
 replicas: $USERSTORE_REPLICAS
 
 #resources:

@@ -6,6 +6,8 @@ instance: ctsstore
 cts:
   enabled: true
 
+baseDN: "$CTS_BASE_DN"
+
 replicas: $CTS_REPLICAS
 
 #resources:

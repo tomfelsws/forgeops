@@ -6,6 +6,8 @@ instance: configstore
 configstore:
   enabled: true
 
+baseDN: "$CONFIGSTORE_BASE_DN"
+
 replicas: $CONFIGSTORE_REPLICAS
 
 #resources:

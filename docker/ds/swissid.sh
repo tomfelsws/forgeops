@@ -31,23 +31,19 @@ ACCOUNTMGR_PW=$( cat $ACCOUNTMGR_PW_FILE )
 
 
 update_swissid_passwords_configstore() {
-  env
-  echo "BASE_DN = $BASE_DN"
-  echo "CS_BASE_DN = $CS_BASE_DN"
-  echo "CTS_BASE_DN = $CTS_BASE_DN"
   echo "Updating SwissID LDAP passwords - configstore"
   bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
-dn: uid=am-config,ou=admins,$CS_BASE_DN
+dn: uid=am-config,ou=admins,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $CONFIGSTORE_PW
 
-dn: uid=backup,ou=admins,$CS_BASE_DN
+dn: uid=backup,ou=admins,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $BACKUP_PW
 
-dn: uid=jmxmonitoring,ou=admins,$CS_BASE_DN
+dn: uid=jmxmonitoring,ou=admins,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $MONITOR_PW
@@ -55,20 +51,20 @@ userPassword: $MONITOR_PW
 EOF
 }
 
-update_swissid_passwords_tokenstore() {
-  echo "Updating SwissID LDAP passwords - tokenstore"
+update_swissid_passwords_ctsstore() {
+  echo "Updating SwissID LDAP passwords - ctsstore"
   bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
-dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CBAE_DN
 changetype: modify
 replace: userPassword
 userPassword: $CTS_PW
 
-dn: uid=backup,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+dn: uid=backup,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $BACKUP_PW
 
-dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $MONITOR_PW
@@ -123,7 +119,7 @@ EOF
 }
 
 init_swissid() {
-    update_swissid_passwords_configstore
-    update_swissid_passwords_tokenstore
-    update_swissid_passwords_userstore
+    # BASE_DN is set via swissid-gitlab/*store.yaml (baseDN: setting)
+    echo "BASE_DN = $BASE_DN"
+    update_swissid_passwords_$DJ_INSTANCE
 }
