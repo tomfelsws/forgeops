@@ -1,33 +1,18 @@
 #!/usr/bin/env bash
-# Source this to set standard environment variables
 
-export CTS_PW_FILE="${CTS_PW_FILE:-$SECRET_PATH/cts.pw}"
-export USERSTORE_PW_FILE="${USERSTORE_PW_FILE:-$SECRET_PATH/userstore.pw}"
-export CONFIGSTORE_PW_FILE="${CONFIGSTORE_PW_FILE:-$SECRET_PATH/configstore.pw}"
+CTS_PW=$( cat $SECRET_PATH/cts.pw )
+USERSTORE_PW=$( cat $SECRET_PATH/userstore.pw )
+CONFIGSTORE_PW=$( cat $SECRET_PATH/configstore.pw )
 
-export SELFMANAGEMENT_PW_FILE="${SELFMANAGEMENT_PW_FILE:-$SECRET_PATH/selfmanagement.pw}"
-export SUPPORT_PW_FILE="${SUPPORT_PW_FILE:-$SECRET_PATH/support.pw}"
-export IDCHECK_PW_FILE="${IDCHECK_PW_FILE:-$SECRET_PATH/idcheck.pw}"
-export SWISSIDAPP_PW_FILE="${SWISSIDAPP_PW_FILE:-$SECRET_PATH/swissidapp.pw}"
+SELFMANAGEMENT_PW=$( cat $SECRET_PATH/selfmanagement.pw )
+SUPPORT_PW=$( cat $SECRET_PATH/support.pw )
+IDCHECK_PW=$( cat $SECRET_PATH/idcheck.pw )
+SWISSIDAPP_PW=$( cat $SECRET_PATH/swissidapp.pw )
 
-export BACKUP_PW_FILE="${BACKUP_PW_FILE:-$SECRET_PATH/backup.pw}"
-export MONITOR_PW_FILE="${MONITOR_PW_FILE:-$SECRET_PATH/monitor.pw}"
+BACKUP_PW=$( cat $SECRET_PATH/backup.pw )
+MONITOR_PW=$( cat $SECRET_PATH/monitor.pw )
 
-export ACCOUNTMGR_PW_FILE="${ACCOUNTMGR_PW_FILE:-$SECRET_PATH/accountmgr.pw}"
-
-CTS_PW=$( cat $CTS_PW_FILE )
-USERSTORE_PW=$( cat $USERSTORE_PW_FILE )
-CONFIGSTORE_PW=$( cat $CONFIGSTORE_PW_FILE )
-
-SELFMANAGEMENT_PW=$( cat $SELFMANAGEMENT_PW_FILE )
-SUPPORT_PW=$( cat $SUPPORT_PW_FILE )
-IDCHECK_PW=$( cat $IDCHECK_PW_FILE )
-SWISSIDAPP_PW=$( cat $SWISSIDAPP_PW_FILE )
-
-BACKUP_PW=$( cat $BACKUP_PW_FILE )
-MONITOR_PW=$( cat $MONITOR_PW_FILE )
-
-ACCOUNTMGR_PW=$( cat $ACCOUNTMGR_PW_FILE )
+ACCOUNTMGR_PW=$( cat $SECRET_PATH/accountmgr.pw )
 
 
 update_swissid_passwords_configstore() {
