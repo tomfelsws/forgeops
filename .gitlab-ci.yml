@@ -122,19 +122,19 @@ variables:
 
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
-  CONFIGSTORE_REPLICAS: 1
+  CONFIGSTORE_REPLICAS: 2
   CONFIGSTORE_AFFINITY: soft
   CONFIGSTORE_TOPOLOGY: kubernetes.io/hostname
 
   # Tokenstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
-  CTS_REPLICAS: 1
+  CTS_REPLICAS: 2
   CTS_AFFINITY: soft
   CTS_TOPOLOGY: kubernetes.io/hostname
 
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
-  USERSTORE_REPLICAS: 1
+  USERSTORE_REPLICAS: 2
   USERSTORE_AFFINITY: soft
   USERSTORE_TOPOLOGY: kubernetes.io/hostname
 
