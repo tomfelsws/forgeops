@@ -10,15 +10,14 @@ export DJ_INSTANCE="${DJ_INSTANCE:-userstore}"
 # Subsequent scripts may want to know our FQDN in the cluster. The convention below works in k8s using StatefulSets.
 export FQDN="${HOSTNAME}.${DJ_INSTANCE}"
 
-# The FQDN all the serversin the statefulset. This is useful for backup or other commands that need to run on the first server.
+# The FQDN all the servers in the statefulset. This is useful for backup or other commands that need to run on the first server.
 export  FQDN_DS0=${DJ_INSTANCE}-0.${DJ_INSTANCE}
-export  FQDN_DS1=${DJ_INSTANCE}-0.${DJ_INSTANCE}
-export  FQDN_DS2=${DJ_INSTANCE}-0.${DJ_INSTANCE}
+export  FQDN_DS1=${DJ_INSTANCE}-1.${DJ_INSTANCE}
+export  FQDN_DS2=${DJ_INSTANCE}-2.${DJ_INSTANCE}
+export  FQDN_DS3=${DJ_INSTANCE}-3.${DJ_INSTANCE}
+export  FQDN_DS4=${DJ_INSTANCE}-4.${DJ_INSTANCE}
 
 # These environment variables are used to template the config.ldif file on startup
-export FQDN_RS0=${DJ_INSTANCE}-0.${DJ_INSTANCE}:8989
-export FQDN_RS1=${DJ_INSTANCE}-1.${DJ_INSTANCE}:8989
-export FQDN_RS2=${DJ_INSTANCE}-2.${DJ_INSTANCE}:8989
 export SERVER_FQDN="$FQDN"
 export CHANGELOG_DB_DIRECTORY="data/db/changelogDb"
 #export DATA_DIR="data/db"
