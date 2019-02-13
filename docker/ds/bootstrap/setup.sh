@@ -56,53 +56,26 @@ if [ -n "$CONFIG_REPLICATION" ]; then
     echo "##### Stopping all servers..."
     ./stop-all.sh 
 
-    echo "Setting replication purge delay to 12 hours"
+    echo "##### Setting replication purge delay to 12 hours"
     ./run/dsrs1/bin/dsconfig set-replication-server-prop \
         --provider-name Multimaster\ Synchronization \
         --set replication-purge-delay:12\ h \
         --offline \
         --no-prompt
 
-    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
-        --provider-name Multimaster\ Synchronization \
-        --domain-name $BASE_DN \
-        --add ecl-include-for-deletes:"*" \
-        --add ecl-include-for-deletes:"+" \
-        --add ecl-include:"*" \
-        --add ecl-include:"+" \
-        --offline \
-        --no-prompt
-
-    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
-        --provider-name Multimaster\ Synchronization \
-        --domain-name $CTS_BASE_DN \
-        --add ecl-include-for-deletes:"*" \
-        --add ecl-include-for-deletes:"+" \
-        --add ecl-include:"*" \
-        --add ecl-include:"+" \
-        --offline \
-        --no-prompt
-
-    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
-        --provider-name Multimaster\ Synchronization \
-        --domain-name $CS_BASE_DN \
-        --domain-name dc=openidm,dc=example,dc=com \
-        --add ecl-include-for-deletes:"*" \
-        --add ecl-include-for-deletes:"+" \
-        --add ecl-include:"*" \
-        --add ecl-include:"+" \
-        --offline \
-        --no-prompt
-
-    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
-        --provider-name Multimaster\ Synchronization \
-        --domain-name dc=openidm,dc=example,dc=com \
-        --add ecl-include-for-deletes:"*" \
-        --add ecl-include-for-deletes:"+" \
-        --add ecl-include:"*" \
-        --add ecl-include:"+" \
-        --offline \
-        --no-prompt
+    for DN in "$BASE_DN" "$CTS_BASE_DN" "$CS_BASE_DN" "dc=openidm,dc=example,dc=com"
+    do
+        echo "##### Setting external changelog domain properties for $DN"
+        ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
+            --provider-name Multimaster\ Synchronization \
+            --domain-name $BASE_DN \
+            --add ecl-include-for-deletes:"*" \
+            --add ecl-include-for-deletes:"+" \
+            --add ecl-include:"*" \
+            --add ecl-include:"+" \
+            --offline \
+            --no-prompt
+    done
 
 fi
 
