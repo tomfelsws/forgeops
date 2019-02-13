@@ -1,12 +1,10 @@
 #!/bin/sh
 
-
 # Add hostnames to the docker containers /etc/hosts - needed only for building.
 echo "127.0.0.1 dsrs1.example.com dsrs2.example.com" >>/etc/hosts
 
 echo "##### Cleaning servers..."
 ./clean-all.sh
-
 
 echo "##### Configuring directory server DSRS 1..."
 ./setup-ds.sh dsrs 1 10
@@ -14,18 +12,10 @@ echo "##### Configuring directory server DSRS 1..."
 # Set this to configuration replication at docker build time. Comment out to configure just a single server.
 CONFIG_REPLICATION="yes"
 
-if [ -n "$CONFIG_REPLICATION" ]; then 
+if [ -n "$CONFIG_REPLICATION" ]; then
 
     echo "##### Configuring directory server DSRS 2..."
     ./setup-ds.sh dsrs 2
-
-    # Debug...
-    jps -mlv
-    pid=`jps  -m | grep Directory | awk '{print $1}'`
-    echo "PId = $pid"
-    # (while true; do jstack $pid; sleep 30; done)
-    # This triggers a lot of debug...
-    # tail -f ./run/dsrs1/logs/debug &
 
     echo "##### Configuring replication between DSRS 1 and DSRS 2..."
     ./run/dsrs1/bin/dsreplication configure \
@@ -50,7 +40,7 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --hostname dsrs1.example.com --port 1444 \
         --no-prompt
 
-    ./stop-all.sh 
+    ./stop-all.sh
 
     echo "Setting replication purge delay"
     (cd run/dsrs1 &&  ./bin/dsconfig \
@@ -94,6 +84,4 @@ convert_to_template()
     cd ../../
 }
 
-
 convert_to_template dsrs1
-
