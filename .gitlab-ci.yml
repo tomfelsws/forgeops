@@ -130,7 +130,7 @@ variables:
   # Tokenstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   CTS_BASE_DN: dc=swisssign,dc=net
-  CTS_REPLICAS: 1
+  CTS_REPLICAS: 2
   CTS_AFFINITY: soft
   CTS_TOPOLOGY: kubernetes.io/hostname
 
