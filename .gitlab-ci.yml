@@ -118,7 +118,7 @@ variables:
 
   # The Forgerock components to deploy
   # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
-  COMPONENTS: "frconfig configstore ctsstore usersstore openam amster"
+  COMPONENTS: "frconfig configstore ctsstore userstore openam amster"
 
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
