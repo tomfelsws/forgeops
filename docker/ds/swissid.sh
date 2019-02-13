@@ -119,19 +119,16 @@ load_swissid_store_ldifs() {
 }
 
 init_swissid() {
-    # figure out on which stateful set server we are
+    # figure out on which stateful set pod we are running on
     # code stolen from https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
     [[ `hostname` =~ -([0-9]+) ]]
     ORDINAL=${BASH_REMATCH[1]}
 
-    if [ "$ORDINAL" != "0" ]; then
+    if [ "$ORDINAL" == "0" ]; then
+        # we are on the first pod of the stateful set
+        update_swissid_passwords_$DJ_INSTANCE
+        load_swissid_store_ldifs $DJ_INSTANCE
+    else
         echo "*** We are not on the first $DJ_INSTANCE replica server, skipping SwissID initialization ..."
-        exit 0
     fi
-
-    # BASE_DN is set via swissid-gitlab/*store.yaml (baseDN: setting)
-    echo "BASE_DN = $BASE_DN"
-
-    update_swissid_passwords_$DJ_INSTANCE
-    load_swissid_store_ldifs $DJ_INSTANCE
 }
