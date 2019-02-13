@@ -30,7 +30,12 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --baseDn dc=openidm,dc=example,dc=com \
         --host1 dsrs1.example.com --port1 1444 --replicationPort1 1989 \
         --host2 dsrs2.example.com --port2 2444 --replicationPort2 2989 \
+        --secureReplication1 \
+        --secureReplication2 \
         --no-prompt
+
+        # SwissID: we may need --noSchemaReplication at some point ...
+        #--noSchemaReplication
 
     echo "##### Initializing replication between DSRS 1 and DSRS 2..."
     ./run/dsrs1/bin/dsreplication initialize-all \
@@ -42,16 +47,63 @@ if [ -n "$CONFIG_REPLICATION" ]; then
         --hostname dsrs1.example.com --port 1444 \
         --no-prompt
 
+    echo "##### Replication status..."
+    ./run/dsrs1/bin/dsreplication status \
+        -I admin -w password -X \
+        --hostname dsrs1.example.com --port 1444 \
+        --no-prompt
+
     echo "##### Stopping all servers..."
     ./stop-all.sh 
 
     echo "Setting replication purge delay to 12 hours"
-    (cd run/dsrs1 &&  ./bin/dsconfig \
-        set-replication-server-prop \
-      --provider-name Multimaster\ Synchronization \
-      --set replication-purge-delay:12\ h \
-      --offline \
-      --no-prompt)
+    ./run/dsrs1/bin/dsconfig set-replication-server-prop \
+        --provider-name Multimaster\ Synchronization \
+        --set replication-purge-delay:12\ h \
+        --offline \
+        --no-prompt
+
+    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
+        --provider-name Multimaster\ Synchronization \
+        --domain-name $BASE_DN \
+        --add ecl-include-for-deletes:"*" \
+        --add ecl-include-for-deletes:"+" \
+        --add ecl-include:"*" \
+        --add ecl-include:"+" \
+        --offline \
+        --no-prompt
+
+    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
+        --provider-name Multimaster\ Synchronization \
+        --domain-name $CTS_BASE_DN \
+        --add ecl-include-for-deletes:"*" \
+        --add ecl-include-for-deletes:"+" \
+        --add ecl-include:"*" \
+        --add ecl-include:"+" \
+        --offline \
+        --no-prompt
+
+    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
+        --provider-name Multimaster\ Synchronization \
+        --domain-name $CS_BASE_DN \
+        --domain-name dc=openidm,dc=example,dc=com \
+        --add ecl-include-for-deletes:"*" \
+        --add ecl-include-for-deletes:"+" \
+        --add ecl-include:"*" \
+        --add ecl-include:"+" \
+        --offline \
+        --no-prompt
+
+    ./run/dsrs1/bin/dsconfig set-external-changelog-domain-prop \
+        --provider-name Multimaster\ Synchronization \
+        --domain-name dc=openidm,dc=example,dc=com \
+        --add ecl-include-for-deletes:"*" \
+        --add ecl-include-for-deletes:"+" \
+        --add ecl-include:"*" \
+        --add ecl-include:"+" \
+        --offline \
+        --no-prompt
+
 fi
 
 # Occasiionally we see build issues with timing. Wait a bit before shutdown.

@@ -6,17 +6,17 @@ replicateStores() {
     echo "     o enable replication"
     if [ "$noSchemaReplication" = "true" ]; then
         echo "noSchemaReplication: true"
-        try "$binDir/dsreplication configure --noSchemaReplication --adminUID admin --adminPasswordFile \"$passwordFile\" --baseDN \"$baseDN\" --host1 $primaryOpenDJNodeHost --port1 $primaryOpenDJNodeAdminPort  --bindDN1  \"$rootUserDN\" --bindPasswordFile1 \"$passwordFile\" --replicationPort1 $primaryOpenDJNodeReplicationPort --secureReplication1 --host2   $secondaryOpenDJNodeHost  --port2 $secondaryOpenDJNodeAdminPort --bindDN2 \"$rootUserDN\" --bindPasswordFile2 \"$passwordFile\" --replicationPort2 $secondaryOpenDJNodeReplicationPort  --secureReplication2  --trustAll  --no-prompt "
+        try "$binDir/dsreplication configure --noSchemaReplication   --secureReplication1   --secureReplication2    --no-prompt "
     else
         echo "noSchemaReplication: false (default)"
-        try "$binDir/dsreplication configure --adminUID admin --adminPasswordFile \"$passwordFile\" --baseDN \"$baseDN\" --host1 $primaryOpenDJNodeHost --port1 $primaryOpenDJNodeAdminPort  --bindDN1  \"$rootUserDN\" --bindPasswordFile1 \"$passwordFile\" --replicationPort1 $primaryOpenDJNodeReplicationPort --secureReplication1 --host2   $secondaryOpenDJNodeHost  --port2 $secondaryOpenDJNodeAdminPort --bindDN2 \"$rootUserDN\" --bindPasswordFile2 \"$passwordFile\" --replicationPort2 $secondaryOpenDJNodeReplicationPort  --secureReplication2  --trustAll  --no-prompt "
+        try "$binDir/dsreplication configure    --secureReplication1   --secureReplication2    --no-prompt "
     fi
 
     # Initialize replication providing hostname of primary node
     # try "$binDir/dsreplication initialize-all  --adminUID admin --adminPasswordFile \"$passwordFile\" --baseDN \"$baseDN\" --hostname $primaryOpenDJNodeHost --port $primaryOpenDJNodeAdminPort --trustAll --no-prompt"
     # Using initialize instead of initialize-all to prevent data initialization on other servers in the topology (in future)
     echo "     o initialize replication"
-    try "$binDir/dsreplication initialize  --adminUID admin --adminPasswordFile \"$passwordFile\" --baseDN \"$baseDN\" --hostSource $primaryOpenDJNodeHost --portSource $primaryOpenDJNodeAdminPort --hostDestination $secondaryOpenDJNodeHost --portDestination $secondaryOpenDJNodeAdminPort --trustAll --no-prompt"
+    try "$binDir/dsreplication initialize   --hostSource $primaryOpenDJNodeHost --portSource $primaryOpenDJNodeAdminPort --hostDestination $secondaryOpenDJNodeHost --portDestination $secondaryOpenDJNodeAdminPort --trustAll --no-prompt"
 
     echo "     o printing replication status"
     $binDir/dsreplication status --adminUID admin --adminPasswordFile "$passwordFile" --hostname localhost --port $adminConnectorPort --trustAll --no-prompt
@@ -49,7 +49,6 @@ configureChangeLog() {
         fi
         try "$binDir/dsconfig set-external-changelog-domain-prop --hostname $secondaryOpenDJNodeHost --port $secondaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --domain-name $baseDN  --add ecl-include-for-deletes:"*" --add ecl-include-for-deletes:"+"   --trustAll  -n "
         try "$binDir/dsconfig set-external-changelog-domain-prop --hostname $secondaryOpenDJNodeHost --port $secondaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --domain-name $baseDN  --add ecl-include:"*" --add ecl-include:"+"    --trustAll  -n "
-        try "$binDir/dsconfig set-replication-server-prop --hostname $secondaryOpenDJNodeHost --port $secondaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --set replication-purge-delay:$replicationPurgeDelay   --trustAll  -n "
     else
         # we are on the primary server but no upgrade mode
         # therefore there is no replication set up yet and no replication attributes have to be set anywhere
@@ -63,7 +62,6 @@ configureChangeLog() {
         echo "     o secondary server -> updating replication properties on $primaryOpenDJNodeHost"
         try "$binDir/dsconfig set-external-changelog-domain-prop --hostname $primaryOpenDJNodeHost --port $primaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --domain-name $baseDN  --add ecl-include-for-deletes:"*" --add ecl-include-for-deletes:"+"   --trustAll  -n "
         try "$binDir/dsconfig set-external-changelog-domain-prop --hostname $primaryOpenDJNodeHost --port $primaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --domain-name $baseDN  --add ecl-include:"*" --add ecl-include:"+"    --trustAll  -n "
-        try "$binDir/dsconfig set-replication-server-prop --hostname $primaryOpenDJNodeHost --port $primaryOpenDJNodeAdminPort --bindDN \"$rootUserDN\" --bindPasswordFile \"$passwordFile\" --provider-name \"Multimaster Synchronization\" --set replication-purge-delay:$replicationPurgeDelay   --trustAll  -n "
     fi
 }
 
