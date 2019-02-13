@@ -59,7 +59,8 @@ ENV OPENDJ_JAVA_ARGS "-Xmx1024m"
 
 COPY *.sh /opt/opendj/
 COPY bootstrap/secrets/* /var/run/secrets/opendj/
-COPY scripts/ /opt/opendj/scripts/ 
+COPY scripts/ /opt/opendj/scripts/
+COPY swissid/ /opt/opendj/swissid/
 
 RUN chown -R forgerock:root /opt/opendj && chmod -R g=u /opt/opendj
 
