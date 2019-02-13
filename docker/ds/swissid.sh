@@ -29,50 +29,63 @@ MONITOR_PW=$( cat $MONITOR_PW_FILE )
 
 ACCOUNTMGR_PW=$( cat $ACCOUNTMGR_PW_FILE )
 
-update_swissid_passwords() {
-  echo "Updating SwissID LDAP passwords"
+
+update_swissid_passwords_configstore() {
+  echo "Updating SwissID LDAP passwords - configstore"
   bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
-dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens
-changetype: modify
-replace: userPassword
-userPassword: $CTS_PW
-
-dn: uid=am-identity-bind-account,ou=admins,$BASE_DN
-changetype: modify
-replace: userPassword
-userPassword: $USERSTORE_PW
-
-dn: uid=am-config,ou=admins,ou=am-config
+dn: uid=am-config,ou=admins,$CS_BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $CONFIGSTORE_PW
 
-dn: uid=backup,ou=admins,ou=famrecords,ou=openam-session,ou=tokens
+dn: uid=backup,ou=admins,$CS_BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $BACKUP_PW
+
+dn: uid=jmxmonitoring,ou=admins,$CS_BASE_DN
+changetype: modify
+replace: userPassword
+userPassword: $MONITOR_PW
+
+EOF
+}
+
+update_swissid_passwords_tokenstore() {
+  echo "Updating SwissID LDAP passwords - tokenstore"
+  bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
+dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+changetype: modify
+replace: userPassword
+userPassword: $CTS_PW
+
+dn: uid=backup,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+changetype: modify
+replace: userPassword
+userPassword: $BACKUP_PW
+
+dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN
+changetype: modify
+replace: userPassword
+userPassword: $MONITOR_PW
+
+EOF
+}
+
+update_swissid_passwords_userstore() {
+  echo "Updating SwissID LDAP passwords - userstore"
+  bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
+dn: uid=am-identity-bind-account,ou=admins,$BASE_DN
+changetype: modify
+replace: userPassword
+userPassword: $USERSTORE_PW
 
 dn: uid=backup,ou=admins,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $BACKUP_PW
 
-dn: uid=backup,ou=admins,ou=am-config
-changetype: modify
-replace: userPassword
-userPassword: $BACKUP_PW
-
-dn: uid=jmxmonitoring,ou=admins,ou=famrecords,ou=openam-session,ou=tokens
-changetype: modify
-replace: userPassword
-userPassword: $MONITOR_PW
-
 dn: uid=jmxmonitoring,ou=admins,$BASE_DN
-changetype: modify
-replace: userPassword
-userPassword: $MONITOR_PW
-
-dn: uid=jmxmonitoring,ou=admins,ou=am-config
 changetype: modify
 replace: userPassword
 userPassword: $MONITOR_PW
@@ -101,9 +114,12 @@ dn: uid=accountmanager,ou=people,$BASE_DN
 changetype: modify
 replace: userPassword
 userPassword: $ACCOUNTMGR_PW
+
 EOF
 }
 
 init_swissid() {
-    update_swissid_passwords
+    update_swissid_passwords_configstore
+    update_swissid_passwords_tokenstore
+    update_swissid_passwords_userstore
 }

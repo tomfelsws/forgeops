@@ -66,3 +66,5 @@ export BACKUP_ROOT_DIRECTORY="${BACKUP_ROOT_DIRECTORY:-/opt/opendj/bak}"
 export BACKUP_CLUSTER_NAME="${BACKUP_CLUSTER_NAME:-default}"
 export BACKUP_DIRECTORY="${BACKUP_DIRECTORY:-${BACKUP_ROOT_DIRECTORY}/${BACKUP_CLUSTER_NAME}/${DJ_INSTANCE}-${NAMESPACE}}"
 
+# Load SwissID runtime library and environment
+source /opt/opendj/swissid.sh
