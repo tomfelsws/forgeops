@@ -143,7 +143,7 @@ variables:
 
   # OpenAM default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
-  OPENAM_REPLICAS: 2
+  OPENAM_REPLICAS: 3
 
 
 #############################################################################
