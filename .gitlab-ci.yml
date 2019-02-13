@@ -118,7 +118,7 @@ variables:
 
   # The Forgerock components to deploy
   # Note: The ds stores are aliased as configstore, userstore, ctstore - but they all use the ds chart
-  COMPONENTS: "frconfig configstore userstore ctsstore openam amster"
+  COMPONENTS: "frconfig configstore ctsstore openam amster"
 
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
@@ -254,7 +254,6 @@ build-ds-docker-image:
     changes:
       - docker/downloader/**/*
       - docker/ds/**/*
-      - .gitlab-ci.yml
 
 #build-apache-agent-docker-image:
 #  <<: *build-docker-image
