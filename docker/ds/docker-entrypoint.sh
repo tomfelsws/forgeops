@@ -83,6 +83,8 @@ pause() {
 
 
 init_container() {
+    env | sort
+    grep ds-cfg-replication-server config/config.ldif
     relocate_data
     # Set the passwords to the values of the mounted secrets.
     update_pw "$DIR_MANAGER_PW_FILE" data/db/rootUser/rootUser.ldif
