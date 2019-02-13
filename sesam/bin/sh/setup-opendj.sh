@@ -34,6 +34,7 @@ fi
 # All Stores
 ##############################################################################
 
+configureLdapStats
 configureReplicationStatus
 
 if [ "$configureBackup" = "true" ]; then

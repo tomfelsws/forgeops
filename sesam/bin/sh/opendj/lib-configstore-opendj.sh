@@ -1,22 +1,6 @@
 #!/bin/bash
 
 ##############################################################################
-# Setup Config Store
-##############################################################################
-
-configStoreSetup() {
-    echo "*** Setup Config Store..."
-
-    if [ "$configureReplication" = "true" -o "$upgradeOpenDJ" = "true" ]; then
-        echo "Configuring replication"
-        replicateStores
-    fi
-
-    # Cronjob to report some LDAP statistics
-    configureLdapStats
-}
-
-##############################################################################
 # Post OpenAM installation changes
 ##############################################################################
 
