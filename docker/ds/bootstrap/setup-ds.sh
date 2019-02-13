@@ -10,7 +10,6 @@ set -x
 echo "Setting up server..."
 cd $DJ
 
-
 SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
 
 # The amCts profile with --set am-cts/tokenExpirationPolicy:ds uses the directory to reap tokens.
@@ -45,7 +44,6 @@ SSL_KEYSTORE=${SECRETS}/ssl-keystore.p12
     --keyStorePasswordFile ${KEYSTORE_PIN} \
     --acceptLicense \
     --doNotStart
-
 
 # If the server is not the first, we can skip the rest of the setup, as only the first server is templated out.
 if [ "${PORT_DIGIT}" != "1" ]; then
@@ -86,7 +84,6 @@ echo "Enabling the /api endpoint"
     --set enabled:true \
     --offline \
     --no-prompt
-
 
 # load API schema with correct DN's (ie ou=identities)
 echo "Installing rest2ldap endpoint map"
