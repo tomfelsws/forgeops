@@ -83,8 +83,6 @@ pause() {
 
 
 init_container() {
-    env | sort
-    grep ds-cfg-replication-server config/config.ldif
     relocate_data
     # Set the passwords to the values of the mounted secrets.
     update_pw "$DIR_MANAGER_PW_FILE" data/db/rootUser/rootUser.ldif
@@ -115,9 +113,13 @@ echo "Server id is $SERVER_ID"
 case "$CMD" in
 start)
     init_container
-    start_noexec
-    init_swissid
-    stop
+    if [ "$SERVER_ID" == "10" ]; then
+        # We are on the first server of the stateful set, so let's initialize a few things
+        echo "*** We are on the first $DJ_INSTANCE pod, performing SwissID initialization and restarting server ..."
+        start_noexec
+        init_swissid
+        stop
+    fi
     start
     ;;
 restore)
