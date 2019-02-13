@@ -31,6 +31,10 @@ ACCOUNTMGR_PW=$( cat $ACCOUNTMGR_PW_FILE )
 
 
 update_swissid_passwords_configstore() {
+  env
+  echo "BASE_DN = $BASE_DN"
+  echo "CS_BASE_DN = $CS_BASE_DN"
+  echo "CTS_BASE_DN = $CTS_BASE_DN"
   echo "Updating SwissID LDAP passwords - configstore"
   bin/ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -j ${DIR_MANAGER_PW_FILE} <<EOF
 dn: uid=am-config,ou=admins,$CS_BASE_DN
