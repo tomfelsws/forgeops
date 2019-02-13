@@ -1,3 +1,4 @@
+
 FROM registry.gitlab.com/swissid/forgeops/downloader:latest
 
 ARG VERSION="6.5.0"
@@ -7,7 +8,6 @@ RUN download -v $VERSION opendj
 #FROM openjdk:11-jdk 
 FROM openjdk:8-jdk 
 COPY --from=0 /opendj.zip /var/tmp/opendj.zip
-#COPY opendj-support-extract-tool.zip /var/tmp/opendj-support-extract-tool.zip
 
 WORKDIR /var/tmp/bootstrap
 
