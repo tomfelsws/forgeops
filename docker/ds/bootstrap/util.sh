@@ -288,6 +288,33 @@ post_config() {
 
     # fails with an ASN.1 error "Cannot decode the provided ASN.1 integer element because the length of the element value was not between one and four bytes (actual length was 0)"
     tail logs/access
+
+    echo "Setting db-durability to low for amCts..."
+    ./bin/dsconfig set-backend-prop \
+        --backend-name amCts \
+        --set db-durability:low \
+        ${COMMON}
+
+    if [ "$DJ_INSTANCE" != "configstore" ]; then
+        echo "Deleting backend cfgStore ..."
+        ./bin/dsconfig delete-backend \
+            --backend-name cfgStore \
+            ${COMMON}
+    fi
+
+    if [ "$DJ_INSTANCE" != "userstore" ]; then
+        echo "Deleting backend amIdentityStore ..."
+        ./bin/dsconfig delete-backend \
+            --backend-name amIdentityStore \
+            ${COMMON}
+    fi
+
+    if [ "$DJ_INSTANCE" != "ctsstore" ]; then
+        echo "Deleting backend amCtsStore ..."
+        ./bin/dsconfig delete-backend \
+            --backend-name amCts \
+            ${COMMON}
+    fi
 }
 
 load_ldifs() {
