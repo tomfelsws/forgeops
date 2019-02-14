@@ -22,10 +22,10 @@ configStore:
   # This is the first StatefulSet name of the configstore:
   host: configstore-0.configstore
   port: 1389
-  dirManager: "cn=Directory Manager"
-  #dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
+  #dirManager: "cn=Directory Manager"
+  dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
   adminPort: 4444
-  password: password
+  password: password-cs
 
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
