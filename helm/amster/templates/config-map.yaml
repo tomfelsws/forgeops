@@ -12,6 +12,7 @@ data:
     --cfgStore {{ .Values.configStore.type }} \
     {{ if eq .Values.configStore.type "dirServer" -}}
     --cfgStoreHost {{.Values.configStore.host }} \
+    --cfgStoreDirMgr "{{ .Values.configStore.dirManager }}" \
     --cfgStoreDirMgrPwd {{.Values.configStore.password }} \
     --cfgStorePort {{.Values.configStore.port }} \
     --cfgStoreRootSuffix {{ .Values.configStore.suffix }} \
@@ -48,4 +49,3 @@ data:
   AMADMIN_PASSWORD_HASHED: "{{ .Values.amadminPasswordHashed }}"
   DOMAIN: {{ .Values.domain }}
   COOKIE_DOMAIN: {{ trimPrefix "." .Values.domain }}
-  
