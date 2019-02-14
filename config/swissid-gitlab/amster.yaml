@@ -27,6 +27,16 @@ configStore:
   adminPort: 4444
   password: password-cs
 
+userStore:
+  suffix: "$USERSTORE_BASE_DN"
+  # If userstore is deployed as well but empty import configuration
+  # is used, override this to userstore-0.userstore to use that store
+  host: userstore-0.userstore
+  port: 1389
+  dirManager: "uid=am-identity-bind-account,ou=admins,$USERSTORE_BASE_DN"
+  password: "password-us"
+  storeType: "LDAPv3ForOpenDS"
+
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
  limits:
