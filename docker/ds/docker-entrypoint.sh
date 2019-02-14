@@ -108,8 +108,8 @@ case "$CMD" in
 start)
     init_container
     echo "RS_SERVERS = $RS_SERVERS"
-    if [ "$SERVER_ID" == "10" ]; then
-        # We are on the first pod of the stateful set, so let's initialize a few things
+    if [ "$SERVER_ID" == "10" -a "$DJ_INSTANCE" == "userstore" ]; then
+        # We are on the first pod of the userstore stateful set, so let's initialize a few things
         echo "*** We are on the first $DJ_INSTANCE pod, performing SwissID initialization and restarting server ..."
         start_noexec
         init_swissid
