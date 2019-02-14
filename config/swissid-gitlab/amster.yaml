@@ -23,8 +23,8 @@ configStore:
   port: 1389
   adminPort: 4444
   #dirManager: "cn=Directory manager"
-  #dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
-  #password: "password"
+  dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
+  password: "password-cs"
 
 # By default, userstore points to configstore - which is default
 # place for users when empty-import config is used.
