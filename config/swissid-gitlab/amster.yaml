@@ -13,6 +13,20 @@ amadminPassword: password
 encryptionKey: "123456789012"
 policyAgentPassword: Passw0rd
 
+configStore:
+  # type can be dirServer or embedded. Only dirServer is supported
+  type: dirServer
+   # If type is set to embedded, the attributes below are ignored.
+  #suffix:  "dc=openam,dc=forgerock,dc=org"
+  suffix:  "$CONFIGSTORE_BASE_DN"
+  # This is the first StatefulSet name of the configstore:
+  host: configstore-0.configstore
+  port: 1389
+  dirManager: "cn=Directory Manager"
+  #dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
+  adminPort: 4444
+  password: password
+
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
  limits:
