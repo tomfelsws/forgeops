@@ -31,7 +31,7 @@ openamReplicaCount: 1
 openamInstance: http://openam:80
 
 configLdapPort:  1389
-configLdapHost: configstore
+configLdapHost: configstore-0.configstore
 
 
 # This option:

@@ -7,7 +7,7 @@ set -x
 BASE_DN="${BASE_DN:-ou=am-config}"
 
 # Configuration store LDAP. Defaults to the configuration store stateful set running in the same namespace.
-CONFIGURATION_LDAP="${CONFIGURATION_LDAP:-configstore:1389}"
+CONFIGURATION_LDAP="${CONFIGURATION_LDAP:-configstore-0.configstore:1389}"
 
 # Default path to config store directory manager password file. This is mounted by Kubernetes.
 DIR_MANAGER_PW_FILE=${DIR_MANAGER_PW_FILE:-/var/run/secrets/configstore/dirmanager.pw}

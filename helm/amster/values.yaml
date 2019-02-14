@@ -51,7 +51,7 @@ configStore:
   #suffix:  "dc=openam,dc=forgerock,dc=org"
   suffix:  "ou=am-config"
   # This is the first StatefulSet name of the configstore:
-  host: configstore
+  host: configstore-0.configstore
   port: 1389
   #dirManager: "cn=Directory Manager"
   dirManager: "uid=am-config,ou=admins,ou=am-config"
@@ -63,8 +63,8 @@ configStore:
 userStore:
   suffix: "ou=identities"
   # If userstore is deployed as well but empty import configuration 
-  # is used, override this to userstore to use that store
-  host: configstore
+  # is used, override this to userstore-0.userstore to use that store
+  host: configstore-0.configstore
   port: 1389
   dirManager: "cn=Directory manager"
   password: "password"
