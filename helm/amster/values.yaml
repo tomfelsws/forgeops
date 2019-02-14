@@ -53,8 +53,8 @@ configStore:
   # This is the first StatefulSet name of the configstore:
   host: configstore-0.configstore
   port: 1389
-  #dirManager: "cn=Directory Manager"
-  dirManager: "uid=am-config,ou=admins,ou=am-config"
+  dirManager: "cn=Directory Manager"
+  #dirManager: "uid=am-config,ou=admins,ou=am-config"
   adminPort: 4444
   password: password
 
