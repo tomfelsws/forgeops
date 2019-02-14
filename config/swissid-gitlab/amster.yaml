@@ -13,32 +13,6 @@ amadminPassword: password
 encryptionKey: "123456789012"
 policyAgentPassword: Passw0rd
 
-#configStore:
-  # type can be dirServer or embedded. Only dirServer is supported
-  #type: dirServer
-  # If type is set to embedded, the attributes below are ignored.
-  #suffix:  "$CONFIGSTORE_BASE_DN"
-  # This is the first StatefulSet name of the configstore:
-  #host: configstore-0.configstore
-  #port: 1389
-  #adminPort: 4444
-  #dirManager: "cn=Directory manager"
-  #dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
-  #password: "password"
-
-# By default, userstore points to configstore - which is default
-# place for users when empty-import config is used.
-#userStore:
-  #suffix: "$USERSTORE_BASE_DN"
-  # If userstore is deployed as well but empty import configuration
-  # is used, override this to userstore-0.userstore to use that store
-  #host: userstore-0.userstore
-  #port: 1389
-  #dirManager: "uid=am-identity-bind-account,ou=admins,$USERSTORE_BASE_DN"
-  #password: "password-us"
-  #storeType: "LDAPv3ForOpenDS"
-
-
 # For production set CPU limits to help Kube Schedule the pods.
 resources:
  limits:

@@ -39,3 +39,4 @@ data:
   {{ if .Values.config.amCustomizationScriptPath -}}
   CUSTOMIZE_AM: "{{ .Values.config.amCustomizationScriptPath }}"
   {{- end }}
+

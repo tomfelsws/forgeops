@@ -59,15 +59,14 @@ configStore:
   password: password
 
 # By default, userstore points to configstore - which is default
-# place for users when empty-import config is used.
+# place for users when empty-import config is used. 
 userStore:
   suffix: "ou=identities"
-  # If userstore is deployed as well but empty import configuration
+  # If userstore is deployed as well but empty import configuration 
   # is used, override this to userstore-0.userstore to use that store
   host: configstore-0.configstore
   port: 1389
-  dirManager: "cn=Directory Manager"
-  #dirManager: "uid=am-identity-bind-account,ou=admins,ou=identities"
+  dirManager: "cn=Directory manager"
   password: "password"
   storeType: "LDAPv3ForOpenDS"
 
