@@ -17,7 +17,7 @@ data:
          "keyStorePasswordFile" : "/home/forgerock/openam/.storepass",
          "keyPasswordFile" : "/home/forgerock/openam/.keypass",
          "keyStoreType" : "JCEKS",
-         "keyStoreFile" : "/home/forgerock/openam/keystore.jceks"
+         "keyStoreFile" : "/home/forgerock/openam/keystore-tom.jceks"
        }
      },
      "configStoreList" : [ {
