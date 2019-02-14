@@ -57,19 +57,19 @@ relocate_data() {
 
 start() {
     echo "Starting DS"
-    echo "Server id $SERVER_ID"
+    echo "Server ID is $SERVER_ID"
     exec tini -v -- ./bin/start-ds --nodetach
 }
 
 stop() {
     echo "Stopping DS"
-    echo "Server id $SERVER_ID"
+    echo "Server ID is $SERVER_ID"
     ./bin/stop-ds
 }
 
 start_noexec() {
     echo "Starting DS (without exec tini)"
-    echo "Server id $SERVER_ID"
+    echo "Server ID is $SERVER_ID"
     ./bin/start-ds
 }
 
