@@ -267,10 +267,16 @@ create_backend() {
 }
 
 post_config() {
+    COMMON="--hostname ${DSHOST} \
+        --port ${PORT_DIGIT}389 \
+        --bindDN "cn=Directory Manager" \
+        --bindPassword password \
+        --trustAll \
+        --no-prompt"
+
     # SwissID userStoreApplyUniqueness(): still required for AM 6.5 ???
     # moved here because of the following error if done before start-ds in offline mode
     # msg=An error occurred while attempting to initialize an instance of class org.opends.server.plugins.UniqueAttributePlugin as a Directory Server plugin using the information in configuration entry cn=Email Unique Attribute,cn=Plugins,cn=config: ConfigException: The unique attribute plugin defined in configuration entry cn=Email Unique Attribute,cn=Plugins,cn=config is configured to operate on attribute mail but there is no equality index defined for this attribute in backend amIdentityStore (UniqueAttributePlugin.java:126 UniqueAttributePlugin.java:88 PluginConfigManager.java:356 PluginConfigManager.java:317 DirectoryServer.java:1361 DirectoryServer.java:4015). This plugin will be disabled
-
     echo "Enabling Email unique attribute..."
     ./bin/dsconfig create-plugin \
           --plugin-name "Email Unique Attribute" \
@@ -278,11 +284,7 @@ post_config() {
           --set type:mail \
           --set base-dn:ou=people,$BASE_DN \
           --set enabled:true \
-          --hostname ${DSHOST} \
-          --port ${PORT_DIGIT}389 \
-          --bindDN "cn=Directory Manager" \
-          --bindPassword password \
-          --no-prompt
+          ${COMMON}
 
     # fails with an ASN.1 error "Cannot decode the provided ASN.1 integer element because the length of the element value was not between one and four bytes (actual length was 0)"
     tail logs/access
