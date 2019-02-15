@@ -5,9 +5,14 @@ config:
   importPath: /git/config/6.5/default/am/empty-import
   exportPath: /tmp/amster
 
-# Install passwords
 amadminPassword: "$AMADMIN_PASSWORD"
-encryptionKey: "123456789012"
+
+# https://backstage.forgerock.com/docs/amster/6.5/user-guide/#sec-installam-reference
+# Specifies the encryption key value that is used to encrypt passwords in the AM instance. For example O6QWwHPO4os+zEz3Nqn/2daAYWyiFE32.
+# If you are installing an AM instance that will be making use of exiting data in a data store, you must provide the same encryption key value originally used to encrypt the passwords in those stores.
+# ********** MUST be the SAME as in Post installation (???) **********
+encryptionKey: "$AM_PWD_ENCRYPTION_KEY"
+
 policyAgentPassword: Passw0rd
 
 configStore:

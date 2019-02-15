@@ -7,7 +7,7 @@ config:
 
 # Install passwords
 amadminPassword: password
-encryptionKey: "123456789012"
+encryptionKey: "1234567890"
 policyAgentPassword: Passw0rd
 
 # For production set CPU limits to help Kube Schedule the pods.
