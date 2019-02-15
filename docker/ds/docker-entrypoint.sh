@@ -24,11 +24,11 @@ mkdir -p locks
 # Replace the userPassword attribute with the new password
 update_pw() {
      if [ ! -f "$1" ]; then
-        echo "Can't find the password file $1. Won't change the password in $2"
+        echo "*** Can't find the password file $1. Won't change the password in $2"
         return
     fi
 
-    echo "Updating the password in $2"
+    echo "*** Updating the password in $2"
     # Set the JVM args so we dont blow up the container memory.
     pw=$(OPENDJ_JAVA_ARGS="-Xmx256m" bin/encode-password  -s PBKDF2 -f $1 | sed -e 's/Encoded Password:  "//' -e 's/"//g' 2>/dev/null)
     # $pw can contian / - so need to use alternate sed delimiter.
@@ -38,7 +38,7 @@ update_pw() {
 relocate_data() {
     # Does data/db contain directories?
     if [ "$( find data/db -type d 2>/dev/null )" ]; then
-        echo "Data volume contains existing data"
+        echo "*** Data volume contains existing data"
         # If continer is restarted then original db directory reappears
         # from the docker image hence move it out of the way otherwise
         # symbolic linking below will not work
@@ -49,27 +49,27 @@ relocate_data() {
         # with "docker run",  make sure to  mount a data volume
 
         # If there is no "db" under "data" then this must be the first time
-        echo "No existing data found. Moving default db directory to data partition and symbolic linking it"
+        echo "*** No existing data found. Moving default db directory to data partition and symbolic linking it"
         mv db/ data/
         ln -s data/db .
     fi
 }
 
 start() {
-    echo "Starting DS"
-    echo "Server ID is $SERVER_ID"
+    echo "*** Starting DS"
+    echo "*** Server ID is $SERVER_ID"
     exec tini -v -- ./bin/start-ds --nodetach
 }
 
 stop() {
-    echo "Stopping DS"
-    echo "Server ID is $SERVER_ID"
+    echo "*** Stopping DS"
+    echo "*** Server ID is $SERVER_ID"
     ./bin/stop-ds
 }
 
 start_noexec() {
-    echo "Starting DS (without exec tini)"
-    echo "Server ID is $SERVER_ID"
+    echo "*** Starting DS (without exec tini)"
+    echo "*** Server ID is $SERVER_ID"
     ./bin/start-ds
 }
 
@@ -89,20 +89,20 @@ init_container() {
 # Restore from a backup
 restore() {
     if [ "$(find data/db  -type d)" ]; then
-        echo "Restore will not overwrite existing data."
+        echo "*** Restore will not overwrite existing data."
         exit 0
     fi
 
     init_container
 
-    echo "Restoring data from backup on host $HOSTNAME"
+    echo "*** Restoring data from backup on host $HOSTNAME"
     scripts/restore.sh -o
 }
 
 CMD="${1:-run}"
-echo "Command is $CMD"
+echo "*** Command is $CMD"
 
-echo "Server ID is $SERVER_ID"
+echo "*** Server ID is $SERVER_ID"
 
 case "$CMD" in
 start)
