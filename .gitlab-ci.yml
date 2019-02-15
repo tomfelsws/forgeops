@@ -123,27 +123,27 @@ variables:
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   CONFIGSTORE_BASE_DN: ou=am-config
-  CONFIGSTORE_REPLICAS: 2
+  CONFIGSTORE_REPLICAS: 1
   CONFIGSTORE_AFFINITY: soft
   CONFIGSTORE_TOPOLOGY: kubernetes.io/hostname
 
   # Tokenstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   CTS_BASE_DN: dc=swisssign,dc=net
-  CTS_REPLICAS: 2
+  CTS_REPLICAS: 1
   CTS_AFFINITY: soft
   CTS_TOPOLOGY: kubernetes.io/hostname
 
   # Configstore default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   USERSTORE_BASE_DN: dc=swisssign,dc=com
-  USERSTORE_REPLICAS: 2
+  USERSTORE_REPLICAS: 1
   USERSTORE_AFFINITY: soft
   USERSTORE_TOPOLOGY: kubernetes.io/hostname
 
   # OpenAM default settings
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
-  OPENAM_REPLICAS: 2
+  OPENAM_REPLICAS: 1
 
   # OpenAM amadmin password
   # Configure AMADMIN_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
