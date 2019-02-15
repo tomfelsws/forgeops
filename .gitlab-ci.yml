@@ -161,6 +161,10 @@ variables:
   # Configure POLICY_AGENT_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
   #POLICY_AGENT_PASSWORD: xxx
 
+  # Configstore password (for uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN)
+  # Configure CONFIGSTORE_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #CONFIGSTORE_PASSWORD: xxx
+
 #############################################################################
 ##  Build docker images
 #############################################################################

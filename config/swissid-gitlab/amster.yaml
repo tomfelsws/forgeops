@@ -27,7 +27,7 @@ configStore:
   #dirManager: "cn=Directory Manager"
   dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
   adminPort: 4444
-  password: password-cs
+  password: "$CONFIGSTORE_PASSWORD"
 
 userStore:
   suffix: "$USERSTORE_BASE_DN"
