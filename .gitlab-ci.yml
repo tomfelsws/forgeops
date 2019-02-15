@@ -145,6 +145,18 @@ variables:
   # Define/override in the various deploy-xxx jobs below for different environments (dev, test, stag, prod)
   OPENAM_REPLICAS: 2
 
+  # OpenAM amadmin password
+  # Configure AMADMIN_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #AMADMIN_PASSWORD: xxx
+
+  # OpenAM password encryption
+  # Configure AM_PWD_ENCRYPTION_KEY in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  # https://backstage.forgerock.com/docs/amster/6.5/user-guide/#sec-installam-reference
+  # Specifies the encryption key value that is used to encrypt passwords in the AM instance. For example O6QWwHPO4os+zEz3Nqn/2daAYWyiFE32.
+  # If you are installing an AM instance that will be making use of exiting data in a data store, you must provide the same encryption key value originally used to encrypt the passwords in those stores.
+  # ********** MUST be the SAME as in Post installation (???) **********
+  #AM_PWD_ENCRYPTION_KEY: xxx
+
 
 #############################################################################
 ##  Build docker images
