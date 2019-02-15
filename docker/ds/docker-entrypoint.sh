@@ -49,7 +49,7 @@ relocate_data() {
         # with "docker run",  make sure to  mount a data volume
 
         # If there is no "db" under "data" then this must be the first time
-        echo "*** No existing data found. Moving default db directory to data partition and symbolic linking it"
+        echo "*** No existing data found. Moving default db directory to data partition and symbolic linking it."
         mv db/ data/
         ln -s data/db .
     fi
