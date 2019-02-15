@@ -27,7 +27,7 @@ configStore:
   #dirManager: "cn=Directory Manager"
   dirManager: "uid=am-config,ou=admins,$CONFIGSTORE_BASE_DN"
   adminPort: 4444
-  password: password-cs
+  password: "$CONFIGSTORE_PASSWORD"
 
 userStore:
   suffix: "$USERSTORE_BASE_DN"
@@ -36,7 +36,7 @@ userStore:
   host: userstore-0.userstore
   port: 1389
   dirManager: "uid=am-identity-bind-account,ou=admins,$USERSTORE_BASE_DN"
-  password: password-us
+  password: "$USERSTORE_PASSWORD"
   storeType: "LDAPv3ForOpenDS"
 
 # For production set CPU limits to help Kube Schedule the pods.
