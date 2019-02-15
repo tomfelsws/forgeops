@@ -37,7 +37,7 @@ update_pw() {
 
 relocate_data() {
     # Does data/db contain directories?
-    if [ "$(find data/db  -type d)" ]; then
+    if [ "$( find data/db -type d 2>/dev/null )" ]; then
         echo "Data volume contains existing data"
         # If continer is restarted then original db directory reappears
         # from the docker image hence move it out of the way otherwise
