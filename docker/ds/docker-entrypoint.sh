@@ -30,7 +30,7 @@ update_pw() {
 
     echo "*** Updating the password in $2"
     # Set the JVM args so we dont blow up the container memory.
-    pw=$(OPENDJ_JAVA_ARGS="-Xmx256m" bin/encode-password  -s PBKDF2 -f $1 | sed -e 's/Encoded Password:  "//' -e 's/"//g' 2>/dev/null)
+    pw=$(OPENDJ_JAVA_ARGS="-Xmx256m" bin/encode-password  -s SSHA512 -f $1 | sed -e 's/Encoded Password:  "//' -e 's/"//g' 2>/dev/null)
     # $pw can contian / - so need to use alternate sed delimiter.
     sed -ibak "s#userPassword: .*#userPassword: $pw#" "$2"
 }
