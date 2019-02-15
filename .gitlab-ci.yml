@@ -165,6 +165,15 @@ variables:
   # Configure CONFIGSTORE_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
   #CONFIGSTORE_PASSWORD: xxx
 
+  # CTS password (for uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,ou=tokens,$CTS_BASE_DN)
+  # Configure CTS_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #CTS_PASSWORD: xxx
+
+  # Userstore password (for uid=am-identity-bind-account,ou=admins,$USERSTORE_BASE_DN)
+  # Configure USERSTORE_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #USERSTORE_PASSWORD: xxx
+
+
 #############################################################################
 ##  Build docker images
 #############################################################################
