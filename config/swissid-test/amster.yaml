@@ -8,7 +8,6 @@ config:
 ctsStores: ctsstore-0.ctsstore:1389,ctsstore-1.ctsstore:1389
 
 # Install passwords
-ctsPassword: password
 amadminPassword: password
 encryptionKey: "123456789012"
 policyAgentPassword: Passw0rd
