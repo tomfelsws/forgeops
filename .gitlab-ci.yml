@@ -157,6 +157,9 @@ variables:
   # ********** MUST be the SAME as in Post installation (???) **********
   #AM_PWD_ENCRYPTION_KEY: xxx
 
+  # OpenAM policy agent password
+  # Configure POLICY_AGENT_PASSWORD in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
+  #POLICY_AGENT_PASSWORD: xxx
 
 #############################################################################
 ##  Build docker images
