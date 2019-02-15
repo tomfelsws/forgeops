@@ -65,7 +65,8 @@ userStore:
   # is used, override this to userstore-0.userstore to use that store
   host: configstore-0.configstore
   port: 1389
-  dirManager: "cn=Directory manager"
+  dirManager: "cn=Directory Manager"
+  #dirManager: "uid=am-identity-bind-account,ou=admins,ou=identities"
   password: "password"
   storeType: "LDAPv3ForOpenDS"
 
