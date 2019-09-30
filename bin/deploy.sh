@@ -347,6 +347,8 @@ if [ ! -z "$DRYRUN" ]; then
     exit 0
 fi
 
+set -x
+
 create_namespace
 create_secrets
 deploy_charts
