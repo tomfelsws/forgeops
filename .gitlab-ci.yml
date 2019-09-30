@@ -280,7 +280,7 @@ build-ds-docker-image:
 ##  Push updated helm charts to helm repository
 #############################################################################
 
-push-helm-charts:
+.push-helm-charts:
   stage: build-base-images
   script:
     - for CHART in $(find helm/ -maxdepth 1 -mindepth 1 -type d); do
