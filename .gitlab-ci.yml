@@ -86,6 +86,7 @@ variables:
 
   # OpenShift project (aka Kubernetes namespace) to deploy in
   # Use name of branch - assumes namespace exists or can be created
+
   # To create a namespace, the gitlab service account requires Kubernetes cluster-admin privileges
   # Define value in deploy jobs below
   # NAMESPACE variable used in deploy.sh
@@ -435,7 +436,6 @@ cleanup-review-appuio:
   script:
     - source ./bin/deploy-helm-lib.sh
     - init_helm_client
-    - add_helm_repo
     - ./bin/remove-all.sh -N "$NAMESPACE"
     - ./bin/deploy.sh "config/$FORGEOPS_CONFIG"
 
