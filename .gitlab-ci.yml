@@ -17,7 +17,7 @@ image: $CI_REGISTRY_IMAGE/ci:$VERSION
 
 variables:
   # Deploy review apps (aka branches) to APPUiO cluster?
-  DEPLOY_APPUIO: "true"
+  DEPLOY_APPUIO: "false"
 
   # Deploy review apps (aka branches) to Google Kubernetes Engine (GKE)?
   DEPLOY_GKE: "true"
