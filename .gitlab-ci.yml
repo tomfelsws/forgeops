@@ -45,7 +45,7 @@ variables:
   # Cluster name from forgeops/etc/gke-env.cfg
   GKE_CLUSTER_NAME: forgeops-cluster
   # Cluster IP (Endpoint) from https://console.cloud.google.com/kubernetes/clusters/details/europe-west4-a/forgeops-cluster
-  GKE_CLUSTER_IP: 35.204.239.152
+  GKE_CLUSTER_IP: 34.65.79.85
   GKE_CLUSTER_URL: https://$GKE_CLUSTER_IP
   # Configure GKE_TOKEN in CI/CD Settings at https://gitlab.com/swissid/forgeops/settings/ci_cd
   # Get the correct token as follows:
