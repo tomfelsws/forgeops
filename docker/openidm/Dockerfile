@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2016-2017 ForgeRock AS.
-FROM registry.gitlab.com/swissid/forgeops/downloader:latest
+FROM registry.swisssign.com/swissid/forgerock/forgeops/downloader:latest
 
 ARG VERSION="6.5.0.1"
 RUN download -v $VERSION openidm 

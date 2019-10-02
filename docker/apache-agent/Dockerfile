@@ -1,7 +1,7 @@
 # Copyright (c) 2016-2018 ForgeRock AS. Use of this source code is subject to the
 # Common Development and Distribution License (CDDL) that can be found in the LICENSE file
 # Docker image for Apache + AM HTTP agent.
-FROM registry.gitlab.com/swissid/forgeops/downloader:latest
+FROM registry.swisssign.com/swissid/forgerock/forgeops/downloader:latest
 
 RUN download apache-agent
 RUN unzip apache-agent.zip -d /var/tmp 

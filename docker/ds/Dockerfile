@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/swissid/forgeops/downloader:latest
+FROM registry.swisssign.com/swissid/forgerock/forgeops/downloader:latest
 
 ARG VERSION="6.5.1-RC3"
 RUN download -v $VERSION opendj

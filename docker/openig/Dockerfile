@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2016-2018 ForgeRock AS.
-FROM registry.gitlab.com/swissid/forgeops/downloader:latest
+FROM registry.swisssign.com/swissid/forgerock/forgeops/downloader:latest
 
 ARG VERSION="6.5.2"
 
